@@ -33,28 +33,23 @@ serve(async (req) => {
       <p>${description}</p>
       <p>Nous espérons que ces résultats vous aideront à mieux comprendre votre potentiel hypnotique.</p>
       <br>
-      <p>Cordialement,<br>L'équipe HypnoKick</p>
+      <p>Cordialement,<br>L'équipe Nova Hypnose</p>
     `;
 
-    // Adresse d'envoi vérifiée par Resend (pour le compte de test)
-    // Note: Dans un environnement de production, vous utiliseriez un domaine vérifié
-    const fromAddress = "onboarding@resend.dev";
+    const fromAddress = "contact@updates.novahypnose.fr";
 
     const emailResponse = await resend.emails.send({
-      from: `HypnoKick <${fromAddress}>`,
+      from: `Nova Hypnose <${fromAddress}>`,
       to: [email],
       subject: "Vos résultats du test de réceptivité à l'hypnose",
       html: htmlContent,
     });
 
-    // Journaliser la réponse complète pour le débogage
     console.log("Email response:", JSON.stringify(emailResponse));
 
     if (emailResponse.error) {
       console.error("Resend API error:", emailResponse.error);
       
-      // Retourner une réponse de succès avec les données de résultat
-      // afin que l'utilisateur puisse voir ses résultats même si l'email échoue
       return new Response(JSON.stringify({
         status: "warning",
         message: "Résultats calculés, mais l'envoi de l'email a échoué. Utilisez l'écran actuel pour voir vos résultats.",
@@ -96,3 +91,4 @@ serve(async (req) => {
     )
   }
 })
+
