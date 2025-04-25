@@ -24,25 +24,58 @@ serve(async (req) => {
 
     console.log("Sending email to:", email, "with score:", score, "category:", category)
 
+    // Créez le contenu de l'email
+    const htmlContent = `
+      <h1>Résultats de votre test de réceptivité à l'hypnose</h1>
+      <p>Cher(e) participant(e),</p>
+      <h2>Votre score : ${score}/120</h2>
+      <h3>Catégorie : ${category}</h3>
+      <p>${description}</p>
+      <p>Nous espérons que ces résultats vous aideront à mieux comprendre votre potentiel hypnotique.</p>
+      <br>
+      <p>Cordialement,<br>L'équipe HypnoKick</p>
+    `;
+
+    // Adresse d'envoi vérifiée par Resend (pour le compte de test)
+    // Note: Dans un environnement de production, vous utiliseriez un domaine vérifié
+    const fromAddress = "onboarding@resend.dev";
+
     const emailResponse = await resend.emails.send({
-      from: "HypnoKick <onboarding@resend.dev>",
+      from: `HypnoKick <${fromAddress}>`,
       to: [email],
       subject: "Vos résultats du test de réceptivité à l'hypnose",
-      html: `
-        <h1>Résultats de votre test de réceptivité à l'hypnose</h1>
-        <p>Cher(e) participant(e),</p>
-        <h2>Votre score : ${score}/120</h2>
-        <h3>Catégorie : ${category}</h3>
-        <p>${description}</p>
-        <p>Nous espérons que ces résultats vous aideront à mieux comprendre votre potentiel hypnotique.</p>
-        <br>
-        <p>Cordialement,<br>L'équipe HypnoKick</p>
-      `,
-    })
+      html: htmlContent,
+    });
 
-    console.log("Email sent successfully:", emailResponse)
+    // Journaliser la réponse complète pour le débogage
+    console.log("Email response:", JSON.stringify(emailResponse));
 
-    return new Response(JSON.stringify(emailResponse), {
+    if (emailResponse.error) {
+      console.error("Resend API error:", emailResponse.error);
+      
+      // Retourner une réponse de succès avec les données de résultat
+      // afin que l'utilisateur puisse voir ses résultats même si l'email échoue
+      return new Response(JSON.stringify({
+        status: "warning",
+        message: "Résultats calculés, mais l'envoi de l'email a échoué. Utilisez l'écran actuel pour voir vos résultats.",
+        error: emailResponse.error.message,
+        score,
+        category,
+        description
+      }), {
+        status: 200,
+        headers: {
+          "Content-Type": "application/json",
+          ...corsHeaders,
+        },
+      })
+    }
+
+    return new Response(JSON.stringify({
+      status: "success",
+      message: "Email envoyé avec succès",
+      data: emailResponse
+    }), {
       status: 200,
       headers: {
         "Content-Type": "application/json",
@@ -52,7 +85,10 @@ serve(async (req) => {
   } catch (error: any) {
     console.error("Error in send-test-results function:", error)
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ 
+        status: "error",
+        error: error.message 
+      }),
       {
         status: 500,
         headers: { "Content-Type": "application/json", ...corsHeaders },

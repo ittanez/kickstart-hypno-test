@@ -106,7 +106,8 @@ export type Database = {
       }
       quiz_results: {
         Row: {
-          answers: Json | null
+          answers: Json
+          category: string | null
           created_at: string
           dimension_scores: Json | null
           email_sent: boolean | null
@@ -117,12 +118,13 @@ export type Database = {
           last_name: string | null
           lastname: string | null
           pdf_url: string | null
-          recommendations: string | null
-          total_score: number | null
-          user_email: string | null
+          recommendations: string
+          total_score: number
+          user_email: string
         }
         Insert: {
-          answers?: Json | null
+          answers: Json
+          category?: string | null
           created_at?: string
           dimension_scores?: Json | null
           email_sent?: boolean | null
@@ -133,12 +135,13 @@ export type Database = {
           last_name?: string | null
           lastname?: string | null
           pdf_url?: string | null
-          recommendations?: string | null
-          total_score?: number | null
-          user_email?: string | null
+          recommendations?: string
+          total_score: number
+          user_email: string
         }
         Update: {
-          answers?: Json | null
+          answers?: Json
+          category?: string | null
           created_at?: string
           dimension_scores?: Json | null
           email_sent?: boolean | null
@@ -149,9 +152,9 @@ export type Database = {
           last_name?: string | null
           lastname?: string | null
           pdf_url?: string | null
-          recommendations?: string | null
-          total_score?: number | null
-          user_email?: string | null
+          recommendations?: string
+          total_score?: number
+          user_email?: string
         }
         Relationships: []
       }

@@ -16,7 +16,7 @@ type TestFormProps = {
   onComplete: () => void;
 };
 
-type TestState = 'questions' | 'email';
+type TestState = 'questions' | 'email' | 'results';
 
 const TestForm = ({ onComplete }: TestFormProps) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -27,6 +27,7 @@ const TestForm = ({ onComplete }: TestFormProps) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [currentSliderValue, setCurrentSliderValue] = useState<number>(3);
+  const [testResults, setTestResults] = useState<{score: number, category: string, description: string} | null>(null);
   
   const currentQuestion = questions[currentQuestionIndex];
   const selectedAnswer = answers.find(answer => answer.questionId === currentQuestion.id);
@@ -98,6 +99,7 @@ const TestForm = ({ onComplete }: TestFormProps) => {
     
     try {
       const result = calculateScore(answers);
+      setTestResults(result);
       
       // Store results in Supabase - ensure column names match the database
       const { error: supabaseError } = await supabase
@@ -125,25 +127,34 @@ const TestForm = ({ onComplete }: TestFormProps) => {
         })
       });
       
+      console.log("Email function response:", emailResponse);
+      
       if (emailResponse.error) {
         console.error("Email function error:", emailResponse.error);
-        throw new Error(`Erreur d'envoi d'email: ${emailResponse.error.message || JSON.stringify(emailResponse.error)}`);
+        toast({
+          title: "Attention",
+          description: "Vos résultats ont été calculés mais n'ont pas pu être envoyés par email.",
+          variant: "warning"
+        });
+      } else if (emailResponse.data?.status === "warning") {
+        toast({
+          title: "Attention",
+          description: emailResponse.data.message,
+          variant: "warning"
+        });
+      } else {
+        toast({
+          title: "Résultats calculés",
+          description: "Vos résultats ont été calculés avec succès !",
+        });
       }
       
-      console.log("Test submitted:", { 
-        answers, 
-        email, 
-        score: result.score,
-        category: result.category 
-      });
+      // Afficher les résultats directement dans l'application
+      setTestState('results');
       
       // Success - notify parent component
       onComplete();
       
-      toast({
-        title: "Résultats envoyés !",
-        description: "Vos résultats ont été envoyés par email.",
-      });
     } catch (err: any) {
       console.error("Error submitting test:", err);
       setError(`Une erreur est survenue lors de la soumission du test: ${err.message || JSON.stringify(err)}`);
@@ -161,6 +172,46 @@ const TestForm = ({ onComplete }: TestFormProps) => {
   const getCurrentValueLabel = () => {
     return sliderValueLabels[currentSliderValue - 1];
   };
+  
+  // Afficher les résultats directement
+  if (testState === 'results' && testResults) {
+    return (
+      <div className="max-w-3xl mx-auto px-4 py-8 hypno-card animate-fade-in">
+        <h2 className="text-2xl font-bold mb-6 text-center">Vos Résultats</h2>
+        
+        <div className="mb-6 p-6 bg-hypno-primary/10 rounded-lg">
+          <div className="text-center">
+            <p className="text-lg mb-2">Votre score est</p>
+            <p className="text-4xl font-bold text-hypno-primary mb-2">{testResults.score}/120</p>
+            <p className="text-xl font-semibold text-hypno-accent">{testResults.category}</p>
+          </div>
+        </div>
+        
+        <div className="prose max-w-none mb-6">
+          <p className="text-gray-700">{testResults.description}</p>
+        </div>
+        
+        <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6">
+          <p className="text-sm text-yellow-700">
+            {email ? 
+              `Ces résultats ont également été envoyés à votre adresse email: ${email}` :
+              "Vos résultats n'ont pas pu être envoyés par email."
+            }
+          </p>
+        </div>
+        
+        <div className="text-center">
+          <Button
+            type="button"
+            onClick={() => window.location.reload()}
+            className="hypno-button"
+          >
+            Refaire le test
+          </Button>
+        </div>
+      </div>
+    );
+  }
   
   return (
     <div className="max-w-3xl mx-auto px-4">
