@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -51,14 +50,12 @@ const TestForm = ({ onComplete }: TestFormProps) => {
   };
   
   const handleNextQuestion = () => {
-    // Save the current answer if it hasn't been saved yet
     if (!selectedAnswer) {
       handleAnswerSelection(currentQuestion.id, currentSliderValue);
     }
     
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(prevIndex => prevIndex + 1);
-      // Reset slider value to middle position for the next question
       const nextQuestion = questions[currentQuestionIndex + 1];
       const nextAnswer = answers.find(a => a.questionId === nextQuestion.id);
       setCurrentSliderValue(nextAnswer?.value || 3);
@@ -101,15 +98,14 @@ const TestForm = ({ onComplete }: TestFormProps) => {
       const result = calculateScore(answers);
       setTestResults(result);
       
-      // Store results in Supabase - ensure column names match the database
       const { error: supabaseError } = await supabase
         .from('quiz_results')
         .insert({
-          user_email: email, // Changed from email to user_email to match DB column
+          user_email: email,
           answers: JSON.stringify(answers),
-          total_score: result.score, // Changed from score to total_score
+          total_score: result.score,
           category: result.category,
-          recommendations: result.description // Changed from description to recommendations
+          recommendations: result.description
         });
       
       if (supabaseError) {
@@ -117,7 +113,6 @@ const TestForm = ({ onComplete }: TestFormProps) => {
         throw new Error(`Erreur de base de données: ${supabaseError.message}`);
       }
       
-      // Send email via Supabase edge function
       const emailResponse = await supabase.functions.invoke('send-test-results', {
         body: JSON.stringify({
           email,
@@ -134,13 +129,13 @@ const TestForm = ({ onComplete }: TestFormProps) => {
         toast({
           title: "Attention",
           description: "Vos résultats ont été calculés mais n'ont pas pu être envoyés par email.",
-          variant: "warning"
+          variant: "default"
         });
       } else if (emailResponse.data?.status === "warning") {
         toast({
           title: "Attention",
           description: emailResponse.data.message,
-          variant: "warning"
+          variant: "default"
         });
       } else {
         toast({
@@ -149,10 +144,8 @@ const TestForm = ({ onComplete }: TestFormProps) => {
         });
       }
       
-      // Afficher les résultats directement dans l'application
       setTestState('results');
       
-      // Success - notify parent component
       onComplete();
       
     } catch (err: any) {
@@ -173,7 +166,6 @@ const TestForm = ({ onComplete }: TestFormProps) => {
     return sliderValueLabels[currentSliderValue - 1];
   };
   
-  // Afficher les résultats directement
   if (testState === 'results' && testResults) {
     return (
       <div className="max-w-3xl mx-auto px-4 py-8 hypno-card animate-fade-in">
