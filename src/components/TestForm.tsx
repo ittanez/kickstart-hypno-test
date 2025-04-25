@@ -7,6 +7,7 @@ import { Label } from '@/components/ui/label';
 import { toast } from '@/components/ui/use-toast';
 import { questions } from '@/utils/questions';
 import { Answer, calculateScore } from '@/utils/calculateScore';
+import { supabase } from '@/integrations/supabase/client';
 import QuestionCard from './QuestionCard';
 import ProgressBar from './ProgressBar';
 
@@ -17,47 +18,31 @@ type TestFormProps = {
 type TestState = 'questions' | 'email';
 
 const TestForm = ({ onComplete }: TestFormProps) => {
-  // State for managing the current question index
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  
-  // State for collecting answers
   const [answers, setAnswers] = useState<Answer[]>([]);
-  
-  // State for email collection
   const [email, setEmail] = useState('');
   const [gdprConsent, setGdprConsent] = useState(false);
-  
-  // Current form state (questions or email collection)
   const [testState, setTestState] = useState<TestState>('questions');
-  
-  // State for handling form submission
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   
-  // Current question
   const currentQuestion = questions[currentQuestionIndex];
-  
-  // Find the selected answer for the current question
   const selectedAnswer = answers.find(answer => answer.questionId === currentQuestion.id);
   
-  // Handle answer selection
   const handleAnswerSelection = (questionId: number, value: number) => {
     setAnswers(prevAnswers => {
       const existingAnswerIndex = prevAnswers.findIndex(a => a.questionId === questionId);
       
       if (existingAnswerIndex !== -1) {
-        // Update existing answer
         const updatedAnswers = [...prevAnswers];
         updatedAnswers[existingAnswerIndex] = { questionId, value };
         return updatedAnswers;
       } else {
-        // Add new answer
         return [...prevAnswers, { questionId, value }];
       }
     });
   };
   
-  // Handle next question
   const handleNextQuestion = () => {
     if (!selectedAnswer) {
       toast({
@@ -71,23 +56,19 @@ const TestForm = ({ onComplete }: TestFormProps) => {
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(prevIndex => prevIndex + 1);
     } else {
-      // All questions have been answered, move to email collection
       setTestState('email');
     }
   };
   
-  // Handle previous question
   const handlePreviousQuestion = () => {
     if (currentQuestionIndex > 0) {
       setCurrentQuestionIndex(prevIndex => prevIndex - 1);
     }
   };
   
-  // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Validation
     if (!email) {
       toast({
         title: "Email requis",
@@ -110,12 +91,29 @@ const TestForm = ({ onComplete }: TestFormProps) => {
     setError(null);
     
     try {
-      // Calculate score from answers
       const result = calculateScore(answers);
       
-      // In a real app, this would be an API call to submit the data
-      // For now, we'll just simulate a successful submission
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      // Store results in Supabase
+      const { data, error: supabaseError } = await supabase
+        .from('quiz_results')
+        .insert({
+          email: email,
+          answers: JSON.stringify(answers),
+          score: result.score,
+          category: result.category
+        });
+      
+      if (supabaseError) throw supabaseError;
+      
+      // Send email via Supabase edge function
+      const emailResponse = await supabase.functions.invoke('send-test-results', {
+        body: JSON.stringify({
+          email,
+          score: result.score,
+          category: result.category,
+          description: result.description
+        })
+      });
       
       console.log("Test submitted:", { 
         answers, 
@@ -126,9 +124,20 @@ const TestForm = ({ onComplete }: TestFormProps) => {
       
       // Success - notify parent component
       onComplete();
+      
+      toast({
+        title: "Résultats envoyés !",
+        description: "Vos résultats ont été envoyés par email.",
+      });
     } catch (err) {
       console.error("Error submitting test:", err);
       setError("Une erreur est survenue lors de la soumission du test. Veuillez réessayer.");
+      
+      toast({
+        title: "Erreur",
+        description: "Une erreur est survenue. Veuillez réessayer.",
+        variant: "destructive"
+      });
     } finally {
       setIsSubmitting(false);
     }
