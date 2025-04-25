@@ -22,6 +22,8 @@ serve(async (req) => {
       throw new Error('Email is required')
     }
 
+    console.log("Sending email to:", email, "with score:", score, "category:", category)
+
     const emailResponse = await resend.emails.send({
       from: "HypnoKick <onboarding@resend.dev>",
       to: [email],

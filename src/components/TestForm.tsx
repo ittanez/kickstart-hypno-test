@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -8,8 +9,8 @@ import { questions } from '@/utils/questions';
 import { Answer, calculateScore } from '@/utils/calculateScore';
 import { supabase } from '@/integrations/supabase/client';
 import { Slider } from '@/components/ui/slider';
-import QuestionCard from './QuestionCard';
 import ProgressBar from './ProgressBar';
+import { ChevronRight } from 'lucide-react';
 
 type TestFormProps = {
   onComplete: () => void;
@@ -25,11 +26,16 @@ const TestForm = ({ onComplete }: TestFormProps) => {
   const [testState, setTestState] = useState<TestState>('questions');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [currentSliderValue, setCurrentSliderValue] = useState<number>(3);
   
   const currentQuestion = questions[currentQuestionIndex];
   const selectedAnswer = answers.find(answer => answer.questionId === currentQuestion.id);
+  const progress = Math.round(((currentQuestionIndex + 1) / questions.length) * 100);
+  
+  const sliderValueLabels = ['Pas du tout d\'accord', 'Peu d\'accord', 'Parfois', 'Souvent', 'Tout à fait d\'accord'];
   
   const handleAnswerSelection = (questionId: number, value: number) => {
+    setCurrentSliderValue(value);
     setAnswers(prevAnswers => {
       const existingAnswerIndex = prevAnswers.findIndex(a => a.questionId === questionId);
       
@@ -44,25 +50,19 @@ const TestForm = ({ onComplete }: TestFormProps) => {
   };
   
   const handleNextQuestion = () => {
+    // Save the current answer if it hasn't been saved yet
     if (!selectedAnswer) {
-      toast({
-        title: "Veuillez sélectionner une réponse",
-        description: "Vous devez choisir une option pour continuer.",
-        variant: "destructive"
-      });
-      return;
+      handleAnswerSelection(currentQuestion.id, currentSliderValue);
     }
     
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(prevIndex => prevIndex + 1);
+      // Reset slider value to middle position for the next question
+      const nextQuestion = questions[currentQuestionIndex + 1];
+      const nextAnswer = answers.find(a => a.questionId === nextQuestion.id);
+      setCurrentSliderValue(nextAnswer?.value || 3);
     } else {
       setTestState('email');
-    }
-  };
-  
-  const handlePreviousQuestion = () => {
-    if (currentQuestionIndex > 0) {
-      setCurrentQuestionIndex(prevIndex => prevIndex - 1);
     }
   };
   
@@ -99,17 +99,21 @@ const TestForm = ({ onComplete }: TestFormProps) => {
     try {
       const result = calculateScore(answers);
       
-      // Store results in Supabase
+      // Store results in Supabase - ensure column names match the database
       const { error: supabaseError } = await supabase
         .from('quiz_results')
         .insert({
-          email: email,
+          user_email: email, // Changed from email to user_email to match DB column
           answers: JSON.stringify(answers),
-          score: result.score,
-          category: result.category
+          total_score: result.score, // Changed from score to total_score
+          category: result.category,
+          recommendations: result.description // Changed from description to recommendations
         });
       
-      if (supabaseError) throw supabaseError;
+      if (supabaseError) {
+        console.error("Supabase error:", supabaseError);
+        throw new Error(`Erreur de base de données: ${supabaseError.message}`);
+      }
       
       // Send email via Supabase edge function
       const emailResponse = await supabase.functions.invoke('send-test-results', {
@@ -120,6 +124,11 @@ const TestForm = ({ onComplete }: TestFormProps) => {
           description: result.description
         })
       });
+      
+      if (emailResponse.error) {
+        console.error("Email function error:", emailResponse.error);
+        throw new Error(`Erreur d'envoi d'email: ${emailResponse.error.message || JSON.stringify(emailResponse.error)}`);
+      }
       
       console.log("Test submitted:", { 
         answers, 
@@ -135,9 +144,9 @@ const TestForm = ({ onComplete }: TestFormProps) => {
         title: "Résultats envoyés !",
         description: "Vos résultats ont été envoyés par email.",
       });
-    } catch (err) {
+    } catch (err: any) {
       console.error("Error submitting test:", err);
-      setError("Une erreur est survenue lors de la soumission du test. Veuillez réessayer.");
+      setError(`Une erreur est survenue lors de la soumission du test: ${err.message || JSON.stringify(err)}`);
       
       toast({
         title: "Erreur",
@@ -149,6 +158,10 @@ const TestForm = ({ onComplete }: TestFormProps) => {
     }
   };
   
+  const getCurrentValueLabel = () => {
+    return sliderValueLabels[currentSliderValue - 1];
+  };
+  
   return (
     <div className="max-w-3xl mx-auto px-4">
       {testState === 'questions' ? (
@@ -158,6 +171,10 @@ const TestForm = ({ onComplete }: TestFormProps) => {
             totalSteps={questions.length} 
           />
           
+          <div className="text-end text-sm font-medium text-hypno-primary mb-2">
+            {getCurrentValueLabel()}
+          </div>
+          
           <div className="space-y-8">
             <div className="text-lg font-medium text-center mb-6">
               {currentQuestion.text}
@@ -165,7 +182,7 @@ const TestForm = ({ onComplete }: TestFormProps) => {
             
             <div className="px-4">
               <Slider
-                defaultValue={[selectedAnswer?.value || 3]}
+                value={[currentSliderValue]}
                 min={1}
                 max={5}
                 step={1}
@@ -180,22 +197,17 @@ const TestForm = ({ onComplete }: TestFormProps) => {
             </div>
           </div>
           
-          <div className="flex justify-between mt-8">
-            <Button
-              type="button"
-              variant="outline"
-              onClick={handlePreviousQuestion}
-              disabled={currentQuestionIndex === 0}
-            >
-              Question précédente
-            </Button>
-            
+          <div className="flex justify-end mt-8">
             <Button
               type="button"
               onClick={handleNextQuestion}
               className="hypno-button"
             >
-              {currentQuestionIndex < questions.length - 1 ? "Question suivante" : "Terminer le test"}
+              {currentQuestionIndex < questions.length - 1 ? (
+                <>Question suivante <ChevronRight className="ml-1 h-4 w-4" /></>
+              ) : (
+                "Terminer le test"
+              )}
             </Button>
           </div>
         </div>
