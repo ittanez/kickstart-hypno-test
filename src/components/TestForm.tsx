@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -8,6 +7,7 @@ import { toast } from '@/components/ui/use-toast';
 import { questions } from '@/utils/questions';
 import { Answer, calculateScore } from '@/utils/calculateScore';
 import { supabase } from '@/integrations/supabase/client';
+import { Slider } from '@/components/ui/slider';
 import QuestionCard from './QuestionCard';
 import ProgressBar from './ProgressBar';
 
@@ -66,6 +66,12 @@ const TestForm = ({ onComplete }: TestFormProps) => {
     }
   };
   
+  const handleSliderChange = (value: number[]) => {
+    if (currentQuestion) {
+      handleAnswerSelection(currentQuestion.id, value[0]);
+    }
+  };
+  
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -94,7 +100,7 @@ const TestForm = ({ onComplete }: TestFormProps) => {
       const result = calculateScore(answers);
       
       // Store results in Supabase
-      const { data, error: supabaseError } = await supabase
+      const { error: supabaseError } = await supabase
         .from('quiz_results')
         .insert({
           email: email,
@@ -152,11 +158,27 @@ const TestForm = ({ onComplete }: TestFormProps) => {
             totalSteps={questions.length} 
           />
           
-          <QuestionCard 
-            question={currentQuestion}
-            selectedValue={selectedAnswer?.value || null}
-            onChange={handleAnswerSelection}
-          />
+          <div className="space-y-8">
+            <div className="text-lg font-medium text-center mb-6">
+              {currentQuestion.text}
+            </div>
+            
+            <div className="px-4">
+              <Slider
+                defaultValue={[selectedAnswer?.value || 3]}
+                min={1}
+                max={5}
+                step={1}
+                onValueChange={handleSliderChange}
+                className="w-full"
+              />
+              
+              <div className="flex justify-between mt-2 text-sm text-gray-600">
+                <span>Pas du tout d'accord</span>
+                <span>Tout à fait d'accord</span>
+              </div>
+            </div>
+          </div>
           
           <div className="flex justify-between mt-8">
             <Button
