@@ -1,4 +1,3 @@
-
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
 import { Resend } from "npm:resend@2.0.0"
 
@@ -8,6 +7,30 @@ const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 }
+
+const getExerciseForScore = (score: number): string => {
+  if (score <= 30) {
+    return `
+      <h3 style="color: #2c3e50; margin-top: 20px;">Exercice immédiat :</h3>
+      <p>Installez-vous confortablement, fixez un point devant vous pendant 30 secondes, puis fermez les yeux et observez les sensations qui apparaissent. Même subtiles, ces sensations sont les premiers signes de votre capacité à modifier votre état de conscience. Pratiquez 2 minutes par jour pour développer cette sensibilité.</p>
+    `;
+  } else if (score <= 60) {
+    return `
+      <h3 style="color: #2c3e50; margin-top: 20px;">Exercice immédiat :</h3>
+      <p>Fermez les yeux et imaginez un escalier de 5 marches. Descendez-les lentement en ressentant une détente de plus en plus profonde à chaque pas. Une fois en bas, imaginez une porte qui, une fois ouverte, vous mène à un lieu ressource personnel. Explorez ce lieu 2-3 minutes puis remontez l'escalier. Cet exercice simple vous permet déjà d'accéder à vos ressources intérieures.</p>
+    `;
+  } else if (score <= 90) {
+    return `
+      <h3 style="color: #2c3e50; margin-top: 20px;">Exercice immédiat :</h3>
+      <p>Fermez les yeux et portez attention à votre respiration. À chaque expiration, répétez mentalement un mot ressource (paix, calme, confiance...). Après 1 minute, imaginez ce mot prenant forme, couleur, texture dans votre corps. Ressentez les effets de cette ressource se diffuser. Cette technique vous permet d'activer directement vos ressources intérieures pour transformer votre quotidien.</p>
+    `;
+  } else {
+    return `
+      <h3 style="color: #2c3e50; margin-top: 20px;">Exercice immédiat :</h3>
+      <p>Fermez les yeux et imaginez un écran intérieur. Projetez-y une situation où vous aimeriez réagir différemment. Observez-vous d'abord depuis le public, puis entrez dans l'image et ressentez les nouvelles ressources dont vous disposez. Alternez plusieurs fois ces perspectives. Cette technique puissante de recadrage peut rapidement transformer vos schémas limitants.</p>
+    `;
+  }
+};
 
 serve(async (req) => {
   if (req.method === 'OPTIONS') {
@@ -32,10 +55,15 @@ serve(async (req) => {
           <title>Résultats du test de réceptivité à l'hypnose</title>
       </head>
       <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; background-color: #f9f9f9;">
-          <div style="background-color: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); padding: 30px; margin-bottom: 20px;">
+          <div class="container" style="background-color: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); padding: 30px; margin-bottom: 20px;">
               <h1 style="text-align: center; margin-bottom: 30px; font-size: 28px; border-bottom: 2px solid #3498db; padding-bottom: 10px; color: #2c3e50;">Votre test de réceptivité à l'hypnose</h1>
               
-              <div style="text-align: center; margin: 20px 0; font-size: 20px;">
+              <div style="background-color: #f5f9fc; border-radius: 8px; padding: 20px; margin-bottom: 30px;">
+                <h2 style="color: #2c3e50; margin-top: 0;">Découvrez votre potentiel hypnotique - Résultats et perspectives</h2>
+                <p>Ce test révèle votre disposition naturelle à accéder aux états hypnotiques. Basé sur vos réponses à propos de votre imagination, concentration et expériences quotidiennes d'absorption, votre score sur 120 points vous guide vers votre propre chemin de transformation par l'hypnose. Quelle que soit votre réceptivité actuelle, sachez qu'elle peut être développée et représente une porte d'entrée vers des changements profonds et durables dans votre vie.</p>
+              </div>
+              
+              <div style="text-align: center; margin: 20px 0;">
                   <p>Votre score : <span style="font-weight: bold; font-size: 28px; color: #3498db;">${score}/120</span></p>
               </div>
               
@@ -47,31 +75,21 @@ serve(async (req) => {
                   Votre sens dominant : <strong style="font-size: 20px; color: #2980b9;">${senseDominant}</strong>
               </div>
               
-              <p style="font-style: italic; color: #555; margin: 15px 0; font-size: 15px;">
-                  Notre cerveau privilégie souvent un ou plusieurs canaux sensoriels pour percevoir et traiter l'information. 
-                  Connaître votre sens dominant peut vous aider à mieux comprendre comment vous entrez naturellement en état 
-                  d'hypnose et quel type d'induction sera le plus efficace pour vous.
-              </p>
-              
-              <h2 style="font-size: 22px; margin-top: 25px; border-left: 4px solid #3498db; padding-left: 10px; color: #2c3e50;">
-                  Ce que cela signifie pour vous :
-              </h2>
-              
               <div style="background-color: #f5f9fc; border-left: 4px solid #3498db; padding: 15px; margin: 20px 0;">
                   ${description}
               </div>
               
-              <p style="text-align: center; font-weight: bold; color: #2c3e50; margin: 20px 0;">
-                  🎁 ${getConclusionMessage(score)}
-              </p>
-              
-              <p style="text-align: center; font-style: italic; margin: 30px 0; color: #7f8c8d;">
-                  L'hypnose n'est pas un test à réussir, c'est une expérience à vivre.
-              </p>
-          </div>
-          
-          <div style="background-color: #f5f9fc; padding: 20px; border-radius: 8px; margin: 30px 0; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
-              <h2 style="color: #2c3e50; margin-top: 0;">Votre hypnothérapeute à Paris</h2>
+              <div style="background-color: #f8f4ff; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                  ${getExerciseForScore(score)}
+              </div>
+
+              <div style="background-color: #f5f9fc; border-radius: 8px; padding: 20px; margin: 30px 0;">
+                <h2 style="color: #2c3e50; margin-top: 0;">Votre réceptivité évolue : une clé pour le changement</h2>
+                <p>Votre capacité hypnotique n'est pas figée – elle fluctue selon votre état physique, émotionnel et votre environnement. Cette variabilité est une force! Elle signifie que vous pouvez développer ce potentiel avec de la pratique, comme un muscle qui se renforce. L'hypnose thérapeutique vous permet d'accéder à des ressources insoupçonnées et de créer des changements précis et durables dans votre vie, qu'il s'agisse de dépasser des peurs, renforcer votre confiance, ou transformer des habitudes. Chaque personne possède sa propre porte d'entrée vers ces états de conscience modifiés – découvrir la vôtre est le premier pas vers une vie plus alignée avec vos aspirations profondes.</p>
+              </div>
+
+              <div style="background-color: #f5f9fc; padding: 20px; border-radius: 8px; margin: 30px 0;">
+                <h2 style="color: #2c3e50; margin-top: 0;">Votre hypnothérapeute à Paris</h2>
               
               <div style="text-align: center; margin: 20px 0;">
                   <img src="https://wp.me/acQEVr-1bM" 
@@ -96,7 +114,7 @@ serve(async (req) => {
                   </a>
               </div>
           </div>
-
+          
           <div style="text-align: center; margin: 30px 0;">
               <a href="https://www.instagram.com/novahypnose/" 
                  target="_blank"
@@ -205,4 +223,3 @@ function getConclusionMessage(score: number): string {
     return "Vous êtes un voyageur des états de conscience. Prenez soin de choisir vos destinations.";
   }
 }
-
