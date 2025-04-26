@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import HeroSection from '@/components/HeroSection';
 import StepsSection from '@/components/StepsSection';
@@ -94,24 +93,25 @@ const Index = () => {
               &copy; {new Date().getFullYear()} HypnoKick. Tous droits réservés.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-sm text-gray-500 hover:text-hypno-primary">
-                Politique de confidentialité
-              </a>
-              <a href="#" className="text-sm text-gray-500 hover:text-hypno-primary">
-                Mentions légales
-              </a>
-              <a href="#" className="text-sm text-gray-500 hover:text-hypno-primary">
-                Contact
-              </a>
-            </div>
-            <div className="mt-4 md:mt-0">
               <a 
-                href="https://novahypnose.fr" 
-                target="_blank" 
-                rel="noopener noreferrer" 
+                href="https://novahypnose.fr/mentions-legales/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-sm text-gray-500 hover:text-hypno-primary"
               >
-                Propulsé par Novahypnose
+                Mentions légales
+              </a>
+              <a 
+                href="/privacy-policy"
+                className="text-sm text-gray-500 hover:text-hypno-primary"
+              >
+                Politique de confidentialité
+              </a>
+              <a 
+                href="mailto:contact@novahypnose.fr"
+                className="text-sm text-gray-500 hover:text-hypno-primary"
+              >
+                Contact
               </a>
             </div>
           </div>
