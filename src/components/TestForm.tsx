@@ -1,6 +1,7 @@
 
 import { useTestForm } from '@/hooks/useTestForm';
 import { QuestionStep } from './test/QuestionStep';
+import { VAKOGStep } from './test/VAKOGStep';
 import { EmailStep } from './test/EmailStep';
 import { ResultsStep } from './test/ResultsStep';
 
@@ -13,13 +14,16 @@ const TestForm = ({ onComplete }: TestFormProps) => {
     currentQuestionIndex,
     testState,
     currentSliderValue,
+    vakogAnswers,
     email,
     gdprConsent,
     isSubmitting,
     error,
     testResults,
     handleAnswerSelection,
+    handleVakogAnswerChange,
     handleNextQuestion,
+    handleVakogComplete,
     handleSubmit,
     setEmail,
     setGdprConsent,
@@ -37,6 +41,15 @@ const TestForm = ({ onComplete }: TestFormProps) => {
           currentSliderValue={currentSliderValue}
           onAnswerSelect={handleAnswerSelection}
           onNext={handleNextQuestion}
+        />
+      ) : testState === 'vakog' ? (
+        <VAKOGStep
+          currentAnswers={vakogAnswers.reduce((acc, curr) => {
+            acc[curr.questionId] = curr.value;
+            return acc;
+          }, {} as Record<string, number>)}
+          onAnswerChange={handleVakogAnswerChange}
+          onComplete={handleVakogComplete}
         />
       ) : (
         <EmailStep

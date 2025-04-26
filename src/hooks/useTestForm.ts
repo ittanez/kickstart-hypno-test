@@ -5,23 +5,44 @@ import { calculateScore } from '@/utils/calculateScore';
 import { supabase } from '@/integrations/supabase/client';
 import type { Answer } from '@/utils/calculateScore';
 import { questions } from '@/utils/questions';
+import { VAKOGAnswer, calculateDominantSense } from '@/utils/vakogQuestions';
 
-export type TestState = 'questions' | 'email' | 'results';
+export type TestState = 'questions' | 'vakog' | 'email' | 'results';
 
 export const useTestForm = (onComplete: () => void) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<Answer[]>([]);
+  const [vakogAnswers, setVakogAnswers] = useState<VAKOGAnswer[]>([]);
   const [email, setEmail] = useState('');
   const [gdprConsent, setGdprConsent] = useState(false);
   const [testState, setTestState] = useState<TestState>('questions');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [currentSliderValue, setCurrentSliderValue] = useState<number>(3);
-  const [testResults, setTestResults] = useState<{score: number, category: string, description: string} | null>(null);
+  const [testResults, setTestResults] = useState<{
+    score: number, 
+    category: string, 
+    description: string,
+    senseDominant: string
+  } | null>(null);
 
   const handleAnswerSelection = (questionId: number, value: number) => {
     setCurrentSliderValue(value);
     setAnswers(prevAnswers => {
+      const existingAnswerIndex = prevAnswers.findIndex(a => a.questionId === questionId);
+      
+      if (existingAnswerIndex !== -1) {
+        const updatedAnswers = [...prevAnswers];
+        updatedAnswers[existingAnswerIndex] = { questionId, value };
+        return updatedAnswers;
+      } else {
+        return [...prevAnswers, { questionId, value }];
+      }
+    });
+  };
+
+  const handleVakogAnswerChange = (questionId: string, value: number) => {
+    setVakogAnswers(prevAnswers => {
       const existingAnswerIndex = prevAnswers.findIndex(a => a.questionId === questionId);
       
       if (existingAnswerIndex !== -1) {
@@ -41,8 +62,12 @@ export const useTestForm = (onComplete: () => void) => {
       const nextAnswer = answers.find(a => a.questionId === nextQuestion.id);
       setCurrentSliderValue(nextAnswer?.value || 3);
     } else {
-      setTestState('email');
+      setTestState('vakog');
     }
+  };
+
+  const handleVakogComplete = () => {
+    setTestState('email');
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -71,15 +96,24 @@ export const useTestForm = (onComplete: () => void) => {
     
     try {
       const result = calculateScore(answers);
-      setTestResults(result);
+      const senseDominant = calculateDominantSense(vakogAnswers);
+      
+      const finalResults = {
+        ...result,
+        senseDominant
+      };
+      
+      setTestResults(finalResults);
       
       const { error: supabaseError } = await supabase
         .from('quiz_results')
         .insert({
           user_email: email,
           answers: JSON.stringify(answers),
+          vakog_answers: JSON.stringify(vakogAnswers),
           total_score: result.score,
           category: result.category,
+          sense_dominant: senseDominant,
           recommendations: result.description
         });
       
@@ -92,7 +126,8 @@ export const useTestForm = (onComplete: () => void) => {
           email,
           score: result.score,
           category: result.category,
-          description: result.description
+          description: result.description,
+          senseDominant
         })
       });
       
@@ -133,6 +168,7 @@ export const useTestForm = (onComplete: () => void) => {
   return {
     currentQuestionIndex,
     answers,
+    vakogAnswers,
     email,
     gdprConsent,
     testState,
@@ -141,7 +177,9 @@ export const useTestForm = (onComplete: () => void) => {
     currentSliderValue,
     testResults,
     handleAnswerSelection,
+    handleVakogAnswerChange,
     handleNextQuestion,
+    handleVakogComplete,
     handleSubmit,
     setEmail,
     setGdprConsent,
