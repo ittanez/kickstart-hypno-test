@@ -56,6 +56,12 @@ serve(async (req) => {
       </head>
       <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; background-color: #f9f9f9;">
           <div class="container" style="background-color: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); padding: 30px; margin-bottom: 20px;">
+              <div style="text-align: center; margin-bottom: 30px;">
+                <a href="https://hypnokick.lovable.dev" style="text-decoration: none; color: inherit;">
+                  <span style="color: #3498db;">Hypno</span><span style="color: #e74c3c;">Kick</span>
+                </a>
+              </div>
+
               <h1 style="text-align: center; margin-bottom: 30px; font-size: 28px; border-bottom: 2px solid #3498db; padding-bottom: 10px; color: #2c3e50;">Félicitations ! Voici votre bilan hypnotique, découvrez votre pouvoir qui vous permet de manifester vos plus grands désirs</h1>
               
               <div style="text-align: center; margin: 30px 0; color: #666;">
