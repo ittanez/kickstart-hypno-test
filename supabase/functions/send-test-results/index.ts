@@ -135,7 +135,7 @@ serve(async (req) => {
           <div style="text-align: center; margin: 30px 0;">
               <a href="https://www.instagram.com/novahypnose/" 
                  target="_blank"
-                 style="display: flex; align-items: center; justify-content: center; gap: 10px; text-decoration: none; color: #333;">
+                 style="display: inline-flex; align-items: center; justify-content: center; gap: 10px; text-decoration: none; color: #333;">
                   <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/2048px-Instagram_icon.png" 
                        alt="Instagram" 
                        style="width: 24px; height: 24px;">
@@ -171,7 +171,7 @@ serve(async (req) => {
       </body>
       </html>
     `
-
+    
     const fromAddress = "contact@updates.novahypnose.fr"
 
     const emailResponse = await resend.emails.send({

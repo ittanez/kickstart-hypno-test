@@ -18,8 +18,6 @@ export const ResultsStep = ({ results, email }: ResultsStepProps) => {
       
       <div className="mb-6 p-6 bg-hypno-primary/10 rounded-lg">
         <div className="text-center">
-          <p className="text-lg mb-2">Votre score est</p>
-          <p className="text-4xl font-bold text-hypno-primary mb-2">{results.score}/120</p>
           <p className="text-xl font-semibold text-hypno-accent">{results.category}</p>
         </div>
       </div>

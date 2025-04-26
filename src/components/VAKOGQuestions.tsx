@@ -12,7 +12,7 @@ const VAKOGQuestions = ({ onAnswerChange, currentAnswers }: VAKOGQuestionsProps)
   const valueLabels = {
     1: "Pas du tout d'accord",
     2: "Plutôt pas d'accord",
-    3: "Moyennement d'accord",
+    3: "Neutre",
     4: "Plutôt d'accord",
     5: "Tout à fait d'accord"
   };

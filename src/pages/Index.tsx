@@ -5,6 +5,7 @@ import FAQSection from '@/components/FAQSection';
 import TestimonialSection from '@/components/TestimonialSection';
 import TestForm from '@/components/TestForm';
 import ThankYouMessage from '@/components/ThankYouMessage';
+import { Link } from 'react-router-dom';
 
 type AppState = 'landing' | 'testing' | 'completed';
 
@@ -26,10 +27,10 @@ const Index = () => {
       <header className="py-4 border-b border-gray-100">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center">
-            <div className="text-2xl font-bold">
+            <Link to="/" className="text-2xl font-bold">
               <span className="text-hypno-primary">Hypno</span>
               <span className="text-hypno-accent">Kick</span>
-            </div>
+            </Link>
             {appState === 'landing' && (
               <button 
                 onClick={handleStartTest}
