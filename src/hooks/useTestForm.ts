@@ -55,6 +55,15 @@ export const useTestForm = (onComplete: () => void) => {
     });
   };
 
+  const handlePreviousQuestion = () => {
+    if (currentQuestionIndex > 0) {
+      setCurrentQuestionIndex(prevIndex => prevIndex - 1);
+      const prevQuestion = questions[currentQuestionIndex - 1];
+      const prevAnswer = answers.find(a => a.questionId === prevQuestion.id);
+      setCurrentSliderValue(prevAnswer?.value || 3);
+    }
+  };
+
   const handleNextQuestion = () => {
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(prevIndex => prevIndex + 1);
@@ -179,6 +188,7 @@ export const useTestForm = (onComplete: () => void) => {
     handleAnswerSelection,
     handleVakogAnswerChange,
     handleNextQuestion,
+    handlePreviousQuestion,
     handleVakogComplete,
     handleSubmit,
     setEmail,

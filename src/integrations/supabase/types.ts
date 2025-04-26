@@ -119,8 +119,10 @@ export type Database = {
           lastname: string | null
           pdf_url: string | null
           recommendations: string
+          sense_dominant: string | null
           total_score: number
           user_email: string
+          vakog_answers: string | null
         }
         Insert: {
           answers: Json
@@ -136,8 +138,10 @@ export type Database = {
           lastname?: string | null
           pdf_url?: string | null
           recommendations?: string
+          sense_dominant?: string | null
           total_score: number
           user_email: string
+          vakog_answers?: string | null
         }
         Update: {
           answers?: Json
@@ -153,8 +157,10 @@ export type Database = {
           lastname?: string | null
           pdf_url?: string | null
           recommendations?: string
+          sense_dominant?: string | null
           total_score?: number
           user_email?: string
+          vakog_answers?: string | null
         }
         Relationships: []
       }

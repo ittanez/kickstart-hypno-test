@@ -42,10 +42,10 @@ serve(async (req) => {
         <p>Mais chacun y entre à sa manière. Et c'est la responsabilité de l'hypnothérapeute de s'adapter à votre style.</p>
 
         <div style="margin: 30px 0; padding: 20px; background-color: #f5f5f5; border-radius: 8px;">
-          <h2 style="color: #2D3748;">📊 Votre score : ${score}/120</h2>
-          <p style="font-size: 1.2em; color: #4A5568;">Catégorie : ${category}</p>
+          <h2 style="color: #2D3748; text-align: center;">📊 Votre score : ${score}/120</h2>
+          <p style="font-size: 1.2em; color: #4A5568; text-align: center;">Catégorie : ${category}</p>
           
-          <h3 style="color: #2D3748; margin-top: 1.5em;">👁️👂👃👅✋ Votre sens dominant : ${senseDominant}</h3>
+          <h3 style="color: #2D3748; margin-top: 1.5em; text-align: center;">👁️👂👃👅✋ Votre sens dominant : ${senseDominant}</h3>
           <p>Notre cerveau privilégie souvent un ou plusieurs canaux sensoriels pour percevoir et traiter l'information. 
           Connaître votre sens dominant peut vous aider à mieux comprendre comment vous entrez naturellement en état d'hypnose 
           et quel type d'induction sera le plus efficace pour vous.</p>
@@ -56,7 +56,7 @@ serve(async (req) => {
           </div>
         </div>
 
-        <h2 style="color: #2D3748; margin-top: 1.5em;">🧭 Et maintenant ?</h2>
+        <h2 style="color: #2D3748; margin-top: 1.5em; text-align: center;">🧭 Et maintenant ?</h2>
         <p>Quel que soit votre niveau :</p>
         <ul>
           <li>Vous êtes réceptif à l'hypnose.</li>
@@ -69,49 +69,51 @@ serve(async (req) => {
         Et vous êtes déjà prêt à commencer ce voyage, à votre manière.</p>
 
         <div style="margin-top: 40px; padding: 20px; background-color: #f9f9f9; border-radius: 8px;">
-          <h2 style="color: #2D3748;">Votre hypnothérapeute à Paris</h2>
+          <h2 style="color: #2D3748; text-align: center;">Votre hypnothérapeute à Paris</h2>
           <p>📍 Je suis Alain Zenatti, hypnothérapeute à Paris, spécialisé en hypnose ericksonienne et en auto-hypnose.</p>
           <p>Depuis plusieurs années, j'aide les personnes à retrouver confiance, équilibre et clarté intérieure grâce à des séances d'hypnose sur mesure, toujours bienveillantes et respectueuses du rythme de chacun.</p>
           
           <p>Si vous ressentez l'envie d'aller plus loin, d'approfondir votre réceptivité, ou tout simplement de vivre une première séance d'hypnose à Paris, je serai heureux de vous guider pas à pas dans ce chemin.</p>
 
-          <img src="https://wp.me/acQEVr-1bM" alt="Alain Zenatti - Hypnothérapeute Paris" style="max-width: 200px; border-radius: 8px; margin: 20px 0;">
+          <div style="text-align: center; margin: 20px auto;">
+            <img src="https://wp.me/acQEVr-1bM" alt="Alain Zenatti - Hypnothérapeute Paris" style="max-width: 200px; border-radius: 8px; margin: 0 auto; display: block;">
+          </div>
 
-          <p><strong>Contactez votre hypnothérapeute à Paris :</strong></p>
-          <p>
+          <p style="text-align: center;"><strong>Contactez votre hypnothérapeute à Paris :</strong></p>
+          <p style="text-align: center;">
             📩 <a href="mailto:contact@novahypnose.fr">contact@novahypnose.fr</a><br>
             🌐 <a href="https://www.novahypnose.fr">www.novahypnose.fr</a><br>
             📞 <a href="tel:+33649358089">06 49 35 80 89</a>
           </p>
 
-          <div style="text-align: center; margin: 20px 0;">
+          <div style="text-align: center; margin: 20px auto;">
             <a target="_blank" href="https://www.resalib.fr/praticien/47325-alain-zenatti-hypnotherapeute-paris">
-              <img style="box-shadow: 1px 3px 12px #555; border-radius:10px;" width="350" 
+              <img style="box-shadow: 1px 3px 12px #555; border-radius:10px; margin: 0 auto; display: block;" width="350" 
                    alt="Retrouvez Alain Zenatti sur Resalib : annuaire, référencement et prise de rendez-vous pour les Hypnothérapeutes" 
                    src="https://www.resalib.fr/app/images/generate/fbk_47325.png">
             </a>
           </div>
           
-          <div style="margin: 20px 0;">
+          <div style="margin: 20px auto; text-align: center;">
             <div style="margin-bottom: 20px;">
               <a target="_blank" href="https://harmonia.novahypnose.fr/">
-                <img style="box-shadow: 1px 3px 12px #555; border-radius:10px;" width="350" 
+                <img style="box-shadow: 1px 3px 12px #555; border-radius:10px; margin: 0 auto; display: block;" width="350" 
                      alt="Formation Harmonia : réduire le stress avec l'auto-hypnose - Hypnothérapeute Paris" 
-                     src="http://novahypnose.fr/wp-content/uploads/2025/04/jpg-12.jpg">
+                     src="https://novahypnose.fr/wp-content/uploads/2025/04/jpg-12.jpg">
               </a>
             </div>
             
             <div>
               <a target="_blank" href="https://hypno-balade.novahypnose.fr/">
-                <img style="box-shadow: 1px 3px 12px #555; border-radius:10px;" width="350" 
+                <img style="box-shadow: 1px 3px 12px #555; border-radius:10px; margin: 0 auto; display: block;" width="350" 
                      alt="Hypno-balade dans le Perche - Séance d'hypnose en forêt près de Paris" 
-                     src="http://novahypnose.fr/wp-content/uploads/2025/04/jpg-11.jpg">
+                     src="https://novahypnose.fr/wp-content/uploads/2025/04/jpg-11.jpg">
               </a>
             </div>
           </div>
 
-          <p>
-            <a href="https://www.instagram.com/novahypnose/" style="display: flex; align-items: center; text-decoration: none; color: #000;">
+          <p style="text-align: center;">
+            <a href="https://www.instagram.com/novahypnose/" style="display: flex; align-items: center; text-decoration: none; color: #000; justify-content: center; margin: 0 auto; width: fit-content;">
               <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/2048px-Instagram_icon.png" 
                    width="20" height="20" alt="Instagram" style="margin-right: 8px;">
               Suivez Nova Hypnose sur Instagram
@@ -125,7 +127,7 @@ serve(async (req) => {
             <a href="https://novahypnose.fr/politique-de-confidentialite/" target="_blank" style="color: #666; text-decoration: none; margin: 0 10px;">Politique de confidentialité</a>
           </p>
           
-          <p style="color: #666; font-size: 0.9em; margin-top: 20px;">
+          <p style="color: #666; font-size: 0.9em; margin-top: 20px; text-align: center;">
             ⚠️ Rappel important : L'hypnothérapie est une approche complémentaire qui ne remplace en aucun cas une consultation médicale 
             ou un traitement prescrit par un professionnel de santé. En cas de problème de santé, consultez toujours votre médecin.
           </p>

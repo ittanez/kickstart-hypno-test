@@ -2,7 +2,7 @@
 import { questions } from '@/utils/questions';
 import { Slider } from '@/components/ui/slider';
 import { Button } from '@/components/ui/button';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, ChevronLeft } from 'lucide-react';
 import ProgressBar from '@/components/ProgressBar';
 
 type QuestionStepProps = {
@@ -23,6 +23,22 @@ export const QuestionStep = ({
   
   const getCurrentValueLabel = () => {
     return sliderValueLabels[currentSliderValue - 1];
+  };
+
+  const handleAnswerSelect = (value: number) => {
+    onAnswerSelect(currentQuestion.id, value);
+    // Automatically go to next question after selecting an answer
+    if (currentQuestionIndex < questions.length - 1) {
+      setTimeout(() => onNext(), 300);
+    }
+  };
+
+  const handlePrevious = () => {
+    if (currentQuestionIndex > 0) {
+      // We need to navigate to the previous question 
+      // This requires updating the useTestForm hook to support this navigation
+      window.history.back();
+    }
   };
 
   return (
@@ -47,7 +63,7 @@ export const QuestionStep = ({
             min={1}
             max={5}
             step={1}
-            onValueChange={(value) => onAnswerSelect(currentQuestion.id, value[0])}
+            onValueChange={(value) => handleAnswerSelect(value[0])}
             className="w-full"
           />
           
@@ -58,7 +74,16 @@ export const QuestionStep = ({
         </div>
       </div>
       
-      <div className="flex justify-end mt-8">
+      <div className="flex justify-between mt-8">
+        <Button
+          type="button"
+          onClick={handlePrevious}
+          className="bg-gray-200 text-gray-800 hover:bg-gray-300"
+          disabled={currentQuestionIndex === 0}
+        >
+          <ChevronLeft className="mr-1 h-4 w-4" /> Question précédente
+        </Button>
+        
         <Button
           type="button"
           onClick={onNext}

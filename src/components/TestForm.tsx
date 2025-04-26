@@ -23,6 +23,7 @@ const TestForm = ({ onComplete }: TestFormProps) => {
     handleAnswerSelection,
     handleVakogAnswerChange,
     handleNextQuestion,
+    handlePreviousQuestion,
     handleVakogComplete,
     handleSubmit,
     setEmail,
