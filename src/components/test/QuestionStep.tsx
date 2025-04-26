@@ -19,25 +19,24 @@ export const QuestionStep = ({
   onNext,
 }: QuestionStepProps) => {
   const currentQuestion = questions[currentQuestionIndex];
-  const sliderValueLabels = ['Pas du tout d\'accord', 'Peu d\'accord', 'Parfois', 'Souvent', 'Tout à fait d\'accord'];
-  
-  const getCurrentValueLabel = () => {
-    return sliderValueLabels[currentSliderValue - 1];
-  };
-
-  const handleAnswerSelect = (value: number) => {
-    onAnswerSelect(currentQuestion.id, value);
-    // Automatically go to next question after selecting an answer
-    if (currentQuestionIndex < questions.length - 1) {
-      setTimeout(() => onNext(), 300);
-    }
+  const valueLabels = {
+    1: "Pas du tout d'accord",
+    2: "Plutôt pas d'accord",
+    3: "Neutre",
+    4: "Plutôt d'accord",
+    5: "Tout à fait d'accord"
   };
 
   const handlePrevious = () => {
     if (currentQuestionIndex > 0) {
-      // We need to navigate to the previous question 
-      // This requires updating the useTestForm hook to support this navigation
       window.history.back();
+    }
+  };
+
+  const handleAnswerSelect = (value: number) => {
+    onAnswerSelect(currentQuestion.id, value);
+    if (currentQuestionIndex < questions.length - 1) {
+      setTimeout(() => onNext(), 300);
     }
   };
 
@@ -48,28 +47,41 @@ export const QuestionStep = ({
         totalSteps={questions.length} 
       />
       
-      <div className="text-end text-sm font-medium text-hypno-primary mb-2">
-        {getCurrentValueLabel()}
-      </div>
-      
       <div className="space-y-8">
         <div className="text-lg font-medium text-center mb-6">
           {currentQuestion.text}
         </div>
         
         <div className="px-4">
-          <Slider
-            value={[currentSliderValue]}
-            min={1}
-            max={5}
-            step={1}
-            onValueChange={(value) => handleAnswerSelect(value[0])}
-            className="w-full"
-          />
+          <div className="flex justify-between mb-4 text-sm text-gray-600">
+            {Object.entries(valueLabels).map(([value, label]) => (
+              <button
+                key={value}
+                onClick={() => handleAnswerSelect(Number(value))}
+                className={`px-3 py-2 rounded text-center transition-colors ${
+                  currentSliderValue === Number(value)
+                    ? 'bg-hypno-primary text-white'
+                    : 'hover:bg-gray-100'
+                }`}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
           
-          <div className="flex justify-between mt-2 text-sm text-gray-600">
-            <span>Pas du tout d'accord</span>
-            <span>Tout à fait d'accord</span>
+          <div className="mt-6">
+            <Slider
+              value={[currentSliderValue]}
+              min={1}
+              max={5}
+              step={1}
+              onValueChange={(value) => handleAnswerSelect(value[0])}
+              className="w-full"
+            />
+            <div className="flex justify-between mt-2 text-xs text-gray-500">
+              <span>{valueLabels[1]}</span>
+              <span>{valueLabels[5]}</span>
+            </div>
           </div>
         </div>
       </div>
