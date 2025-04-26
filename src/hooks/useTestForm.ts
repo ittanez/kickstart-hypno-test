@@ -4,6 +4,7 @@ import { toast } from '@/hooks/use-toast';
 import { calculateScore } from '@/utils/calculateScore';
 import { supabase } from '@/integrations/supabase/client';
 import type { Answer } from '@/utils/calculateScore';
+import { questions } from '@/utils/questions';
 
 export type TestState = 'questions' | 'email' | 'results';
 
