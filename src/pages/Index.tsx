@@ -1,34 +1,29 @@
 
 import React, { useState } from 'react';
 import HeroSection from '@/components/HeroSection';
-import HowItWorks from '@/components/HowItWorks';
+import StepsSection from '@/components/StepsSection';
+import FAQSection from '@/components/FAQSection';
+import TestimonialSection from '@/components/TestimonialSection';
 import TestForm from '@/components/TestForm';
 import ThankYouMessage from '@/components/ThankYouMessage';
 
-// Define the possible states of our application
 type AppState = 'landing' | 'testing' | 'completed';
 
 const Index = () => {
-  // State for managing the current view
   const [appState, setAppState] = useState<AppState>('landing');
   
-  // Handler for starting the test
   const handleStartTest = () => {
     setAppState('testing');
-    // Scroll to top when starting the test
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
   
-  // Handler for completing the test
   const handleTestComplete = () => {
     setAppState('completed');
-    // Scroll to top when showing results
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
   
   return (
     <div className="min-h-screen flex flex-col">
-      {/* Header */}
       <header className="py-4 border-b border-gray-100">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center">
@@ -48,28 +43,27 @@ const Index = () => {
         </div>
       </header>
       
-      {/* Main content */}
       <main className="flex-grow">
         {appState === 'landing' && (
           <>
             <HeroSection onStartTest={handleStartTest} />
-            <HowItWorks />
+            <StepsSection />
+            <FAQSection />
+            <TestimonialSection />
             <div className="py-16 bg-white">
               <div className="container mx-auto px-4">
                 <div className="max-w-3xl mx-auto text-center">
-                  <h2 className="mb-6">Pourquoi faire ce test ?</h2>
-                  <p className="text-lg text-gray-600 mb-8">
-                    Comprendre votre réceptivité à l'hypnose vous aide à déterminer 
-                    si cette approche peut être efficace pour vous. Que ce soit pour 
-                    réduire le stress, améliorer votre sommeil ou atteindre vos objectifs, 
-                    ce test vous offre des informations essentielles pour votre développement personnel.
-                  </p>
+                  <h2 className="text-3xl font-bold mb-6">Prêt à découvrir votre potentiel caché ?</h2>
                   <Button 
                     onClick={handleStartTest}
-                    className="hypno-button"
+                    className="hypno-button text-lg px-8 py-6 mb-4"
                   >
-                    Commencer le Test
+                    RÉVÉLEZ VOTRE PROFIL MAINTENANT
                   </Button>
+                  <p className="text-gray-600">Seulement 2 minutes • Résultats instantanés • 100% gratuit</p>
+                  <p className="mt-8 text-gray-700">Déjà plusieurs centaines de personnes ont découvert leur potentiel hypnotique !</p>
+                  <p className="mt-4 text-hypno-primary font-medium">À très vite pour vos résultats !</p>
+                  <p className="text-gray-600">L'équipe HypnoKick</p>
                 </div>
               </div>
             </div>
@@ -79,9 +73,6 @@ const Index = () => {
         {appState === 'testing' && (
           <div className="py-12">
             <div className="container mx-auto">
-              <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">
-                Test de Réceptivité à l'Hypnose
-              </h2>
               <TestForm onComplete={handleTestComplete} />
             </div>
           </div>
@@ -96,15 +87,12 @@ const Index = () => {
         )}
       </main>
       
-      {/* Footer */}
       <footer className="py-6 bg-gray-50 border-t border-gray-100">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="mb-4 md:mb-0">
-              <p className="text-sm text-gray-500">
-                &copy; {new Date().getFullYear()} HypnoKick. Tous droits réservés.
-              </p>
-            </div>
+            <p className="text-sm text-gray-500 mb-4 md:mb-0">
+              &copy; {new Date().getFullYear()} HypnoKick. Tous droits réservés.
+            </p>
             <div className="flex space-x-4">
               <a href="#" className="text-sm text-gray-500 hover:text-hypno-primary">
                 Politique de confidentialité
@@ -116,6 +104,16 @@ const Index = () => {
                 Contact
               </a>
             </div>
+            <div className="mt-4 md:mt-0">
+              <a 
+                href="https://novahypnose.fr" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-sm text-gray-500 hover:text-hypno-primary"
+              >
+                Propulsé par Novahypnose
+              </a>
+            </div>
           </div>
         </div>
       </footer>
@@ -123,7 +121,6 @@ const Index = () => {
   );
 };
 
-// Make sure to import the Button component
 import { Button } from '@/components/ui/button';
 
 export default Index;
