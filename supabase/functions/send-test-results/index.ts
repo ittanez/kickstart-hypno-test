@@ -67,22 +67,15 @@ serve(async (req) => {
               <div style="text-align: center; margin: 30px 0; color: #666;">
                 <p>Merci d'avoir pris le temps de réaliser ce test ! C'est une première étape importante dans votre voyage vers la transformation personnelle.</p>
               </div>
-
+              
               <div style="background-color: #f5f9fc; border-radius: 8px; padding: 20px; margin-bottom: 30px;">
-                <h2 style="color: #2c3e50; margin-top: 0;">Découvrez votre potentiel hypnotique - Résultats et perspectives</h2>
-                <p>Ce test révèle votre disposition naturelle à accéder aux états hypnotiques. Basé sur vos réponses à propos de votre imagination, concentration et expériences quotidiennes d'absorption, votre score sur 120 points vous guide vers votre propre chemin de transformation par l'hypnose. Quelle que soit votre réceptivité actuelle, sachez qu'elle peut être développée et représente une porte d'entrée vers des changements profonds et durables dans votre vie.</p>
-              </div>
-              
-              <div style="text-align: center; margin: 20px 0;">
-                  <p>Votre score : <span style="font-weight: bold; font-size: 28px; color: #3498db;">${score}/120</span></p>
-              </div>
-              
-              <div style="text-align: center; font-size: 22px; font-weight: bold; color: #2980b9; margin-bottom: 20px;">
-                  ${category}
-              </div>
-              
-              <div style="text-align: center; margin: 20px 0;">
-                  Votre sens dominant : <strong style="font-size: 20px; color: #2980b9;">${senseDominant}</strong>
+                <p style="text-align: center; font-size: 22px; font-weight: bold; color: #2980b9; margin-bottom: 20px;">
+                    ${category}
+                </p>
+                
+                <div style="text-align: center; margin: 20px 0;">
+                    Votre sens dominant : <strong style="font-size: 20px; color: #2980b9;">${senseDominant}</strong>
+                </div>
               </div>
               
               <div style="background-color: #f5f9fc; border-left: 4px solid #3498db; padding: 15px; margin: 20px 0;">

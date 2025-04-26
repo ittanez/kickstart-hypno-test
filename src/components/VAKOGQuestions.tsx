@@ -23,12 +23,12 @@ const VAKOGQuestions = ({ onAnswerChange, currentAnswers }: VAKOGQuestionsProps)
         <div key={question.id} className="mb-6">
           <p className="text-lg mb-4">{question.text}</p>
           <div className="px-4">
-            <div className="flex justify-between mb-2 text-sm text-gray-600">
+            <div className="flex justify-between mb-4 text-sm text-gray-600">
               {Object.entries(valueLabels).map(([value, label]) => (
                 <button
                   key={value}
                   onClick={() => onAnswerChange(question.id, Number(value))}
-                  className={`px-2 py-1 rounded ${
+                  className={`px-3 py-2 rounded text-center transition-colors ${
                     currentAnswers[question.id] === Number(value)
                       ? 'bg-hypno-primary text-white'
                       : 'hover:bg-gray-100'
@@ -38,14 +38,20 @@ const VAKOGQuestions = ({ onAnswerChange, currentAnswers }: VAKOGQuestionsProps)
                 </button>
               ))}
             </div>
-            <Slider
-              value={[currentAnswers[question.id] || 3]}
-              min={1}
-              max={5}
-              step={1}
-              onValueChange={(value) => onAnswerChange(question.id, value[0])}
-              className="w-full"
-            />
+            <div className="mt-6">
+              <Slider
+                value={[currentAnswers[question.id] || 3]}
+                min={1}
+                max={5}
+                step={1}
+                onValueChange={(value) => onAnswerChange(question.id, value[0])}
+                className="w-full"
+              />
+              <div className="flex justify-between mt-2 text-xs text-gray-500">
+                <span>{valueLabels[1]}</span>
+                <span>{valueLabels[5]}</span>
+              </div>
+            </div>
           </div>
         </div>
       ))}
