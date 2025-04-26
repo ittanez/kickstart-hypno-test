@@ -15,13 +15,13 @@ serve(async (req) => {
   }
 
   try {
-    const { email, score, category, description } = await req.json()
+    const { email, score, category, description, senseDominant } = await req.json()
 
     if (!email) {
       throw new Error('Email is required')
     }
 
-    console.log("Sending email to:", email, "with score:", score, "category:", category)
+    console.log("Sending email to:", email, "with score:", score, "category:", category, "dominant sense:", senseDominant)
 
     const getScoreRange = (score: number) => {
       if (score >= 0 && score <= 30) return "émergente";
@@ -47,6 +47,9 @@ serve(async (req) => {
       <h3>Votre réceptivité est ${scoreRange}</h3>
 
       <p>🔄 Il est important de noter que votre réceptivité à l'hypnose peut varier selon les moments de votre vie, les contextes ou les thématiques abordées. Ce n'est pas une caractéristique figée, mais plutôt un état dynamique qui peut évoluer avec le temps et l'expérience.</p>
+
+      <h3>👁️👂👃👅✋ Votre sens dominant : ${senseDominant}</h3>
+      <p>Notre cerveau privilégie souvent un ou plusieurs canaux sensoriels pour percevoir et traiter l'information. Connaître votre sens dominant peut vous aider à mieux comprendre comment vous entrez naturellement en état d'hypnose et quel type d'induction sera le plus efficace pour vous.</p>
 
       <div style="margin: 30px 0; padding: 20px; background-color: #f5f5f5; border-radius: 8px;">
         <h3>🔹 Réceptivité ${scoreRange}</h3>
@@ -115,6 +118,8 @@ serve(async (req) => {
         
         <p>Si vous ressentez l'envie d'aller plus loin, d'approfondir votre réceptivité, ou tout simplement de vivre une première expérience, je serai heureux de vous guider pas à pas dans ce chemin.</p>
 
+        <img src="https://wp.me/acQEVr-1bM" alt="Alain Zenatti" style="max-width: 200px; border-radius: 8px; margin: 20px 0;">
+
         <p><strong>Contactez-moi directement :</strong></p>
         <p>
           📩 <a href="mailto:contact@novahypnose.fr">contact@novahypnose.fr</a><br>
@@ -122,11 +127,27 @@ serve(async (req) => {
           📞 <a href="tel:+33649358089">06 49 35 80 89</a>
         </p>
 
-        <p><a href="https://wp.me/acQEVr-1bM">Voir ma photo</a></p>
         <p><a href="https://www.resalib.fr/praticien/47325-alain-zenatti-hypnotherapeute-paris#newrdvmodal">Prendre rendez-vous</a></p>
-        <p><a href="https://harmonia.novahypnose.fr/">Stressé? Découvrez la formation Harmonia : réduire le stress avec l'auto-hypnose</a></p>
-        <p><a href="https://hypno-balade.novahypnose.fr/">Laissez vous hypnotiser en forêt : Hypno-balade dans le Perche, à 1h30 de Paris</a></p>
-        <p><a href="https://www.instagram.com/novahypnose/">Mon compte Instagram</a></p>
+        
+        <div style="margin: 20px 0;">
+          <a href="https://harmonia.novahypnose.fr/" style="display: block; margin-bottom: 20px;">
+            <img src="http://novahypnose.fr/wp-content/uploads/2025/04/jpg-12.jpg" alt="Harmonia Formation" style="max-width: 100%; border-radius: 8px;">
+            <p>Stressé? Découvrez la formation Harmonia : réduire le stress avec l'auto-hypnose</p>
+          </a>
+          
+          <a href="https://hypno-balade.novahypnose.fr/" style="display: block;">
+            <img src="http://novahypnose.fr/wp-content/uploads/2025/04/jpg-11.jpg" alt="Hypno-balade" style="max-width: 100%; border-radius: 8px;">
+            <p>Laissez vous hypnotiser en forêt : Hypno-balade dans le Perche, à 1h30 de Paris</p>
+          </a>
+        </div>
+
+        <p>
+          <a href="https://www.instagram.com/novahypnose/" style="display: flex; align-items: center; text-decoration: none; color: #000;">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/2048px-Instagram_icon.png" 
+                 width="20" height="20" alt="Instagram" style="margin-right: 8px;">
+            Mon compte Instagram
+          </a>
+        </p>
       </div>
 
       <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee; font-size: 0.9em; color: #666;">
