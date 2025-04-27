@@ -1,3 +1,4 @@
+
 import { questions } from '@/utils/questions';
 import { Slider } from '@/components/ui/slider';
 import { Button } from '@/components/ui/button';
@@ -46,13 +47,13 @@ export const QuestionStep = ({
     <div className="mb-12">
       <ProgressBar 
         currentStep={currentPage + 1} 
-        totalSteps={Math.ceil(questions.length / questionsPerPage)} 
+        totalSteps={3} 
       />
       
       <div className="space-y-8">
         {pageQuestions.map((question, index) => {
           const answer = answers.find(a => a.questionId === question.id);
-          const currentValue = answer ? answer.value : 3; // Default to 3 (neutral) if no answer
+          const currentValue = answer?.value;
           
           return (
             <div key={question.id} className="p-4 bg-white rounded-lg shadow-sm">
@@ -79,7 +80,7 @@ export const QuestionStep = ({
                 
                 <div className="mt-6">
                   <Slider
-                    value={[currentValue]}
+                    value={currentValue ? [currentValue] : []}
                     min={1}
                     max={5}
                     step={1}
