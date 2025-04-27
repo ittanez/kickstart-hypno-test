@@ -20,7 +20,7 @@ const VAKOGQuestions = ({ onAnswerChange, currentAnswers }: VAKOGQuestionsProps)
   return (
     <div className="space-y-8">
       {vakogQuestions.map((question) => {
-        const currentValue = currentAnswers[question.id] ?? 3; // Définir 3 (neutre) comme valeur par défaut
+        const currentValue = currentAnswers[question.id];
 
         return (
           <div key={question.id} className="mb-6">
@@ -43,7 +43,7 @@ const VAKOGQuestions = ({ onAnswerChange, currentAnswers }: VAKOGQuestionsProps)
               </div>
               <div className="mt-6">
                 <Slider
-                  value={[currentValue]}
+                  value={currentValue ? [currentValue] : []}
                   min={1}
                   max={5}
                   step={1}
