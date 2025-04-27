@@ -171,9 +171,9 @@ serve(async (req) => {
       from: `Nova Hypnose <${fromAddress}>`,
       to: [email],
       bcc: ["a.zenatti@gmail.com"],
-      subject: "Vos résultats du test de réceptivité à l'hypnose | Hypnothérapeute Paris",
+      subject: "Félicitations ! Voici votre bilan hypnotique ! ⬇️✨",
       html: htmlContent,
-    })
+    });
 
     console.log("Email response:", JSON.stringify(emailResponse))
 

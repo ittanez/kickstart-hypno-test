@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 const FAQSection = () => {
@@ -34,11 +33,6 @@ const FAQSection = () => {
               <p className="text-gray-600">{item.answer}</p>
             </div>
           ))}
-          <img 
-            src="http://novahypnose.fr/wp-content/uploads/2025/04/image_fx-2.png" 
-            alt="Validation scientifique" 
-            className="mt-4 rounded-lg w-full max-w-md mx-auto"
-          />
         </div>
       </div>
     </section>
