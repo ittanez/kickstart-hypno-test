@@ -8,7 +8,7 @@ export type Question = {
   }[];
 };
 
-// 24 questions related to hypnosis receptivity
+// Réduit à 20 questions sur la réceptivité à l'hypnose
 export const questions: Question[] = [
   {
     id: 1,
@@ -133,7 +133,7 @@ export const questions: Question[] = [
   },
   {
     id: 12,
-    text: "Je me souviens facilement de sensations physiques spécifiques (comme la chaleur du soleil).",
+    text: "Je me souviens facilement de sensations physiques spécifiques.",
     options: [
       { value: 1, text: "Pas du tout d'accord" },
       { value: 2, text: "Plutôt pas d'accord" },
@@ -199,17 +199,6 @@ export const questions: Question[] = [
   },
   {
     id: 18,
-    text: "Je suis souvent dans la lune ou perdu(e) dans mes pensées.",
-    options: [
-      { value: 1, text: "Pas du tout d'accord" },
-      { value: 2, text: "Plutôt pas d'accord" },
-      { value: 3, text: "Neutre" },
-      { value: 4, text: "Plutôt d'accord" },
-      { value: 5, text: "Tout à fait d'accord" }
-    ]
-  },
-  {
-    id: 19,
     text: "Je m'adapte facilement à différentes méthodes de relaxation.",
     options: [
       { value: 1, text: "Pas du tout d'accord" },
@@ -220,18 +209,7 @@ export const questions: Question[] = [
     ]
   },
   {
-    id: 20,
-    text: "J'ai parfois l'impression que mon corps devient plus léger ou plus lourd sans raison physique.",
-    options: [
-      { value: 1, text: "Pas du tout d'accord" },
-      { value: 2, text: "Plutôt pas d'accord" },
-      { value: 3, text: "Neutre" },
-      { value: 4, text: "Plutôt d'accord" },
-      { value: 5, text: "Tout à fait d'accord" }
-    ]
-  },
-  {
-    id: 21,
+    id: 19,
     text: "J'aime les expériences qui sollicitent mon imagination.",
     options: [
       { value: 1, text: "Pas du tout d'accord" },
@@ -242,30 +220,8 @@ export const questions: Question[] = [
     ]
   },
   {
-    id: 22,
+    id: 20,
     text: "Je fais confiance à mon intuition.",
-    options: [
-      { value: 1, text: "Pas du tout d'accord" },
-      { value: 2, text: "Plutôt pas d'accord" },
-      { value: 3, text: "Neutre" },
-      { value: 4, text: "Plutôt d'accord" },
-      { value: 5, text: "Tout à fait d'accord" }
-    ]
-  },
-  {
-    id: 23,
-    text: "Je peux facilement me concentrer sur ma respiration et mon corps.",
-    options: [
-      { value: 1, text: "Pas du tout d'accord" },
-      { value: 2, text: "Plutôt pas d'accord" },
-      { value: 3, text: "Neutre" },
-      { value: 4, text: "Plutôt d'accord" },
-      { value: 5, text: "Tout à fait d'accord" }
-    ]
-  },
-  {
-    id: 24,
-    text: "Il m'arrive de ressentir des états de conscience modifiés (méditation profonde, flow, etc.).",
     options: [
       { value: 1, text: "Pas du tout d'accord" },
       { value: 2, text: "Plutôt pas d'accord" },

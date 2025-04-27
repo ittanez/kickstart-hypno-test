@@ -1,4 +1,3 @@
-
 import { questions } from '@/utils/questions';
 import { Slider } from '@/components/ui/slider';
 import { Button } from '@/components/ui/button';
@@ -19,7 +18,6 @@ export const QuestionStep = ({
   onNext,
   answers,
 }: QuestionStepProps) => {
-  // On définit 4 questions par page
   const questionsPerPage = 4;
   const currentPage = Math.floor(currentQuestionIndex / questionsPerPage);
   const startIndex = currentPage * questionsPerPage;
@@ -115,11 +113,7 @@ export const QuestionStep = ({
           className="hypno-button"
           disabled={!isPageComplete}
         >
-          {currentPage < Math.ceil(questions.length / questionsPerPage) - 1 ? (
-            <>Page suivante <ChevronRight className="ml-1 h-4 w-4" /></>
-          ) : (
-            "Terminer le test"
-          )}
+          Suivant <ChevronRight className="ml-1 h-4 w-4" />
         </Button>
       </div>
     </div>
