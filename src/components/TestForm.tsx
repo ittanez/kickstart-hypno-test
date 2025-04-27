@@ -13,7 +13,6 @@ const TestForm = ({ onComplete }: TestFormProps) => {
   const {
     currentQuestionIndex,
     testState,
-    currentSliderValue,
     answers,
     vakogAnswers,
     email,
@@ -40,10 +39,9 @@ const TestForm = ({ onComplete }: TestFormProps) => {
       {testState === 'questions' ? (
         <QuestionStep
           currentQuestionIndex={currentQuestionIndex}
-          currentSliderValue={currentSliderValue}
           onAnswerSelect={handleAnswerSelection}
           onNext={handleNextQuestion}
-          answers={answers} // Pass answers to QuestionStep
+          answers={answers}
         />
       ) : testState === 'vakog' ? (
         <VAKOGStep

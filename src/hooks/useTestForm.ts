@@ -17,7 +17,6 @@ export const useTestForm = (onComplete: () => void) => {
   const [testState, setTestState] = useState<TestState>('questions');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [currentSliderValue, setCurrentSliderValue] = useState<number>(3);
   const [testResults, setTestResults] = useState<{
     score: number, 
     category: string, 
@@ -27,7 +26,6 @@ export const useTestForm = (onComplete: () => void) => {
   const questionsPerPage = 4;
 
   const handleAnswerSelection = (questionId: number, value: number) => {
-    setCurrentSliderValue(value);
     setAnswers(prevAnswers => {
       const existingAnswerIndex = prevAnswers.findIndex(a => a.questionId === questionId);
       
@@ -59,7 +57,6 @@ export const useTestForm = (onComplete: () => void) => {
     const nextIndex = currentQuestionIndex + questionsPerPage;
     if (nextIndex < questions.length) {
       setCurrentQuestionIndex(nextIndex);
-      setCurrentSliderValue(3);
     } else {
       setTestState('vakog');
     }
@@ -69,9 +66,6 @@ export const useTestForm = (onComplete: () => void) => {
     const prevIndex = currentQuestionIndex - questionsPerPage;
     if (prevIndex >= 0) {
       setCurrentQuestionIndex(prevIndex);
-      const prevPageQuestions = questions.slice(prevIndex, prevIndex + questionsPerPage);
-      const firstAnswer = answers.find(a => a.questionId === prevPageQuestions[0].id);
-      setCurrentSliderValue(firstAnswer?.value || 3);
     }
   };
 
@@ -183,7 +177,6 @@ export const useTestForm = (onComplete: () => void) => {
     testState,
     isSubmitting,
     error,
-    currentSliderValue,
     testResults,
     handleAnswerSelection,
     handleVakogAnswerChange,
