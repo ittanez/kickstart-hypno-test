@@ -3,6 +3,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
+import { Link } from 'react-router-dom';
 
 type EmailStepProps = {
   email: string;
@@ -59,9 +60,9 @@ export const EmailStep = ({
           className="ml-2 text-gray-600 text-sm cursor-pointer"
         >
           J'accepte de recevoir mes résultats par email et je confirme avoir pris connaissance de la{" "}
-          <a href="#" className="text-hypno-primary hover:underline">
+          <Link to="/privacy-policy" className="text-hypno-primary hover:underline">
             politique de confidentialité
-          </a>
+          </Link>
           .
         </Label>
       </div>

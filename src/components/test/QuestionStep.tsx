@@ -72,6 +72,8 @@ export const QuestionStep = ({
                           ? 'bg-hypno-primary text-white'
                           : 'hover:bg-gray-100'
                       }`}
+                      type="button"
+                      aria-label={`Select option: ${label}`}
                     >
                       {label}
                     </button>

@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { toast } from '@/hooks/use-toast';
 import { calculateScore } from '@/utils/calculateScore';
@@ -57,8 +58,12 @@ export const useTestForm = (onComplete: () => void) => {
     const nextIndex = currentQuestionIndex + questionsPerPage;
     if (nextIndex < questions.length) {
       setCurrentQuestionIndex(nextIndex);
+      // Safely scroll to top
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
       setTestState('vakog');
+      // Safely scroll to top
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
@@ -66,11 +71,15 @@ export const useTestForm = (onComplete: () => void) => {
     const prevIndex = currentQuestionIndex - questionsPerPage;
     if (prevIndex >= 0) {
       setCurrentQuestionIndex(prevIndex);
+      // Safely scroll to top
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
   const handleVakogComplete = () => {
     setTestState('email');
+    // Safely scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -94,6 +103,17 @@ export const useTestForm = (onComplete: () => void) => {
       return;
     }
     
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      toast({
+        title: "Email invalide",
+        description: "Veuillez saisir une adresse email valide.",
+        variant: "destructive"
+      });
+      return;
+    }
+    
     setIsSubmitting(true);
     setError(null);
     
@@ -108,10 +128,12 @@ export const useTestForm = (onComplete: () => void) => {
       
       setTestResults(finalResults);
       
+      const sanitizedEmail = email.trim().toLowerCase();
+      
       const { error: supabaseError } = await supabase
         .from('quiz_results')
         .insert({
-          user_email: email,
+          user_email: sanitizedEmail,
           answers: JSON.stringify(answers),
           vakog_answers: JSON.stringify(vakogAnswers),
           total_score: result.score,
@@ -126,7 +148,7 @@ export const useTestForm = (onComplete: () => void) => {
       
       const emailResponse = await supabase.functions.invoke('send-test-results', {
         body: JSON.stringify({
-          email,
+          email: sanitizedEmail,
           score: result.score,
           category: result.category,
           description: result.description,
