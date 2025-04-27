@@ -38,6 +38,15 @@ export const QuestionStep = ({
     }
   };
 
+  const handleNext = (e: React.MouseEvent<HTMLButtonElement>) => {
+    // Prevent any default behavior and event propagation
+    e.preventDefault();
+    e.stopPropagation();
+    
+    // Call the onNext function directly
+    onNext();
+  };
+
   const isPageComplete = pageQuestions.every((question) => {
     const answer = answers.find(a => a.questionId === question.id);
     return answer !== undefined;
@@ -112,7 +121,7 @@ export const QuestionStep = ({
         
         <Button
           type="button"
-          onClick={onNext}
+          onClick={handleNext}
           className="hypno-button"
           disabled={!isPageComplete}
         >

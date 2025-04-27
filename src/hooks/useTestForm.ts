@@ -1,5 +1,4 @@
-
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { toast } from '@/hooks/use-toast';
 import { calculateScore } from '@/utils/calculateScore';
 import { supabase } from '@/integrations/supabase/client';
@@ -24,9 +23,8 @@ export const useTestForm = (onComplete: () => void) => {
     description: string,
     senseDominant: string
   } | null>(null);
-  const questionsPerPage = 4;
 
-  const handleAnswerSelection = (questionId: number, value: number) => {
+  const handleAnswerSelection = useCallback((questionId: number, value: number) => {
     setAnswers(prevAnswers => {
       const existingAnswerIndex = prevAnswers.findIndex(a => a.questionId === questionId);
       
@@ -38,9 +36,9 @@ export const useTestForm = (onComplete: () => void) => {
         return [...prevAnswers, { questionId, value }];
       }
     });
-  };
+  }, []);
 
-  const handleVakogAnswerChange = (questionId: string, value: number) => {
+  const handleVakogAnswerChange = useCallback((questionId: string, value: number) => {
     setVakogAnswers(prevAnswers => {
       const existingAnswerIndex = prevAnswers.findIndex(a => a.questionId === questionId);
       
@@ -52,9 +50,10 @@ export const useTestForm = (onComplete: () => void) => {
         return [...prevAnswers, { questionId, value }];
       }
     });
-  };
+  }, []);
 
-  const handleNextQuestion = () => {
+  const handleNextQuestion = useCallback(() => {
+    const questionsPerPage = 10;
     const nextIndex = currentQuestionIndex + questionsPerPage;
     if (nextIndex < questions.length) {
       setCurrentQuestionIndex(nextIndex);
@@ -65,22 +64,23 @@ export const useTestForm = (onComplete: () => void) => {
       // Safely scroll to top
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-  };
+  }, [currentQuestionIndex]);
 
-  const handlePreviousQuestion = () => {
+  const handlePreviousQuestion = useCallback(() => {
+    const questionsPerPage = 10;
     const prevIndex = currentQuestionIndex - questionsPerPage;
     if (prevIndex >= 0) {
       setCurrentQuestionIndex(prevIndex);
       // Safely scroll to top
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-  };
+  }, [currentQuestionIndex]);
 
-  const handleVakogComplete = () => {
+  const handleVakogComplete = useCallback(() => {
     setTestState('email');
     // Safely scroll to top
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
