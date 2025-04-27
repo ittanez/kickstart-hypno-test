@@ -1,3 +1,4 @@
+
 export type VAKOGQuestion = {
   id: string;
   text: string;
@@ -51,7 +52,7 @@ export const vakogQuestions: VAKOGQuestion[] = [
     type: "O"
   },
   {
-    id: "g2",
+    id: "g2", 
     text: "Je me souviens facilement des goûts et des expériences gustatives",
     type: "G"
   }

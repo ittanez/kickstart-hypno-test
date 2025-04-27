@@ -18,7 +18,7 @@ export const QuestionStep = ({
   onNext,
   answers,
 }: QuestionStepProps) => {
-  const questionsPerPage = 4;
+  const questionsPerPage = 10;
   const currentPage = Math.floor(currentQuestionIndex / questionsPerPage);
   const startIndex = currentPage * questionsPerPage;
   const pageQuestions = questions.slice(startIndex, startIndex + questionsPerPage);
