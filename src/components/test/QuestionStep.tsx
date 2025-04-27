@@ -8,18 +8,16 @@ import { Answer } from '@/utils/calculateScore';
 
 type QuestionStepProps = {
   currentQuestionIndex: number;
-  currentSliderValue: number;
   onAnswerSelect: (questionId: number, value: number) => void;
   onNext: () => void;
-  answers: Answer[]; // Add answers prop
+  answers: Answer[];
 };
 
 export const QuestionStep = ({
   currentQuestionIndex,
-  currentSliderValue,
   onAnswerSelect,
   onNext,
-  answers, // Add answers to destructuring
+  answers,
 }: QuestionStepProps) => {
   // On définit 4 questions par page
   const questionsPerPage = 4;
@@ -54,46 +52,51 @@ export const QuestionStep = ({
       />
       
       <div className="space-y-8">
-        {pageQuestions.map((question, index) => (
-          <div key={question.id} className="p-4 bg-white rounded-lg shadow-sm">
-            <div className="text-lg font-medium mb-6">
-              {question.text}
-            </div>
-            
-            <div className="px-4">
-              <div className="flex justify-between mb-4 text-sm text-gray-600">
-                {Object.entries(valueLabels).map(([value, label]) => (
-                  <button
-                    key={value}
-                    onClick={() => onAnswerSelect(question.id, Number(value))}
-                    className={`px-3 py-2 rounded text-center transition-colors ${
-                      currentSliderValue === Number(value)
-                        ? 'bg-hypno-primary text-white'
-                        : 'hover:bg-gray-100'
-                    }`}
-                  >
-                    {label}
-                  </button>
-                ))}
+        {pageQuestions.map((question, index) => {
+          const answer = answers.find(a => a.questionId === question.id);
+          const currentValue = answer ? answer.value : 3; // Default to 3 (neutral) if no answer
+          
+          return (
+            <div key={question.id} className="p-4 bg-white rounded-lg shadow-sm">
+              <div className="text-lg font-medium mb-6">
+                {question.text}
               </div>
               
-              <div className="mt-6">
-                <Slider
-                  value={[currentSliderValue]}
-                  min={1}
-                  max={5}
-                  step={1}
-                  onValueChange={(value) => onAnswerSelect(question.id, value[0])}
-                  className="w-full"
-                />
-                <div className="flex justify-between mt-2 text-xs text-gray-500">
-                  <span>{valueLabels[1]}</span>
-                  <span>{valueLabels[5]}</span>
+              <div className="px-4">
+                <div className="flex justify-between mb-4 text-sm text-gray-600">
+                  {Object.entries(valueLabels).map(([value, label]) => (
+                    <button
+                      key={value}
+                      onClick={() => onAnswerSelect(question.id, Number(value))}
+                      className={`px-3 py-2 rounded text-center transition-colors ${
+                        currentValue === Number(value)
+                          ? 'bg-hypno-primary text-white'
+                          : 'hover:bg-gray-100'
+                      }`}
+                    >
+                      {label}
+                    </button>
+                  ))}
+                </div>
+                
+                <div className="mt-6">
+                  <Slider
+                    value={[currentValue]}
+                    min={1}
+                    max={5}
+                    step={1}
+                    onValueChange={(value) => onAnswerSelect(question.id, value[0])}
+                    className="w-full"
+                  />
+                  <div className="flex justify-between mt-2 text-xs text-gray-500">
+                    <span>{valueLabels[1]}</span>
+                    <span>{valueLabels[5]}</span>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
       
       <div className="flex justify-between mt-8">
