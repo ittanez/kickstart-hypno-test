@@ -18,7 +18,12 @@ export const QuestionStep = ({
   onAnswerSelect,
   onNext,
 }: QuestionStepProps) => {
-  const currentQuestion = questions[currentQuestionIndex];
+  // On définit 4 questions par page
+  const questionsPerPage = 4;
+  const currentPage = Math.floor(currentQuestionIndex / questionsPerPage);
+  const startIndex = currentPage * questionsPerPage;
+  const pageQuestions = questions.slice(startIndex, startIndex + questionsPerPage);
+  
   const valueLabels = {
     1: "Pas du tout d'accord",
     2: "Plutôt pas d'accord",
@@ -33,57 +38,59 @@ export const QuestionStep = ({
     }
   };
 
-  const handleAnswerSelect = (value: number) => {
-    onAnswerSelect(currentQuestion.id, value);
-    if (currentQuestionIndex < questions.length - 1) {
-      setTimeout(() => onNext(), 300);
-    }
-  };
+  const isPageComplete = pageQuestions.every((question) => {
+    const answer = answers.find(a => a.questionId === question.id);
+    return answer !== undefined;
+  });
 
   return (
     <div className="mb-12">
       <ProgressBar 
-        currentStep={currentQuestionIndex + 1} 
-        totalSteps={questions.length} 
+        currentStep={currentPage + 1} 
+        totalSteps={Math.ceil(questions.length / questionsPerPage)} 
       />
       
       <div className="space-y-8">
-        <div className="text-lg font-medium text-center mb-6">
-          {currentQuestion.text}
-        </div>
-        
-        <div className="px-4">
-          <div className="flex justify-between mb-4 text-sm text-gray-600">
-            {Object.entries(valueLabels).map(([value, label]) => (
-              <button
-                key={value}
-                onClick={() => handleAnswerSelect(Number(value))}
-                className={`px-3 py-2 rounded text-center transition-colors ${
-                  currentSliderValue === Number(value)
-                    ? 'bg-hypno-primary text-white'
-                    : 'hover:bg-gray-100'
-                }`}
-              >
-                {label}
-              </button>
-            ))}
-          </div>
-          
-          <div className="mt-6">
-            <Slider
-              value={[currentSliderValue]}
-              min={1}
-              max={5}
-              step={1}
-              onValueChange={(value) => handleAnswerSelect(value[0])}
-              className="w-full"
-            />
-            <div className="flex justify-between mt-2 text-xs text-gray-500">
-              <span>{valueLabels[1]}</span>
-              <span>{valueLabels[5]}</span>
+        {pageQuestions.map((question, index) => (
+          <div key={question.id} className="p-4 bg-white rounded-lg shadow-sm">
+            <div className="text-lg font-medium mb-6">
+              {question.text}
+            </div>
+            
+            <div className="px-4">
+              <div className="flex justify-between mb-4 text-sm text-gray-600">
+                {Object.entries(valueLabels).map(([value, label]) => (
+                  <button
+                    key={value}
+                    onClick={() => onAnswerSelect(question.id, Number(value))}
+                    className={`px-3 py-2 rounded text-center transition-colors ${
+                      currentSliderValue === Number(value)
+                        ? 'bg-hypno-primary text-white'
+                        : 'hover:bg-gray-100'
+                    }`}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+              
+              <div className="mt-6">
+                <Slider
+                  value={[currentSliderValue]}
+                  min={1}
+                  max={5}
+                  step={1}
+                  onValueChange={(value) => onAnswerSelect(question.id, value[0])}
+                  className="w-full"
+                />
+                <div className="flex justify-between mt-2 text-xs text-gray-500">
+                  <span>{valueLabels[1]}</span>
+                  <span>{valueLabels[5]}</span>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+        ))}
       </div>
       
       <div className="flex justify-between mt-8">
@@ -91,18 +98,19 @@ export const QuestionStep = ({
           type="button"
           onClick={handlePrevious}
           className="bg-gray-200 text-gray-800 hover:bg-gray-300"
-          disabled={currentQuestionIndex === 0}
+          disabled={currentPage === 0}
         >
-          <ChevronLeft className="mr-1 h-4 w-4" /> Question précédente
+          <ChevronLeft className="mr-1 h-4 w-4" /> Page précédente
         </Button>
         
         <Button
           type="button"
           onClick={onNext}
           className="hypno-button"
+          disabled={!isPageComplete}
         >
-          {currentQuestionIndex < questions.length - 1 ? (
-            <>Question suivante <ChevronRight className="ml-1 h-4 w-4" /></>
+          {currentPage < Math.ceil(questions.length / questionsPerPage) - 1 ? (
+            <>Page suivante <ChevronRight className="ml-1 h-4 w-4" /></>
           ) : (
             "Terminer le test"
           )}

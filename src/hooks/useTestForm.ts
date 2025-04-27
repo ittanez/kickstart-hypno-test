@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { toast } from '@/hooks/use-toast';
 import { calculateScore } from '@/utils/calculateScore';
@@ -25,6 +24,7 @@ export const useTestForm = (onComplete: () => void) => {
     description: string,
     senseDominant: string
   } | null>(null);
+  const questionsPerPage = 4;
 
   const handleAnswerSelection = (questionId: number, value: number) => {
     setCurrentSliderValue(value);
@@ -55,23 +55,23 @@ export const useTestForm = (onComplete: () => void) => {
     });
   };
 
-  const handlePreviousQuestion = () => {
-    if (currentQuestionIndex > 0) {
-      setCurrentQuestionIndex(prevIndex => prevIndex - 1);
-      const prevQuestion = questions[currentQuestionIndex - 1];
-      const prevAnswer = answers.find(a => a.questionId === prevQuestion.id);
-      setCurrentSliderValue(prevAnswer?.value || 3);
+  const handleNextQuestion = () => {
+    const nextIndex = currentQuestionIndex + questionsPerPage;
+    if (nextIndex < questions.length) {
+      setCurrentQuestionIndex(nextIndex);
+      setCurrentSliderValue(3);
+    } else {
+      setTestState('vakog');
     }
   };
 
-  const handleNextQuestion = () => {
-    if (currentQuestionIndex < questions.length - 1) {
-      setCurrentQuestionIndex(prevIndex => prevIndex + 1);
-      const nextQuestion = questions[currentQuestionIndex + 1];
-      const nextAnswer = answers.find(a => a.questionId === nextQuestion.id);
-      setCurrentSliderValue(nextAnswer?.value || 3);
-    } else {
-      setTestState('vakog');
+  const handlePreviousQuestion = () => {
+    const prevIndex = currentQuestionIndex - questionsPerPage;
+    if (prevIndex >= 0) {
+      setCurrentQuestionIndex(prevIndex);
+      const prevPageQuestions = questions.slice(prevIndex, prevIndex + questionsPerPage);
+      const firstAnswer = answers.find(a => a.questionId === prevPageQuestions[0].id);
+      setCurrentSliderValue(firstAnswer?.value || 3);
     }
   };
 
