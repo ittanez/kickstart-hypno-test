@@ -4,12 +4,14 @@ import { Slider } from '@/components/ui/slider';
 import { Button } from '@/components/ui/button';
 import { ChevronRight, ChevronLeft } from 'lucide-react';
 import ProgressBar from '@/components/ProgressBar';
+import { Answer } from '@/utils/calculateScore';
 
 type QuestionStepProps = {
   currentQuestionIndex: number;
   currentSliderValue: number;
   onAnswerSelect: (questionId: number, value: number) => void;
   onNext: () => void;
+  answers: Answer[]; // Add answers prop
 };
 
 export const QuestionStep = ({
@@ -17,6 +19,7 @@ export const QuestionStep = ({
   currentSliderValue,
   onAnswerSelect,
   onNext,
+  answers, // Add answers to destructuring
 }: QuestionStepProps) => {
   // On définit 4 questions par page
   const questionsPerPage = 4;

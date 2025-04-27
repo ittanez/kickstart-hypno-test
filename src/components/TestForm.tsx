@@ -14,6 +14,7 @@ const TestForm = ({ onComplete }: TestFormProps) => {
     currentQuestionIndex,
     testState,
     currentSliderValue,
+    answers,
     vakogAnswers,
     email,
     gdprConsent,
@@ -42,6 +43,7 @@ const TestForm = ({ onComplete }: TestFormProps) => {
           currentSliderValue={currentSliderValue}
           onAnswerSelect={handleAnswerSelection}
           onNext={handleNextQuestion}
+          answers={answers} // Pass answers to QuestionStep
         />
       ) : testState === 'vakog' ? (
         <VAKOGStep
