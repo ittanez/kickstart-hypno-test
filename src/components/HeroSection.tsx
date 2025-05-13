@@ -25,7 +25,7 @@ const HeroSection = ({ onStartTest }: HeroSectionProps) => {
                 🧠 Test gratuit : Révélez votre potentiel caché
               </h2>
               <img 
-                src="http://novahypnose.fr/wp-content/uploads/2025/04/portrait-d-un-personne-35-45-ans-heureuse-qui-se-.jpg"
+                src="/lovable-uploads/47a992e1-ac95-4312-be40-34fe4b31f124.png"
                 alt="Découvrez votre potentiel hypnotique"
                 className="rounded-lg shadow-lg max-w-2xl mx-auto mb-8"
               />
