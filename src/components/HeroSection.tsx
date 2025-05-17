@@ -17,23 +17,23 @@ const HeroSection = ({ onStartTest }: HeroSectionProps) => {
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-8">
             <h1 className="mb-6 text-4xl md:text-5xl font-bold">
-              Suis-je hypnotisable ?<br />
-              <span className="text-2xl md:text-3xl">Découvrez-le en 2 minutes !</span>
+              Test d'hypnose gratuit à Paris<br />
+              <span className="text-2xl md:text-3xl">Suis-je hypnotisable ? Découvrez-le en 2 minutes</span>
             </h1>
             <div className="mb-8">
               <h2 className="text-xl md:text-2xl font-semibold text-hypno-primary mb-4">
-                🧠 Test gratuit : Révélez votre potentiel caché
+                🧠 Test gratuit avec votre hypnothérapeute à Paris : Révélez votre potentiel hypnotique
               </h2>
               <img 
                 src="/lovable-uploads/26ce25bb-25a8-4a47-96b2-0d6994c5c0f3.png"
-                alt="Découvrez votre potentiel hypnotique"
+                alt="Découvrez votre potentiel hypnotique avec un hypnothérapeute à Paris"
                 className="rounded-lg shadow-lg max-w-2xl mx-auto mb-8"
               />
               <p className="text-lg text-gray-700 mb-6">
-                Vous vous êtes toujours demandé si l'hypnose pourrait fonctionner sur vous ? Vous n'êtes pas seul ! C'est LA question que tout le monde se pose.
+                Vous vous êtes toujours demandé si l'hypnose pourrait fonctionner sur vous ? Vous cherchez un hypnothérapeute à Paris pour gérer votre stress, anxiété ou améliorer votre confiance en soi ?
               </p>
               <p className="text-lg text-gray-700">
-                Notre test rapide vous révèle immédiatement votre niveau de réceptivité et comment l'utiliser pour transformer votre vie quotidienne.
+                Notre cabinet d'hypnose à Paris vous propose ce test rapide qui révèle immédiatement votre niveau de réceptivité et comment l'utiliser pour transformer votre quotidien.
               </p>
             </div>
             <Button
