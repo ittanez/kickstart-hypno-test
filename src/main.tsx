@@ -3,9 +3,9 @@ import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
 
-// Ensure hydration happens correctly for static site
+// Assurer une hydratation correcte pour le site statique
 const rootElement = document.getElementById("root");
-if (!rootElement) throw new Error("Failed to find the root element");
+if (!rootElement) throw new Error("Élément racine non trouvé");
 
 const root = createRoot(rootElement);
 root.render(<App />);
