@@ -25,7 +25,7 @@ const HeroSection = ({ onStartTest }: HeroSectionProps) => {
                 🧠 Test gratuit : Révélez votre potentiel caché
               </h2>
               <img 
-                src="/lovable-uploads/47a992e1-ac95-4312-be40-34fe4b31f124.png"
+                src="/lovable-uploads/b2c94af8-e7ef-4638-85ea-e98778c939a3.png"
                 alt="Découvrez votre potentiel hypnotique"
                 className="rounded-lg shadow-lg max-w-2xl mx-auto mb-8"
               />
