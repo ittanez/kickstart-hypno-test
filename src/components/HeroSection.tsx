@@ -28,6 +28,9 @@ const HeroSection = ({ onStartTest }: HeroSectionProps) => {
                 src="/lovable-uploads/26ce25bb-25a8-4a47-96b2-0d6994c5c0f3.png"
                 alt="Découvrez votre potentiel hypnotique avec un hypnothérapeute à Paris"
                 className="rounded-lg shadow-lg max-w-2xl mx-auto mb-8"
+                width="768"
+                height="432"
+                loading="eager"
               />
               <p className="text-lg text-gray-700 mb-6">
                 Vous vous êtes toujours demandé si l'hypnose pourrait fonctionner sur vous ? Vous cherchez un hypnothérapeute à Paris pour gérer votre stress, anxiété ou améliorer votre confiance en soi ?

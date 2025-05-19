@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import HeroSection from '@/components/HeroSection';
 import StepsSection from '@/components/StepsSection';
 import FAQSection from '@/components/FAQSection';
@@ -10,20 +10,36 @@ import NavMenu from '@/components/NavMenu';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { Button } from '@/components/ui/button';
+import SEOSchema from '@/components/SEOSchema';
 
 type AppState = 'landing' | 'testing' | 'completed';
 
 const Index = () => {
   const [appState, setAppState] = useState<AppState>('landing');
   
+  // Prérendu statique : capture l'état initial pour le code source HTML
+  useEffect(() => {
+    // Effet uniquement côté client, n'affecte pas le prérendu
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('step') === 'test') {
+      setAppState('testing');
+    } else if (params.get('step') === 'completed') {
+      setAppState('completed');
+    }
+  }, []);
+  
   const handleStartTest = () => {
     setAppState('testing');
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Mise à jour de l'URL pour permettre le partage direct et le retour
+    window.history.pushState({}, '', '?step=test');
   };
   
   const handleTestComplete = () => {
     setAppState('completed');
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Mise à jour de l'URL pour permettre le partage direct
+    window.history.pushState({}, '', '?step=completed');
   };
   
   return (
@@ -31,11 +47,13 @@ const Index = () => {
       <Helmet>
         <title>HypnoKick - Test de réceptivité à l'hypnose | Hypnothérapeute Paris</title>
         <meta name="description" content="Découvrez votre potentiel hypnotique avec notre test scientifique gratuit. Hypnothérapie Paris pour stress, confiance en soi, sommeil, addictions. Cabinet d'hypnose à Paris." />
-        <meta name="keywords" content="hypnothérapeute Paris, hypnose Paris, hypnothérapie Paris, séance hypnose Paris, cabinet hypnose Paris, hypnose confiance en soi Paris, hypnose stress Paris, hypnose anxiété Paris, hypnose arrêt tabac Paris" />
+        <meta name="keywords" content="hypnothérapeute Paris, hypnose Paris, hypnothérapie Paris, séance hypnose Paris, cabinet hypnose Paris, hypnose confiance en soi Paris, hypnose stress Paris, hypnose anxiété Paris, hypnose arrêt tabac Paris, hypnose sommeil Paris, test hypnose, réceptivité hypnose" />
         <meta property="og:title" content="HypnoKick - Test de réceptivité à l'hypnose | Hypnothérapeute Paris" />
         <meta property="og:description" content="Découvrez votre potentiel hypnotique avec notre test scientifique gratuit. Consultations d'hypnose à Paris pour stress, confiance en soi et bien-être." />
-        <link rel="canonical" href="https://hypnokick.fr/" />
+        <link rel="canonical" href="https://hypnokick.novahypnose.fr/" />
       </Helmet>
+      
+      <SEOSchema />
       
       <header className="py-4 border-b border-gray-100">
         <div className="container mx-auto px-4">
@@ -43,6 +61,7 @@ const Index = () => {
             <Link to="/" className="text-2xl font-bold">
               <span className="text-hypno-primary">Hypno</span>
               <span className="text-hypno-accent">Kick</span>
+              <h1 className="text-sm md:text-base text-gray-700 font-normal">Test de réceptivité à l'hypnose à Paris</h1>
             </Link>
             <div className="hidden md:flex">
               <NavMenu />
