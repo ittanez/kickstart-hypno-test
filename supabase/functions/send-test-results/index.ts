@@ -39,13 +39,29 @@ serve(async (req) => {
   }
 
   try {
-    const { email, score, category, description, senseDominant } = await req.json()
+    // Add cache control headers to prevent caching
+    const responseHeaders = {
+      ...corsHeaders,
+      'Content-Type': 'application/json',
+      'Cache-Control': 'no-cache, no-store, must-revalidate',
+      'Pragma': 'no-cache',
+      'Expires': '0'
+    };
+
+    const { email, score, category, description, senseDominant, timestamp } = await req.json();
+    console.log("Request received at:", new Date().toISOString(), "Timestamp:", timestamp);
 
     if (!email) {
       throw new Error('Email is required')
     }
 
-    console.log("Sending email to:", email, "with score:", score, "category:", category, "dominant sense:", senseDominant)
+    console.log("Sending email to:", email, "with score:", score, "category:", category, "dominant sense:", senseDominant);
+
+    // Use absolute URLs for images to ensure they load correctly
+    const siteUrl = "https://hypnokick.lovable.dev";
+    const profileImageUrl = `${siteUrl}/lovable-uploads/a1267f0b-ddff-41b6-b3cd-d1918244801a.png`;
+    const harmoniaImageUrl = `${siteUrl}/lovable-uploads/eebadfba-d704-4c06-82b4-3d35a56ab73a.png`;
+    const hypnoBalabeImageUrl = `${siteUrl}/lovable-uploads/e964f1b6-cc11-474c-87db-22e05f2ae046.png`;
 
     const htmlContent = `
       <!DOCTYPE html>
@@ -103,7 +119,7 @@ serve(async (req) => {
               </div>
 
               <div style="text-align: center; margin: 20px 0;">
-                  <img src="/lovable-uploads/a1267f0b-ddff-41b6-b3cd-d1918244801a.png" 
+                  <img src="${profileImageUrl}" 
                        alt="Alain Zenatti - Hypnothérapeute à Paris"
                        style="border-radius: 50%; max-width: 200px; border: 3px solid #3498db;">
               </div>
@@ -140,13 +156,13 @@ serve(async (req) => {
           <div style="margin: 30px 0;">
               <a href="https://harmonia.novahypnose.fr/">
                   <img style="width: 100%; max-width: 500px; height: auto; display: block; margin: 20px auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);" 
-                       src="/lovable-uploads/eebadfba-d704-4c06-82b4-3d35a56ab73a.png" 
+                       src="${harmoniaImageUrl}" 
                        alt="Formation Harmonia">
               </a>
               
               <a href="https://hypno-balade.novahypnose.fr/">
                   <img style="width: 100%; max-width: 500px; height: auto; display: block; margin: 20px auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);" 
-                       src="/lovable-uploads/e964f1b6-cc11-474c-87db-22e05f2ae046.png" 
+                       src="${hypnoBalabeImageUrl}" 
                        alt="Hypno-balade dans le Perche">
               </a>
           </div>
@@ -190,10 +206,7 @@ serve(async (req) => {
         description
       }), {
         status: 200,
-        headers: {
-          "Content-Type": "application/json",
-          ...corsHeaders,
-        },
+        headers: responseHeaders,
       })
     }
 
@@ -203,10 +216,7 @@ serve(async (req) => {
       data: emailResponse
     }), {
       status: 200,
-      headers: {
-        "Content-Type": "application/json",
-        ...corsHeaders,
-      },
+      headers: responseHeaders,
     })
   } catch (error: any) {
     console.error("Error in send-test-results function:", error)

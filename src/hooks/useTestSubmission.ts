@@ -87,13 +87,16 @@ export const useTestSubmission = () => {
         throw new Error(`Erreur de base de données: ${supabaseError.message}`);
       }
       
+      // Force refresh of the edge function by adding a timestamp parameter
+      const timestamp = new Date().getTime();
       const emailResponse = await supabase.functions.invoke('send-test-results', {
         body: JSON.stringify({
           email: sanitizedEmail,
           score: result.score,
           category: result.category,
           description: result.description,
-          senseDominant
+          senseDominant,
+          timestamp // Add timestamp to force cache invalidation
         })
       });
       
