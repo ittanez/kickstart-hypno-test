@@ -1,3 +1,4 @@
+
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
 import { Resend } from "npm:resend@2.0.0"
 
@@ -102,7 +103,7 @@ serve(async (req) => {
               </div>
 
               <div style="text-align: center; margin: 20px 0;">
-                  <img src="https://wp.me/acQEVr-1bM" 
+                  <img src="/lovable-uploads/a1267f0b-ddff-41b6-b3cd-d1918244801a.png" 
                        alt="Alain Zenatti - Hypnothérapeute à Paris"
                        style="border-radius: 50%; max-width: 200px; border: 3px solid #3498db;">
               </div>
@@ -139,13 +140,13 @@ serve(async (req) => {
           <div style="margin: 30px 0;">
               <a href="https://harmonia.novahypnose.fr/">
                   <img style="width: 100%; max-width: 500px; height: auto; display: block; margin: 20px auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);" 
-                       src="https://novahypnose.fr/wp-content/uploads/2025/04/jpg-12.jpg" 
+                       src="/lovable-uploads/eebadfba-d704-4c06-82b4-3d35a56ab73a.png" 
                        alt="Formation Harmonia">
               </a>
               
               <a href="https://hypno-balade.novahypnose.fr/">
                   <img style="width: 100%; max-width: 500px; height: auto; display: block; margin: 20px auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);" 
-                       src="https://novahypnose.fr/wp-content/uploads/2025/04/jpg-11.jpg" 
+                       src="/lovable-uploads/e964f1b6-cc11-474c-87db-22e05f2ae046.png" 
                        alt="Hypno-balade dans le Perche">
               </a>
           </div>
