@@ -33,6 +33,38 @@
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
 
+[[headers]]
+  for = "/feed.xml"
+  [headers.values]
+    Content-Type = "application/rss+xml; charset=UTF-8"
+    Cache-Control = "public, max-age=3600"
+
+# Redirections pour corriger les erreurs 404 détectées par Google Search Console
+[[redirects]]
+  from = "/author/*/feed/*"
+  to = "/feed.xml"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/category/*/feed/*"
+  to = "/feed.xml"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/feed/"
+  to = "/feed.xml"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/*/feed/"
+  to = "/feed.xml"
+  status = 301
+  force = true
+
+# Redirection générale pour SPA
 [[redirects]]
   from = "/*"
   to = "/index.html"

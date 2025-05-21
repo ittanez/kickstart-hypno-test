@@ -1,0 +1,31 @@
+
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/"
+  xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:atom="http://www.w3.org/2005/Atom"
+  xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+  xmlns:slash="http://purl.org/rss/1.0/modules/slash/">
+
+  <channel>
+    <title>HypnoKick - Test de réceptivité à l'hypnose | Hypnothérapeute Paris</title>
+    <atom:link href="https://hypnokick.novahypnose.fr/feed.xml" rel="self" type="application/rss+xml" />
+    <link>https://hypnokick.novahypnose.fr/</link>
+    <description>Découvrez votre potentiel hypnotique avec notre test scientifique gratuit. Consultations d'hypnothérapie à Paris pour stress, anxiété, confiance en soi, sommeil et arrêt du tabac.</description>
+    <lastBuildDate>Tue, 21 May 2025 12:00:00 +0000</lastBuildDate>
+    <language>fr-FR</language>
+    <sy:updatePeriod>monthly</sy:updatePeriod>
+    <sy:updateFrequency>1</sy:updateFrequency>
+    
+    <item>
+      <title>Test de réceptivité à l'hypnose - Découvrez votre potentiel</title>
+      <link>https://hypnokick.novahypnose.fr/</link>
+      <pubDate>Tue, 19 May 2025 10:00:00 +0000</pubDate>
+      <dc:creator>Alain Zenatti</dc:creator>
+      <category>Hypnose</category>
+      <guid isPermaLink="true">https://hypnokick.novahypnose.fr/</guid>
+      <description>Découvrez votre potentiel hypnotique avec notre test scientifique gratuit. Un outil simple pour évaluer votre réceptivité à l'hypnose.</description>
+    </item>
+  </channel>
+</rss>
