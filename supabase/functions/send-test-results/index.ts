@@ -59,7 +59,7 @@ serve(async (req) => {
 
     // Use absolute URLs for images to ensure they load correctly
     const siteUrl = "https://hypnokick.lovable.dev";
-    const profileImageUrl = `${siteUrl}/lovable-uploads/a1267f0b-ddff-41b6-b3cd-d1918244801a.png`;
+    const alainZenattiImageUrl = `${siteUrl}/lovable-uploads/a1267f0b-ddff-41b6-b3cd-d1918244801a.png`;
     const harmoniaImageUrl = `${siteUrl}/lovable-uploads/eebadfba-d704-4c06-82b4-3d35a56ab73a.png`;
     const hypnoBalabeImageUrl = `${siteUrl}/lovable-uploads/e964f1b6-cc11-474c-87db-22e05f2ae046.png`;
 
@@ -119,9 +119,9 @@ serve(async (req) => {
               </div>
 
               <div style="text-align: center; margin: 20px 0;">
-                  <img src="${profileImageUrl}" 
+                  <img src="${alainZenattiImageUrl}" 
                        alt="Alain Zenatti - Hypnothérapeute à Paris"
-                       style="border-radius: 50%; max-width: 200px; border: 3px solid #3498db;">
+                       style="width: 100%; max-width: 500px; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
               </div>
               
               <p>Je suis Alain Zenatti, hypnothérapeute à Paris, spécialisé en hypnose ericksonienne et en auto-hypnose.</p>

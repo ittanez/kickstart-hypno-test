@@ -124,6 +124,7 @@ export type Database = {
         Row: {
           author: string | null
           categories: string[] | null
+          category: string | null
           content: string
           created_at: string | null
           excerpt: string | null
@@ -131,6 +132,7 @@ export type Database = {
           id: string
           image_url: string | null
           published: boolean | null
+          scheduled_for: string | null
           slug: string | null
           tags: string[] | null
           title: string
@@ -139,6 +141,7 @@ export type Database = {
         Insert: {
           author?: string | null
           categories?: string[] | null
+          category?: string | null
           content: string
           created_at?: string | null
           excerpt?: string | null
@@ -146,6 +149,7 @@ export type Database = {
           id?: string
           image_url?: string | null
           published?: boolean | null
+          scheduled_for?: string | null
           slug?: string | null
           tags?: string[] | null
           title: string
@@ -154,6 +158,7 @@ export type Database = {
         Update: {
           author?: string | null
           categories?: string[] | null
+          category?: string | null
           content?: string
           created_at?: string | null
           excerpt?: string | null
@@ -161,6 +166,7 @@ export type Database = {
           id?: string
           image_url?: string | null
           published?: boolean | null
+          scheduled_for?: string | null
           slug?: string | null
           tags?: string[] | null
           title?: string
