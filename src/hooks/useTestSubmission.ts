@@ -87,7 +87,6 @@ export const useTestSubmission = () => {
         throw new Error(`Erreur de base de données: ${supabaseError.message}`);
       }
       
-      // Force refresh with multiple cache-busting strategies
       const timestamp = Date.now();
       const randomId = Math.random().toString(36).substring(7);
       
@@ -105,14 +104,8 @@ export const useTestSubmission = () => {
           description: result.description,
           senseDominant,
           timestamp,
-          randomId,
-          forceRefresh: true
-        }),
-        headers: {
-          'Cache-Control': 'no-cache, no-store, must-revalidate',
-          'Pragma': 'no-cache',
-          'Expires': '0'
-        }
+          randomId
+        })
       });
       
       console.log("=== RÉPONSE FONCTION EDGE ===");

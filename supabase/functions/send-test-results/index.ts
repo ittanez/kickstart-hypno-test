@@ -6,7 +6,7 @@ const resend = new Resend(Deno.env.get("RESEND_API_KEY"))
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, cache-control, pragma, expires',
 }
 
 const getExerciseForScore = (score: number): string => {
@@ -39,13 +39,9 @@ serve(async (req) => {
   }
 
   try {
-    // Add cache control headers to prevent caching
     const responseHeaders = {
       ...corsHeaders,
       'Content-Type': 'application/json',
-      'Cache-Control': 'no-cache, no-store, must-revalidate',
-      'Pragma': 'no-cache',
-      'Expires': '0'
     };
 
     const { email, score, category, description, senseDominant, timestamp } = await req.json();
@@ -61,19 +57,13 @@ serve(async (req) => {
       throw new Error('Email is required')
     }
 
-    // Use absolute URLs for images - UPDATED VERSION
-    const siteUrl = "https://hypnokick.lovable.dev";
-    
-    // Images avec cache busting
-    const cacheBuster = `?v=${Date.now()}`;
-    const alainZenattiImageUrl = `${siteUrl}/lovable-uploads/a1267f0b-ddff-41b6-b3cd-d1918244801a.png${cacheBuster}`;
-    const harmoniaImageUrl = `${siteUrl}/lovable-uploads/eebadfba-d704-4c06-82b4-3d35a56ab73a.png${cacheBuster}`;
-    const hypnoBalabeImageUrl = `${siteUrl}/lovable-uploads/e964f1b6-cc11-474c-87db-22e05f2ae046.png${cacheBuster}`;
+    // Use HTTPS URLs for external images - CORRECTED VERSION
+    const alainZenattiImageUrl = "https://novahypnose.fr/wp-content/uploads/2025/04/image_fx-13.png";
+    const harmoniaImageUrl = "https://novahypnose.fr/wp-content/uploads/2025/04/image_fx-9.png";
     
     console.log("=== URLS DES IMAGES UTILISÉES ===");
     console.log("Alain Zenatti:", alainZenattiImageUrl);
     console.log("Harmonia:", harmoniaImageUrl);
-    console.log("Hypno-balade:", hypnoBalabeImageUrl);
 
     const htmlContent = `
       <!DOCTYPE html>
@@ -164,21 +154,13 @@ serve(async (req) => {
               </a>
           </div>
 
-          <!-- IMAGES PROMOTIONNELLES AVEC LIENS -->
+          <!-- IMAGE HARMONIA -->
           <div style="margin: 30px 0;">
               <div style="text-align: center; margin: 20px 0;">
                   <a href="https://harmonia.novahypnose.fr/" target="_blank">
                       <img style="width: 100%; max-width: 500px; height: auto; display: block; margin: 20px auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);" 
                            src="${harmoniaImageUrl}" 
                            alt="Formation Harmonia - Cliquez pour en savoir plus">
-                  </a>
-              </div>
-              
-              <div style="text-align: center; margin: 20px 0;">
-                  <a href="https://hypno-balade.novahypnose.fr/" target="_blank">
-                      <img style="width: 100%; max-width: 500px; height: auto; display: block; margin: 20px auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);" 
-                           src="${hypnoBalabeImageUrl}" 
-                           alt="Hypno-balade dans le Perche - Cliquez pour découvrir">
                   </a>
               </div>
           </div>
@@ -196,7 +178,7 @@ serve(async (req) => {
               
               <!-- VERSION DE L'EMAIL POUR DEBUG -->
               <p style="font-size: 10px; color: #ccc; margin-top: 20px;">
-                  Version: ${new Date().toISOString()} | Score: ${score} | Cache: ${cacheBuster}
+                  Version: ${new Date().toISOString()} | Score: ${score}
               </p>
           </div>
       </body>
@@ -246,8 +228,7 @@ serve(async (req) => {
         timestamp: new Date().toISOString(),
         images: {
           alain: alainZenattiImageUrl,
-          harmonia: harmoniaImageUrl,
-          hypnoBalade: hypnoBalabeImageUrl
+          harmonia: harmoniaImageUrl
         }
       }
     }), {
