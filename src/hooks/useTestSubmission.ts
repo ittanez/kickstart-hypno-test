@@ -87,8 +87,16 @@ export const useTestSubmission = () => {
         throw new Error(`Erreur de base de données: ${supabaseError.message}`);
       }
       
-      // Force refresh of the edge function by adding a timestamp parameter
-      const timestamp = new Date().getTime();
+      // Force refresh with multiple cache-busting strategies
+      const timestamp = Date.now();
+      const randomId = Math.random().toString(36).substring(7);
+      
+      console.log("=== ENVOI FONCTION EDGE ===");
+      console.log("Timestamp:", timestamp);
+      console.log("Random ID:", randomId);
+      console.log("Email:", sanitizedEmail);
+      console.log("Score:", result.score);
+      
       const emailResponse = await supabase.functions.invoke('send-test-results', {
         body: JSON.stringify({
           email: sanitizedEmail,
@@ -96,32 +104,47 @@ export const useTestSubmission = () => {
           category: result.category,
           description: result.description,
           senseDominant,
-          timestamp // Add timestamp to force cache invalidation
-        })
+          timestamp,
+          randomId,
+          forceRefresh: true
+        }),
+        headers: {
+          'Cache-Control': 'no-cache, no-store, must-revalidate',
+          'Pragma': 'no-cache',
+          'Expires': '0'
+        }
       });
       
+      console.log("=== RÉPONSE FONCTION EDGE ===");
+      console.log("Response:", emailResponse);
+      
       if (emailResponse.error) {
+        console.error("Erreur fonction edge:", emailResponse.error);
         toast({
           title: "Attention",
           description: "Vos résultats ont été calculés mais n'ont pas pu être envoyés par email.",
           variant: "default"
         });
       } else if (emailResponse.data?.status === "warning") {
+        console.warn("Warning fonction edge:", emailResponse.data);
         toast({
           title: "Attention",
           description: emailResponse.data.message,
           variant: "default"
         });
       } else {
+        console.log("Email envoyé avec succès:", emailResponse.data);
         toast({
-          title: "Résultats calculés",
-          description: "Vos résultats ont été calculés avec succès !",
+          title: "Email envoyé !",
+          description: "Vos résultats ont été envoyés avec succès. Vérifiez votre boîte mail !",
         });
       }
       
       onComplete();
       
     } catch (err: any) {
+      console.error("=== ERREUR GÉNÉRALE ===");
+      console.error("Erreur complète:", err);
       setError(`Une erreur est survenue lors de la soumission du test: ${err.message || JSON.stringify(err)}`);
       toast({
         title: "Erreur",

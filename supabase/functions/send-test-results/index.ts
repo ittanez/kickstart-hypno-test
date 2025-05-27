@@ -49,19 +49,31 @@ serve(async (req) => {
     };
 
     const { email, score, category, description, senseDominant, timestamp } = await req.json();
-    console.log("Request received at:", new Date().toISOString(), "Timestamp:", timestamp);
+    console.log("=== NOUVELLE DEMANDE EMAIL ===");
+    console.log("Request received at:", new Date().toISOString());
+    console.log("User timestamp:", timestamp);
+    console.log("Email:", email);
+    console.log("Score:", score);
+    console.log("Category:", category);
+    console.log("Sens dominant:", senseDominant);
 
     if (!email) {
       throw new Error('Email is required')
     }
 
-    console.log("Sending email to:", email, "with score:", score, "category:", category, "dominant sense:", senseDominant);
-
-    // Use absolute URLs for images to ensure they load correctly
+    // Use absolute URLs for images - UPDATED VERSION
     const siteUrl = "https://hypnokick.lovable.dev";
-    const alainZenattiImageUrl = `${siteUrl}/lovable-uploads/a1267f0b-ddff-41b6-b3cd-d1918244801a.png`;
-    const harmoniaImageUrl = `${siteUrl}/lovable-uploads/eebadfba-d704-4c06-82b4-3d35a56ab73a.png`;
-    const hypnoBalabeImageUrl = `${siteUrl}/lovable-uploads/e964f1b6-cc11-474c-87db-22e05f2ae046.png`;
+    
+    // Images avec cache busting
+    const cacheBuster = `?v=${Date.now()}`;
+    const alainZenattiImageUrl = `${siteUrl}/lovable-uploads/a1267f0b-ddff-41b6-b3cd-d1918244801a.png${cacheBuster}`;
+    const harmoniaImageUrl = `${siteUrl}/lovable-uploads/eebadfba-d704-4c06-82b4-3d35a56ab73a.png${cacheBuster}`;
+    const hypnoBalabeImageUrl = `${siteUrl}/lovable-uploads/e964f1b6-cc11-474c-87db-22e05f2ae046.png${cacheBuster}`;
+    
+    console.log("=== URLS DES IMAGES UTILISÉES ===");
+    console.log("Alain Zenatti:", alainZenattiImageUrl);
+    console.log("Harmonia:", harmoniaImageUrl);
+    console.log("Hypno-balade:", hypnoBalabeImageUrl);
 
     const htmlContent = `
       <!DOCTYPE html>
@@ -103,6 +115,13 @@ serve(async (req) => {
                   ${getExerciseForScore(score)}
               </div>
 
+              <!-- IMAGE PRINCIPALE D'ALAIN ZENATTI -->
+              <div style="text-align: center; margin: 30px 0;">
+                  <img src="${alainZenattiImageUrl}" 
+                       alt="Alain Zenatti - Hypnothérapeute à Paris"
+                       style="width: 100%; max-width: 500px; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: block; margin: 0 auto;">
+              </div>
+
               <div style="background-color: #f5f9fc; padding: 20px; border-radius: 8px; margin: 30px 0;">
                 <h2 style="color: #2c3e50; margin-top: 0;">Votre superpouvoir hypnotique, un potentiel illimité qui grandit avec vous</h2>
                 <p>Votre capacité hypnotique n'est pas figée – elle fluctue selon votre état physique, émotionnel et votre environnement. Cette variabilité est une force! Elle signifie que vous pouvez développer ce potentiel avec de la pratique, comme un muscle qui se renforce. L'hypnose thérapeutique vous permet d'accéder à des ressources insoupçonnées et de créer des changements précis et durables dans votre vie, qu'il s'agisse de dépasser des peurs, renforcer votre confiance, ou transformer des habitudes. Chaque personne possède sa propre porte d'entrée vers ces états de conscience modifiés – découvrir la vôtre est le premier pas vers une vie plus alignée avec vos aspirations profondes.</p>
@@ -116,29 +135,21 @@ serve(async (req) => {
                 <p>Depuis plusieurs années, j'aide les personnes à retrouver confiance, équilibre et clarté intérieure grâce à des séances d'hypnose sur mesure, toujours bienveillantes et respectueuses du rythme de chacun.</p>
                 
                 <p>Si vous ressentez l'envie d'aller plus loin, d'approfondir votre réceptivité, ou tout simplement de vivre une première séance d'hypnose à Paris, je serai heureux de vous guider pas à pas dans ce chemin.</p>
-              </div>
-
-              <div style="text-align: center; margin: 20px 0;">
-                  <img src="${alainZenattiImageUrl}" 
-                       alt="Alain Zenatti - Hypnothérapeute à Paris"
-                       style="width: 100%; max-width: 500px; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-              </div>
-              
-              <p>Je suis Alain Zenatti, hypnothérapeute à Paris, spécialisé en hypnose ericksonienne et en auto-hypnose.</p>
-              
-              <div style="text-align: center; margin: 20px 0;">
-                  <p><strong>Contactez votre hypnothérapeute à Paris :</strong></p>
-                  <p>📩 <a href="mailto:contact@novahypnose.fr" style="color: #3498db; text-decoration: none;">contact@novahypnose.fr</a></p>
-                  <p>🌐 <a href="https://www.novahypnose.fr" target="_blank" style="color: #3498db; text-decoration: none;">www.novahypnose.fr</a></p>
-                  <p>📞 <a href="tel:0649358089" style="color: #3498db; text-decoration: none;">06 49 35 80 89</a></p>
-              </div>
-              
-              <div style="text-align: center; margin: 25px 0;">
-                  <a href="https://www.resalib.fr/praticien/47325-alain-zenatti-hypnotherapeute-paris" 
-                     target="_blank"
-                     style="display: inline-block; background-color: #3498db; color: white; padding: 10px 20px; border-radius: 4px; text-decoration: none; font-weight: bold; margin: 10px; text-align: center; width: 350px; max-width: 100%;">
-                      Prendre rendez-vous
-                  </a>
+                
+                <div style="text-align: center; margin: 20px 0;">
+                    <p><strong>Contactez votre hypnothérapeute à Paris :</strong></p>
+                    <p>📩 <a href="mailto:contact@novahypnose.fr" style="color: #3498db; text-decoration: none;">contact@novahypnose.fr</a></p>
+                    <p>🌐 <a href="https://www.novahypnose.fr" target="_blank" style="color: #3498db; text-decoration: none;">www.novahypnose.fr</a></p>
+                    <p>📞 <a href="tel:0649358089" style="color: #3498db; text-decoration: none;">06 49 35 80 89</a></p>
+                </div>
+                
+                <div style="text-align: center; margin: 25px 0;">
+                    <a href="https://www.resalib.fr/praticien/47325-alain-zenatti-hypnotherapeute-paris" 
+                       target="_blank"
+                       style="display: inline-block; background-color: #3498db; color: white; padding: 10px 20px; border-radius: 4px; text-decoration: none; font-weight: bold; margin: 10px; text-align: center; width: 350px; max-width: 100%;">
+                        Prendre rendez-vous
+                    </a>
+                </div>
               </div>
           </div>
           
@@ -153,18 +164,23 @@ serve(async (req) => {
               </a>
           </div>
 
+          <!-- IMAGES PROMOTIONNELLES AVEC LIENS -->
           <div style="margin: 30px 0;">
-              <a href="https://harmonia.novahypnose.fr/">
-                  <img style="width: 100%; max-width: 500px; height: auto; display: block; margin: 20px auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);" 
-                       src="${harmoniaImageUrl}" 
-                       alt="Formation Harmonia">
-              </a>
+              <div style="text-align: center; margin: 20px 0;">
+                  <a href="https://harmonia.novahypnose.fr/" target="_blank">
+                      <img style="width: 100%; max-width: 500px; height: auto; display: block; margin: 20px auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);" 
+                           src="${harmoniaImageUrl}" 
+                           alt="Formation Harmonia - Cliquez pour en savoir plus">
+                  </a>
+              </div>
               
-              <a href="https://hypno-balade.novahypnose.fr/">
-                  <img style="width: 100%; max-width: 500px; height: auto; display: block; margin: 20px auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);" 
-                       src="${hypnoBalabeImageUrl}" 
-                       alt="Hypno-balade dans le Perche">
-              </a>
+              <div style="text-align: center; margin: 20px 0;">
+                  <a href="https://hypno-balade.novahypnose.fr/" target="_blank">
+                      <img style="width: 100%; max-width: 500px; height: auto; display: block; margin: 20px auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);" 
+                           src="${hypnoBalabeImageUrl}" 
+                           alt="Hypno-balade dans le Perche - Cliquez pour découvrir">
+                  </a>
+              </div>
           </div>
 
           <div style="font-size: 12px; color: #7f8c8d; text-align: center; margin-top: 40px; padding-top: 10px; border-top: 1px solid #ddd;">
@@ -177,12 +193,21 @@ serve(async (req) => {
                   ⚠️ Rappel important : L'hypnothérapie est une approche complémentaire qui ne remplace en aucun cas une consultation médicale 
                   ou un traitement prescrit par un professionnel de santé. En cas de problème de santé, consultez toujours votre médecin.
               </p>
+              
+              <!-- VERSION DE L'EMAIL POUR DEBUG -->
+              <p style="font-size: 10px; color: #ccc; margin-top: 20px;">
+                  Version: ${new Date().toISOString()} | Score: ${score} | Cache: ${cacheBuster}
+              </p>
           </div>
       </body>
       </html>
     `
     
     const fromAddress = "contact@updates.novahypnose.fr"
+
+    console.log("=== ENVOI EMAIL EN COURS ===");
+    console.log("From:", fromAddress);
+    console.log("To:", email);
 
     const emailResponse = await resend.emails.send({
       from: `Nova Hypnose <${fromAddress}>`,
@@ -192,9 +217,11 @@ serve(async (req) => {
       html: htmlContent,
     });
 
-    console.log("Email response:", JSON.stringify(emailResponse))
+    console.log("=== RÉPONSE RESEND ===");
+    console.log("Email response:", JSON.stringify(emailResponse, null, 2));
 
     if (emailResponse.error) {
+      console.error("=== ERREUR RESEND ===");
       console.error("Resend API error:", emailResponse.error);
       
       return new Response(JSON.stringify({
@@ -210,20 +237,31 @@ serve(async (req) => {
       })
     }
 
+    console.log("=== EMAIL ENVOYÉ AVEC SUCCÈS ===");
     return new Response(JSON.stringify({
       status: "success",
       message: "Email envoyé avec succès",
-      data: emailResponse
+      data: emailResponse,
+      debug: {
+        timestamp: new Date().toISOString(),
+        images: {
+          alain: alainZenattiImageUrl,
+          harmonia: harmoniaImageUrl,
+          hypnoBalade: hypnoBalabeImageUrl
+        }
+      }
     }), {
       status: 200,
       headers: responseHeaders,
     })
   } catch (error: any) {
-    console.error("Error in send-test-results function:", error)
+    console.error("=== ERREUR GÉNÉRALE ===");
+    console.error("Error in send-test-results function:", error);
     return new Response(
       JSON.stringify({ 
         status: "error",
-        error: error.message 
+        error: error.message,
+        timestamp: new Date().toISOString()
       }),
       {
         status: 500,
