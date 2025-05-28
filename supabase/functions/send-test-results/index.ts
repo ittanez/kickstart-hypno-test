@@ -112,7 +112,7 @@ serve(async (req) => {
               <div style="text-align: center; margin: 30px 0;">
                   <img src="${alainZenattiImageUrl}" 
                        alt="Alain Zenatti - Hypnothérapeute à Paris"
-                       style="width: 100%; max-width: 500px; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: block; margin: 0 auto;">
+                       style="width: 200px; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: block; margin: 0 auto;">
               </div>
 
               <div style="background-color: #f5f9fc; padding: 20px; border-radius: 8px; margin: 30px 0;">
