@@ -6,7 +6,7 @@ export const getImageUrls = () => {
   
   return {
     alainZenattiImageUrl: `${supabaseUrl}/storage/v1/object/public/images/zenatti.webp${cacheBuster}`,
-    harmoniaImageUrl: `${supabaseUrl}/storage/v1/object/public/images/jharmonia.webp${cacheBuster}`,
+    harmoniaImageUrl: `${supabaseUrl}/storage/v1/object/public/images/harmonia.webp${cacheBuster}`,
     hypnoBalladeImageUrl: `${supabaseUrl}/storage/v1/object/public/images/balade.webp${cacheBuster}`
   };
 };
