@@ -9,6 +9,7 @@ import FAQSection from "@/components/FAQSection";
 import ThankYouMessage from "@/components/ThankYouMessage";
 import HowItWorks from "@/components/HowItWorks";
 import SEOSchema from "@/components/SEOSchema";
+import NavMenu from "@/components/NavMenu";
 
 const Index = () => {
   const [showTest, setShowTest] = useState(false);
@@ -44,6 +45,14 @@ const Index = () => {
       </Helmet>
       <SEOSchema />
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50">
+        <header className="w-full bg-white/80 backdrop-blur-sm border-b border-gray-200/50 sticky top-0 z-50">
+          <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div className="text-2xl font-bold text-hypno-primary">
+              HypnoKick
+            </div>
+            <NavMenu />
+          </div>
+        </header>
         <HeroSection onStartTest={handleStartTest} />
         <StepsSection />
         <HowItWorks />
