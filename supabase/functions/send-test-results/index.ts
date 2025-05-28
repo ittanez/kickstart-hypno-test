@@ -1,4 +1,3 @@
-
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
 import { Resend } from "npm:resend@2.0.0"
 
@@ -151,11 +150,13 @@ serve(async (req) => {
 
           <!-- LES TROIS IMAGES L'UNE APRÈS L'AUTRE AVEC MAX 200PX -->
           <div style="text-align: center; margin: 30px 0;">
-              <!-- Image Alain Zenatti -->
+              <!-- Image Alain Zenatti - MAINTENANT CLIQUABLE -->
               <div style="margin: 20px 0;">
-                  <img src="${alainZenattiImageUrl}" 
-                       alt="Alain Zenatti - Hypnothérapeute à Paris"
-                       style="width: 100%; max-width: 200px; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: block; margin: 0 auto;">
+                  <a href="https://www.resalib.fr/praticien/47325-alain-zenatti-hypnotherapeute-paris" target="_blank">
+                      <img src="${alainZenattiImageUrl}" 
+                           alt="Alain Zenatti - Hypnothérapeute à Paris - Cliquez pour prendre rendez-vous"
+                           style="width: 100%; max-width: 200px; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: block; margin: 0 auto;">
+                  </a>
               </div>
               
               <!-- Image Harmonia -->
