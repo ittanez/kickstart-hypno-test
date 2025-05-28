@@ -1,4 +1,3 @@
-
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
 import { Resend } from "npm:resend@2.0.0"
 
@@ -57,11 +56,12 @@ serve(async (req) => {
       throw new Error('Email is required')
     }
 
-    // Use HTTPS URLs for images with cache busting
+    // URLs des images depuis Supabase Storage
     const cacheBuster = `?v=${Date.now()}`;
-    const alainZenattiImageUrl = `https://novahypnose.fr/wp-content/uploads/2025/04/image_fx-13.png${cacheBuster}`;
-    const harmoniaImageUrl = `https://novahypnose.fr/wp-content/uploads/2025/04/image_fx-9.png${cacheBuster}`;
-    const hypnoBalladeImageUrl = `https://novahypnose.fr/wp-content/uploads/2025/04/image_fx-10.png${cacheBuster}`;
+    const supabaseUrl = "https://akrlyzmfszumibwgocae.supabase.co";
+    const alainZenattiImageUrl = `${supabaseUrl}/storage/v1/object/public/images/alain-zenatti.jpg${cacheBuster}`;
+    const harmoniaImageUrl = `${supabaseUrl}/storage/v1/object/public/images/formation-harmonia.jpg${cacheBuster}`;
+    const hypnoBalladeImageUrl = `${supabaseUrl}/storage/v1/object/public/images/hypno-balade.jpg${cacheBuster}`;
     
     console.log("=== URLS DES IMAGES UTILISÉES ===");
     console.log("Alain Zenatti:", alainZenattiImageUrl);
@@ -108,13 +108,6 @@ serve(async (req) => {
                   ${getExerciseForScore(score)}
               </div>
 
-              <!-- IMAGE PRINCIPALE D'ALAIN ZENATTI -->
-              <div style="text-align: center; margin: 30px 0;">
-                  <img src="${alainZenattiImageUrl}" 
-                       alt="Alain Zenatti - Hypnothérapeute à Paris"
-                       style="width: 200px; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: block; margin: 0 auto;">
-              </div>
-
               <div style="background-color: #f5f9fc; padding: 20px; border-radius: 8px; margin: 30px 0;">
                 <h2 style="color: #2c3e50; margin-top: 0;">Votre superpouvoir hypnotique, un potentiel illimité qui grandit avec vous</h2>
                 <p>Votre capacité hypnotique n'est pas figée – elle fluctue selon votre état physique, émotionnel et votre environnement. Cette variabilité est une force! Elle signifie que vous pouvez développer ce potentiel avec de la pratique, comme un muscle qui se renforce. L'hypnose thérapeutique vous permet d'accéder à des ressources insoupçonnées et de créer des changements précis et durables dans votre vie, qu'il s'agisse de dépasser des peurs, renforcer votre confiance, ou transformer des habitudes. Chaque personne possède sa propre porte d'entrée vers ces états de conscience modifiés – découvrir la vôtre est le premier pas vers une vie plus alignée avec vos aspirations profondes.</p>
@@ -146,6 +139,7 @@ serve(async (req) => {
               </div>
           </div>
           
+          <!-- LES 3 IMAGES EN BAS DU MAIL -->
           <div style="text-align: center; margin: 30px 0;">
               <a href="https://www.instagram.com/novahypnose/" 
                  target="_blank"
@@ -157,15 +151,29 @@ serve(async (req) => {
               </a>
           </div>
 
-          <!-- IMAGE HARMONIA -->
-          <div style="margin: 30px 0;">
-              <div style="text-align: center; margin: 20px 0;">
-                  <a href="https://harmonia.novahypnose.fr/" target="_blank">
-                      <img style="width: 100%; max-width: 500px; height: auto; display: block; margin: 20px auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);" 
-                           src="${harmoniaImageUrl}" 
-                           alt="Formation Harmonia - Cliquez pour en savoir plus">
-                  </a>
-              </div>
+          <!-- IMAGE ALAIN ZENATTI -->
+          <div style="text-align: center; margin: 30px 0;">
+              <img src="${alainZenattiImageUrl}" 
+                   alt="Alain Zenatti - Hypnothérapeute à Paris"
+                   style="width: 100%; max-width: 500px; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: block; margin: 0 auto;">
+          </div>
+
+          <!-- IMAGE FORMATION HARMONIA -->
+          <div style="text-align: center; margin: 30px 0;">
+              <a href="https://harmonia.novahypnose.fr/" target="_blank">
+                  <img src="${harmoniaImageUrl}" 
+                       alt="Formation Harmonia - Réduire le stress avec l'auto-hypnose"
+                       style="width: 100%; max-width: 500px; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: block; margin: 0 auto;">
+              </a>
+          </div>
+
+          <!-- IMAGE HYPNO-BALADE DU PERCHE -->
+          <div style="text-align: center; margin: 30px 0;">
+              <a href="https://novahypnose.fr/hypno-balade/" target="_blank">
+                  <img src="${hypnoBalladeImageUrl}" 
+                       alt="Hypno-Balade du Perche"
+                       style="width: 100%; max-width: 500px; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: block; margin: 0 auto;">
+              </a>
           </div>
 
           <div style="font-size: 12px; color: #7f8c8d; text-align: center; margin-top: 40px; padding-top: 10px; border-top: 1px solid #ddd;">
@@ -183,18 +191,6 @@ serve(async (req) => {
               <p style="font-size: 10px; color: #ccc; margin-top: 20px;">
                   Version: ${new Date().toISOString()} | Score: ${score}
               </p>
-          </div>
-
-          <!-- IMAGES ADDITIONNELLES -->
-          <div style="margin: 30px 0;">
-              <!-- Image Hypno-Balade du Perche -->
-              <div style="text-align: center; margin: 20px 0;">
-                  <a href="https://novahypnose.fr/hypno-balade/" target="_blank">
-                      <img style="width: 100%; max-width: 500px; height: auto; display: block; margin: 20px auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);" 
-                           src="${hypnoBalladeImageUrl}" 
-                           alt="Hypno-Balade du Perche">
-                  </a>
-              </div>
           </div>
       </body>
       </html>
