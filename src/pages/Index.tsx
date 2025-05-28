@@ -1,163 +1,279 @@
+ import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
+import { Resend } from "npm:resend@2.0.0"
 
-import React, { useState, useEffect } from 'react';
-import HeroSection from '@/components/HeroSection';
-import StepsSection from '@/components/StepsSection';
-import FAQSection from '@/components/FAQSection';
-import TestimonialSection from '@/components/TestimonialSection';
-import TestForm from '@/components/TestForm';
-import ThankYouMessage from '@/components/ThankYouMessage';
-import NavMenu from '@/components/NavMenu';
-import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
-import { Button } from '@/components/ui/button';
-import SEOSchema from '@/components/SEOSchema';
+const resend = new Resend(Deno.env.get("RESEND_API_KEY"))
 
-type AppState = 'landing' | 'testing' | 'completed';
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, cache-control, pragma, expires',
+}
 
-const Index = () => {
-  const [appState, setAppState] = useState<AppState>('landing');
-  
-  // Prérendu statique : capture l'état initial pour le code source HTML
-  useEffect(() => {
-    // Effet uniquement côté client, n'affecte pas le prérendu
-    const params = new URLSearchParams(window.location.search);
-    if (params.get('step') === 'test') {
-      setAppState('testing');
-    } else if (params.get('step') === 'completed') {
-      setAppState('completed');
-    }
-  }, []);
-  
-  const handleStartTest = () => {
-    setAppState('testing');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    // Mise à jour de l'URL pour permettre le partage direct et le retour
-    window.history.pushState({}, '', '?step=test');
-  };
-  
-  const handleTestComplete = () => {
-    setAppState('completed');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    // Mise à jour de l'URL pour permettre le partage direct
-    window.history.pushState({}, '', '?step=completed');
-  };
-  
-  return (
-    <div className="min-h-screen flex flex-col">
-      <Helmet>
-        <title>HypnoKick - Test de réceptivité à l'hypnose | Hypnothérapeute Paris</title>
-        <meta name="description" content="Découvrez votre potentiel hypnotique avec notre test scientifique gratuit. Hypnothérapie Paris pour stress, confiance en soi, sommeil, addictions. Cabinet d'hypnose à Paris." />
-        <meta name="keywords" content="hypnothérapeute Paris, hypnose Paris, hypnothérapie Paris, séance hypnose Paris, cabinet hypnose Paris, hypnose confiance en soi Paris, hypnose stress Paris, hypnose anxiété Paris, hypnose arrêt tabac Paris, hypnose sommeil Paris, test hypnose, réceptivité hypnose" />
-        <meta property="og:title" content="HypnoKick - Test de réceptivité à l'hypnose | Hypnothérapeute Paris" />
-        <meta property="og:description" content="Découvrez votre potentiel hypnotique avec notre test scientifique gratuit. Consultations d'hypnose à Paris pour stress, confiance en soi et bien-être." />
-        <link rel="canonical" href="https://hypnokick.novahypnose.fr/" />
-      </Helmet>
-      
-      <SEOSchema />
-      
-      <header className="py-4 border-b border-gray-100">
-        <div className="container mx-auto px-4">
-          <div className="flex justify-between items-center">
-            <Link to="/" className="text-2xl font-bold">
-              <span className="text-hypno-primary">Hypno</span>
-              <span className="text-hypno-accent">Kick</span>
-              <h1 className="text-sm md:text-base text-gray-700 font-normal">Test de réceptivité à l'hypnose à Paris</h1>
-            </Link>
-            <div className="hidden md:flex">
-              <NavMenu />
-            </div>
-            {appState === 'landing' && (
-              <button 
-                onClick={handleStartTest}
-                className="md:hidden text-hypno-primary hover:text-hypno-accent font-medium"
-              >
-                Démarrer le test
-              </button>
-            )}
-          </div>
-          <div className="md:hidden mt-4">
-            <NavMenu />
-          </div>
-        </div>
-      </header>
-      
-      <main className="flex-grow">
-        {appState === 'landing' && (
-          <>
-            <HeroSection onStartTest={handleStartTest} />
-            <StepsSection />
-            <FAQSection />
-            <TestimonialSection />
-            <div className="py-16 bg-white">
-              <div className="container mx-auto px-4">
-                <div className="max-w-3xl mx-auto text-center">
-                  <h2 className="text-3xl font-bold mb-6">Prêt à découvrir votre potentiel hypnotique à Paris ?</h2>
-                  <Button 
-                    onClick={handleStartTest}
-                    className="hypno-button text-lg px-8 py-6 mb-4"
-                  >
-                    RÉVÉLEZ VOTRE PROFIL MAINTENANT
-                  </Button>
-                  <p className="text-gray-600">Seulement 2 minutes • Résultats instantanés • 100% gratuit</p>
-                  <p className="mt-8 text-gray-700">Déjà plusieurs centaines de personnes à Paris ont découvert leur potentiel hypnotique !</p>
-                  <p className="mt-4 text-hypno-primary font-medium">À très vite pour vos résultats !</p>
-                  <p className="text-gray-600">L'équipe HypnoKick - Votre hypnothérapeute à Paris</p>
-                </div>
-              </div>
-            </div>
-          </>
-        )}
-        
-        {appState === 'testing' && (
-          <div className="py-12">
-            <div className="container mx-auto">
-              <TestForm onComplete={handleTestComplete} />
-            </div>
-          </div>
-        )}
-        
-        {appState === 'completed' && (
-          <div className="py-12">
-            <div className="container mx-auto">
-              <ThankYouMessage />
-            </div>
-          </div>
-        )}
-      </main>
-      
-      <footer className="py-6 bg-gray-50 border-t border-gray-100">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-sm text-gray-500 mb-4 md:mb-0">
-              &copy; {new Date().getFullYear()} HypnoKick | Hypnothérapeute Paris. Tous droits réservés.
-            </p>
-            <div className="flex space-x-4">
-              <a 
-                href="https://novahypnose.fr/mentions-legales/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm text-gray-500 hover:text-hypno-primary"
-              >
-                Mentions légales
-              </a>
-              <a 
-                href="/privacy-policy"
-                className="text-sm text-gray-500 hover:text-hypno-primary"
-              >
-                Politique de confidentialité
-              </a>
-              <a 
-                href="mailto:contact@novahypnose.fr"
-                className="text-sm text-gray-500 hover:text-hypno-primary"
-              >
-                Contact
-              </a>
-            </div>
-          </div>
-        </div>
-      </footer>
-    </div>
-  );
+const getExerciseForScore = (score: number): string => {
+  if (score <= 30) {
+    return `
+      <h3 style="color: #2c3e50; margin-top: 20px;">Éveillez votre potentiel dès maintenant :</h3>
+      <p>Installez-vous confortablement, fixez un point devant vous pendant 30 secondes, puis fermez les yeux et observez les sensations qui apparaissent. Même subtiles, ces sensations sont les premiers signes de votre capacité à modifier votre état de conscience. Pratiquez 2 minutes par jour pour développer cette sensibilité.</p>
+    `;
+  } else if (score <= 60) {
+    return `
+      <h3 style="color: #2c3e50; margin-top: 20px;">Éveillez votre potentiel dès maintenant :</h3>
+      <p>Fermez les yeux et imaginez un escalier de 5 marches. Descendez-les lentement en ressentant une détente de plus en plus profonde à chaque pas. Une fois en bas, imaginez une porte qui, une fois ouverte, vous mène à un lieu ressource personnel. Explorez ce lieu 2-3 minutes puis remontez l'escalier. Cet exercice simple vous permet déjà d'accéder à vos ressources intérieures.</p>
+    `;
+  } else if (score <= 90) {
+    return `
+      <h3 style="color: #2c3e50; margin-top: 20px;">Éveillez votre potentiel dès maintenant :</h3>
+      <p>Fermez les yeux et portez attention à votre respiration. À chaque expiration, répétez mentalement un mot ressource (paix, calme, confiance...). Après 1 minute, imaginez ce mot prenant forme, couleur, texture dans votre corps. Ressentez les effets de cette ressource se diffuser. Cette technique vous permet d'activer directement vos ressources intérieures pour transformer votre quotidien.</p>
+    `;
+  } else {
+    return `
+      <h3 style="color: #2c3e50; margin-top: 20px;">Éveillez votre potentiel dès maintenant :</h3>
+      <p>Fermez les yeux et imaginez un écran intérieur. Projetez-y une situation où vous aimeriez réagir différemment. Observez-vous d'abord depuis le public, puis entrez dans l'image et ressentez les nouvelles ressources dont vous disposez. Alternez plusieurs fois ces perspectives. Cette technique puissante de recadrage peut rapidement transformer vos schémas limitants.</p>
+    `;
+  }
 };
 
-export default Index;
+serve(async (req) => {
+  if (req.method === 'OPTIONS') {
+    return new Response('ok', { headers: corsHeaders })
+  }
+
+  try {
+    const responseHeaders = {
+      ...corsHeaders,
+      'Content-Type': 'application/json',
+    };
+
+    const { email, score, category, description, senseDominant, timestamp } = await req.json();
+    console.log("=== NOUVELLE DEMANDE EMAIL ===");
+    console.log("Request received at:", new Date().toISOString());
+    console.log("User timestamp:", timestamp);
+    console.log("Email:", email);
+    console.log("Score:", score);
+    console.log("Category:", category);
+    console.log("Sens dominant:", senseDominant);
+
+    if (!email) {
+      throw new Error('Email is required')
+    }
+
+    // Use HTTPS URLs for external images
+    const alainZenattiImageUrl = "https://akrlyzmfszumibwgocae.supabase.co/storage/v1/object/public/images//alain-zenatti-lexperience-dun-hypnotherapeute-parisien.webp";
+    const harmoniaImageUrl = "https://akrlyzmfszumibwgocae.supabase.co/storage/v1/object/public/images//jpg%20(12).webp";
+    const hypnoBalladeImageUrl = "https://akrlyzmfszumibwgocae.supabase.co/storage/v1/object/public/images//jpg%20(11).webp";
+    
+    console.log("=== URLS DES IMAGES UTILISÉES ===");
+    console.log("Alain Zenatti:", alainZenattiImageUrl);
+    console.log("Harmonia:", harmoniaImageUrl);
+    console.log("Hypno-Balade:", hypnoBalladeImageUrl);
+
+    const htmlContent = `
+      <!DOCTYPE html>
+      <html lang="fr">
+      <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Résultats du test de réceptivité à l'hypnose</title>
+      </head>
+      <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; background-color: #f9f9f9;">
+          <div class="container" style="background-color: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); padding: 30px; margin-bottom: 20px;">
+              <div style="text-align: center; margin-bottom: 30px;">
+                <a href="https://hypnokick.lovable.dev" style="text-decoration: none; color: inherit;">
+                  <span style="color: #3498db;">Hypno</span><span style="color: #e74c3c;">Kick</span>
+                </a>
+              </div>
+
+              <h1 style="text-align: center; margin-bottom: 30px; font-size: 28px; border-bottom: 2px solid #3498db; padding-bottom: 10px; color: #2c3e50;">Félicitations ! Voici votre bilan hypnotique, découvrez votre pouvoir qui vous permet de manifester vos plus grands désirs</h1>
+              
+              <div style="text-align: center; margin: 30px 0; color: #666;">
+                <p>Merci d'avoir pris le temps de réaliser ce test ! C'est une première étape importante dans votre voyage vers la transformation personnelle.</p>
+              </div>
+              
+              <div style="background-color: #f5f9fc; border-radius: 8px; padding: 20px; margin-bottom: 30px;">
+                <p style="text-align: center; font-size: 22px; font-weight: bold; color: #2980b9; margin-bottom: 20px;">
+                    ${category}
+                </p>
+                
+                <div style="text-align: center; margin: 20px 0;">
+                    Votre sens dominant : <strong style="font-size: 20px; color: #2980b9;">${senseDominant}</strong>
+                </div>
+              </div>
+              
+              <div style="background-color: #f5f9fc; border-left: 4px solid #3498db; padding: 15px; margin: 20px 0;">
+                  ${description}
+              </div>
+              
+              <div style="background-color: #f8f4ff; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                  ${getExerciseForScore(score)}
+              </div>
+
+              <!-- IMAGE PRINCIPALE D'ALAIN ZENATTI -->
+              <div style="text-align: center; margin: 30px 0;">
+                  <img src="${alainZenattiImageUrl}" 
+                       alt="Alain Zenatti - Hypnothérapeute à Paris"
+                       style="width: 100%; max-width: 500px; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: block; margin: 0 auto;">
+              </div>
+
+              <div style="background-color: #f5f9fc; padding: 20px; border-radius: 8px; margin: 30px 0;">
+                <h2 style="color: #2c3e50; margin-top: 0;">Votre superpouvoir hypnotique, un potentiel illimité qui grandit avec vous</h2>
+                <p>Votre capacité hypnotique n'est pas figée – elle fluctue selon votre état physique, émotionnel et votre environnement. Cette variabilité est une force! Elle signifie que vous pouvez développer ce potentiel avec de la pratique, comme un muscle qui se renforce. L'hypnose thérapeutique vous permet d'accéder à des ressources insoupçonnées et de créer des changements précis et durables dans votre vie, qu'il s'agisse de dépasser des peurs, renforcer votre confiance, ou transformer des habitudes. Chaque personne possède sa propre porte d'entrée vers ces états de conscience modifiés – découvrir la vôtre est le premier pas vers une vie plus alignée avec vos aspirations profondes.</p>
+              </div>
+
+              <div style="background-color: #f5f9fc; padding: 20px; border-radius: 8px; margin: 30px 0;">
+                <h2 style="text-align: center; color: #2c3e50; margin-top: 0; margin-bottom: 20px;">Votre hypnothérapeute à Paris Le Marais Bastille</h2>
+                
+                <p>📍 Je suis Alain Zenatti, hypnothérapeute à Paris, spécialisé en hypnose ericksonienne et en auto-hypnose.</p>
+                
+                <p>Depuis plusieurs années, j'aide les personnes à retrouver confiance, équilibre et clarté intérieure grâce à des séances d'hypnose sur mesure, toujours bienveillantes et respectueuses du rythme de chacun.</p>
+                
+                <p>Si vous ressentez l'envie d'aller plus loin, d'approfondir votre réceptivité, ou tout simplement de vivre une première séance d'hypnose à Paris, je serai heureux de vous guider pas à pas dans ce chemin.</p>
+                
+                <div style="text-align: center; margin: 20px 0;">
+                    <p><strong>Contactez votre hypnothérapeute à Paris :</strong></p>
+                    <p>📩 <a href="mailto:contact@novahypnose.fr" style="color: #3498db; text-decoration: none;">contact@novahypnose.fr</a></p>
+                    <p>🌐 <a href="https://www.novahypnose.fr" target="_blank" style="color: #3498db; text-decoration: none;">www.novahypnose.fr</a></p>
+                    <p>📞 <a href="tel:0649358089" style="color: #3498db; text-decoration: none;">06 49 35 80 89</a></p>
+                </div>
+                
+                <div style="text-align: center; margin: 25px 0;">
+                    <a href="https://www.resalib.fr/praticien/47325-alain-zenatti-hypnotherapeute-paris" 
+                       target="_blank"
+                       style="display: inline-block; background-color: #3498db; color: white; padding: 10px 20px; border-radius: 4px; text-decoration: none; font-weight: bold; margin: 10px; text-align: center; width: 350px; max-width: 100%;">
+                        Prendre rendez-vous
+                    </a>
+                </div>
+              </div>
+          </div>
+          
+          <div style="text-align: center; margin: 30px 0;">
+              <a href="https://www.instagram.com/novahypnose/" 
+                 target="_blank"
+                 style="display: inline-flex; align-items: center; justify-content: center; gap: 10px; text-decoration: none; color: #333;">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/2048px-Instagram_icon.png" 
+                       alt="Instagram" 
+                       style="width: 24px; height: 24px;">
+                  Suivez Nova Hypnose sur Instagram
+              </a>
+          </div>
+
+          <!-- IMAGE HARMONIA -->
+          <div style="margin: 30px 0;">
+              <div style="text-align: center; margin: 20px 0;">
+                  <a href="https://harmonia.novahypnose.fr/" target="_blank">
+                      <img style="width: 100%; max-width: 500px; height: auto; display: block; margin: 20px auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);" 
+                           src="${harmoniaImageUrl}" 
+                           alt="Formation Harmonia - Cliquez pour en savoir plus">
+                  </a>
+              </div>
+          </div>
+
+          <div style="font-size: 12px; color: #7f8c8d; text-align: center; margin-top: 40px; padding-top: 10px; border-top: 1px solid #ddd;">
+              <p>
+                  <a href="https://novahypnose.fr/mentions-legales/" style="color: #3498db; text-decoration: none;">Mentions légales</a> | 
+                  <a href="https://novahypnose.fr/politique-de-confidentialite/" style="color: #3498db; text-decoration: none;">Politique de confidentialité</a>
+              </p>
+              
+              <p style="background-color: #fff8e1; padding: 10px; border-radius: 5px; border-left: 3px solid #ffc107; margin: 15px 0; font-size: 13px;">
+                  ⚠️ Rappel important : L'hypnothérapie est une approche complémentaire qui ne remplace en aucun cas une consultation médicale 
+                  ou un traitement prescrit par un professionnel de santé. En cas de problème de santé, consultez toujours votre médecin.
+              </p>
+              
+              <!-- VERSION DE L'EMAIL POUR DEBUG -->
+              <p style="font-size: 10px; color: #ccc; margin-top: 20px;">
+                  Version: ${new Date().toISOString()} | Score: ${score}
+              </p>
+          </div>
+
+          <!-- IMAGES ADDITIONNELLES -->
+          <div style="margin: 30px 0;">
+              <!-- Image Hypno-Balade du Perche -->
+              <div style="text-align: center; margin: 20px 0;">
+                  <a href="https://novahypnose.fr/hypno-balade/" target="_blank">
+                      <img style="width: 100%; max-width: 500px; height: auto; display: block; margin: 20px auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);" 
+                           src="${hypnoBalladeImageUrl}" 
+                           alt="Hypno-Balade du Perche">
+                  </a>
+              </div>
+          </div>
+      </body>
+      </html>
+    `
+    
+    const fromAddress = "contact@updates.novahypnose.fr"
+
+    console.log("=== ENVOI EMAIL EN COURS ===");
+    console.log("From:", fromAddress);
+    console.log("To:", email);
+
+    const emailResponse = await resend.emails.send({
+      from: `Nova Hypnose <${fromAddress}>`,
+      to: [email],
+      bcc: ["a.zenatti@gmail.com"],
+      subject: "Félicitations ! Voici votre bilan hypnotique ! ⬇️✨",
+      html: htmlContent,
+    });
+
+    console.log("=== RÉPONSE RESEND ===");
+    console.log("Email response:", JSON.stringify(emailResponse, null, 2));
+
+    if (emailResponse.error) {
+      console.error("=== ERREUR RESEND ===");
+      console.error("Resend API error:", emailResponse.error);
+      
+      return new Response(JSON.stringify({
+        status: "warning",
+        message: "Résultats calculés, mais l'envoi de l'email a échoué. Utilisez l'écran actuel pour voir vos résultats.",
+        error: emailResponse.error.message,
+        score,
+        category,
+        description
+      }), {
+        status: 200,
+        headers: responseHeaders,
+      })
+    }
+
+    console.log("=== EMAIL ENVOYÉ AVEC SUCCÈS ===");
+    return new Response(JSON.stringify({
+      status: "success",
+      message: "Email envoyé avec succès",
+      data: emailResponse,
+      debug: {
+        timestamp: new Date().toISOString(),
+        images: {
+          alain: alainZenattiImageUrl,
+          harmonia: harmoniaImageUrl,
+          hypnoBalade: hypnoBalladeImageUrl
+        }
+      }
+    }), {
+      status: 200,
+      headers: responseHeaders,
+    })
+  } catch (error: any) {
+    console.error("=== ERREUR GÉNÉRALE ===");
+    console.error("Error in send-test-results function:", error);
+    return new Response(
+      JSON.stringify({ 
+        status: "error",
+        error: error.message,
+        timestamp: new Date().toISOString()
+      }),
+      {
+        status: 500,
+        headers: { "Content-Type": "application/json", ...corsHeaders },
+      }
+    )
+  }
+})
+
+function getConclusionMessage(score: number): string {
+  if (score <= 30) {
+    return "Vous êtes sur le chemin. La graine est là. Il suffit parfois d'un cadre plus sécurisant ou d'un autre langage pour qu'elle s'ouvre.";
+  } else if (score <= 60) {
+    return "Vous avez les clés. Il suffit maintenant d'ouvrir la bonne porte.";
+  } else if (score <= 90) {
+    return "Vous êtes comme un instrument déjà accordé. Il ne reste qu'à jouer la bonne musique.";
+  } else {
+    return "Vous êtes un voyageur des états de conscience. Prenez soin de choisir vos destinations.";
+  }
+}
