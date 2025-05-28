@@ -1,4 +1,3 @@
-
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
 import { Resend } from "npm:resend@2.0.0"
 
@@ -57,15 +56,15 @@ serve(async (req) => {
       throw new Error('Email is required')
     }
 
-    // Use HTTPS URLs for external images - CORRECTED VERSION
-   // Use HTTPS URLs for external images - CORRECTED VERSION
-const alainZenattiImageUrl = "https://akrlyzmfszumibwgocae.supabase.co/storage/v1/object/public/images//alain-zenatti-lexperience-dun-hypnotherapeute-parisien.webp";
-const harmoniaImageUrl = "https://akrlyzmfszumibwgocae.supabase.co/storage/v1/object/public/images//jpg%20(12).webp";
-const hypnoBalladeImageUrl = "https://akrlyzmfszumibwgocae.supabase.co/storage/v1/object/public/images//jpg%20(11).webp";
+    // Use HTTPS URLs for external images
+    const alainZenattiImageUrl = "https://akrlyzmfszumibwgocae.supabase.co/storage/v1/object/public/images//alain-zenatti-lexperience-dun-hypnotherapeute-parisien.webp";
+    const harmoniaImageUrl = "https://akrlyzmfszumibwgocae.supabase.co/storage/v1/object/public/images//jpg%20(12).webp";
+    const hypnoBalladeImageUrl = "https://akrlyzmfszumibwgocae.supabase.co/storage/v1/object/public/images//jpg%20(11).webp";
     
     console.log("=== URLS DES IMAGES UTILISÉES ===");
     console.log("Alain Zenatti:", alainZenattiImageUrl);
     console.log("Harmonia:", harmoniaImageUrl);
+    console.log("Hypno-Balade:", hypnoBalladeImageUrl);
 
     const htmlContent = `
       <!DOCTYPE html>
@@ -183,6 +182,18 @@ const hypnoBalladeImageUrl = "https://akrlyzmfszumibwgocae.supabase.co/storage/v
                   Version: ${new Date().toISOString()} | Score: ${score}
               </p>
           </div>
+
+          <!-- IMAGES ADDITIONNELLES -->
+          <div style="margin: 30px 0;">
+              <!-- Image Hypno-Balade du Perche -->
+              <div style="text-align: center; margin: 20px 0;">
+                  <a href="https://novahypnose.fr/hypno-balade/" target="_blank">
+                      <img style="width: 100%; max-width: 500px; height: auto; display: block; margin: 20px auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);" 
+                           src="${hypnoBalladeImageUrl}" 
+                           alt="Hypno-Balade du Perche">
+                  </a>
+              </div>
+          </div>
       </body>
       </html>
     `
@@ -230,7 +241,8 @@ const hypnoBalladeImageUrl = "https://akrlyzmfszumibwgocae.supabase.co/storage/v
         timestamp: new Date().toISOString(),
         images: {
           alain: alainZenattiImageUrl,
-          harmonia: harmoniaImageUrl
+          harmonia: harmoniaImageUrl,
+          hypnoBalade: hypnoBalladeImageUrl
         }
       }
     }), {
@@ -265,32 +277,3 @@ function getConclusionMessage(score: number): string {
     return "Vous êtes un voyageur des états de conscience. Prenez soin de choisir vos destinations.";
   }
 }
- <!-- IMAGES ADDITIONNELLES -->
-<div style="margin: 30px 0;">
-    <!-- Image Alain Zenatti -->
-    <div style="text-align: center; margin: 20px 0;">
-        <a href="https://www.novahypnose.fr" target="_blank">
-            <img style="width: 100%; max-width: 500px; height: auto; display: block; margin: 20px auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);" 
-                src="${alainZenattiImageUrl}" 
-                alt="Alain Zenatti - Hypnothérapeute à Paris">
-        </a>
-    </div>
-    
-    <!-- Image Formation Harmonia -->
-    <div style="text-align: center; margin: 20px 0;">
-        <a href="https://harmonia.novahypnose.fr/" target="_blank">
-            <img style="width: 100%; max-width: 500px; height: auto; display: block; margin: 20px auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);" 
-                src="${harmoniaImageUrl}" 
-                alt="Formation Harmonia - Réduire le stress avec l'auto-hypnose">
-        </a>
-    </div>
-    
-    <!-- Image Hypno-Balade du Perche -->
-    <div style="text-align: center; margin: 20px 0;">
-        <a href="https://novahypnose.fr/hypno-balade/" target="_blank">
-            <img style="width: 100%; max-width: 500px; height: auto; display: block; margin: 20px auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);" 
-                src="${hypnoBalladeImageUrl}" 
-                alt="Hypno-Balade du Perche">
-        </a>
-    </div>
-</div>
