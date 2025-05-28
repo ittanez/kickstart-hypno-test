@@ -58,8 +58,8 @@ serve(async (req) => {
     }
 
     // Use HTTPS URLs for external images - CORRECTED VERSION
-    const alainZenattiImageUrl = "https://novahypnose.fr/wp-content/uploads/2025/04/image_fx-13.png";
-    const harmoniaImageUrl = "https://novahypnose.fr/wp-content/uploads/2025/04/image_fx-9.png";
+    const alainZenattiImageUrl = "https://drive.google.com/file/d/1g0UEHRykXE2uFTV0Y1WmWUqY9vPBDmAs/view?usp=drive_link";
+    const harmoniaImageUrl = "https://drive.google.com/file/d/10Bxi_UatYbikpinZrA8UGnmjqH1SqCXc/view?usp=sharing";
     
     console.log("=== URLS DES IMAGES UTILISÉES ===");
     console.log("Alain Zenatti:", alainZenattiImageUrl);
