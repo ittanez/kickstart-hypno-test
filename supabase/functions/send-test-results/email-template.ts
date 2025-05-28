@@ -98,7 +98,7 @@ export const generateEmailContent = (
         <div style="text-align: center; margin: 30px 0;">
             <img src="${alainZenattiImageUrl}" 
                  alt="Alain Zenatti - Hypnothérapeute à Paris"
-                 style="width: 100%; max-width: 500px; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: block; margin: 0 auto;">
+                 style="width: 200px;   height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: block; margin: 0 auto;">
         </div>
 
         <!-- IMAGE FORMATION HARMONIA -->
@@ -106,7 +106,7 @@ export const generateEmailContent = (
             <a href="https://harmonia.novahypnose.fr/" target="_blank">
                 <img src="${harmoniaImageUrl}" 
                      alt="Formation Harmonia - Réduire le stress avec l'auto-hypnose"
-                     style="width: 100%; max-width: 500px; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: block; margin: 0 auto;">
+                     style="width: 200px;   height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: block; margin: 0 auto;">
             </a>
         </div>
 
@@ -115,7 +115,7 @@ export const generateEmailContent = (
             <a href="https://novahypnose.fr/hypno-balade/" target="_blank">
                 <img src="${hypnoBalladeImageUrl}" 
                      alt="Hypno-Balade du Perche"
-                     style="width: 100%; max-width: 500px; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: block; margin: 0 auto;">
+                     style="width: 200px;   height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: block; margin: 0 auto;">
             </a>
         </div>
 
