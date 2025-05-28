@@ -1,3 +1,4 @@
+
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
 import { Resend } from "npm:resend@2.0.0"
 
@@ -56,10 +57,11 @@ serve(async (req) => {
       throw new Error('Email is required')
     }
 
-    // Use HTTPS URLs for external images
-    const alainZenattiImageUrl = "https://akrlyzmfszumibwgocae.supabase.co/storage/v1/object/public/images//alain-zenatti-lexperience-dun-hypnotherapeute-parisien.webp";
-    const harmoniaImageUrl = "https://akrlyzmfszumibwgocae.supabase.co/storage/v1/object/public/images//jpg%20(12).webp";
-    const hypnoBalladeImageUrl = "https://akrlyzmfszumibwgocae.supabase.co/storage/v1/object/public/images//jpg%20(11).webp";
+    // Use HTTPS URLs for images with cache busting
+    const cacheBuster = `?v=${Date.now()}`;
+    const alainZenattiImageUrl = `https://novahypnose.fr/wp-content/uploads/2025/04/image_fx-13.png${cacheBuster}`;
+    const harmoniaImageUrl = `https://novahypnose.fr/wp-content/uploads/2025/04/image_fx-9.png${cacheBuster}`;
+    const hypnoBalladeImageUrl = `https://novahypnose.fr/wp-content/uploads/2025/04/image_fx-10.png${cacheBuster}`;
     
     console.log("=== URLS DES IMAGES UTILISÉES ===");
     console.log("Alain Zenatti:", alainZenattiImageUrl);
@@ -77,7 +79,7 @@ serve(async (req) => {
       <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; background-color: #f9f9f9;">
           <div class="container" style="background-color: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); padding: 30px; margin-bottom: 20px;">
               <div style="text-align: center; margin-bottom: 30px;">
-                <a href="https://hypnokick.lovable.dev" style="text-decoration: none; color: inherit;">
+                <a href="https://hypnokick.novahypnose.fr" style="text-decoration: none; color: inherit;">
                   <span style="color: #3498db;">Hypno</span><span style="color: #e74c3c;">Kick</span>
                 </a>
               </div>
@@ -265,15 +267,3 @@ serve(async (req) => {
     )
   }
 })
-
-function getConclusionMessage(score: number): string {
-  if (score <= 30) {
-    return "Vous êtes sur le chemin. La graine est là. Il suffit parfois d'un cadre plus sécurisant ou d'un autre langage pour qu'elle s'ouvre.";
-  } else if (score <= 60) {
-    return "Vous avez les clés. Il suffit maintenant d'ouvrir la bonne porte.";
-  } else if (score <= 90) {
-    return "Vous êtes comme un instrument déjà accordé. Il ne reste qu'à jouer la bonne musique.";
-  } else {
-    return "Vous êtes un voyageur des états de conscience. Prenez soin de choisir vos destinations.";
-  }
-}
