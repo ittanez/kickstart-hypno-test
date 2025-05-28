@@ -17,6 +17,14 @@ const Index = () => {
     console.log('Test completed');
   };
 
+  const handleStartTest = () => {
+    // Scroll to the test form when the user clicks the start button
+    const testFormElement = document.querySelector('#test-form');
+    if (testFormElement) {
+      testFormElement.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <>
       <Helmet>
@@ -44,9 +52,11 @@ const Index = () => {
         </header>
 
         <main>
-          <HeroSection />
+          <HeroSection onStartTest={handleStartTest} />
           <HowItWorks />
-          <TestForm onComplete={handleTestComplete} />
+          <div id="test-form">
+            <TestForm onComplete={handleTestComplete} />
+          </div>
           <StepsSection />
           <TestimonialSection />
           <FAQSection />
