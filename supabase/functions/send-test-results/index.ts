@@ -58,8 +58,10 @@ serve(async (req) => {
     }
 
     // Use HTTPS URLs for external images - CORRECTED VERSION
-    const alainZenattiImageUrl = "https://drive.google.com/file/d/1g0UEHRykXE2uFTV0Y1WmWUqY9vPBDmAs/view?usp=drive_link";
-    const harmoniaImageUrl = "https://drive.google.com/file/d/10Bxi_UatYbikpinZrA8UGnmjqH1SqCXc/view?usp=sharing";
+   // Use HTTPS URLs for external images - CORRECTED VERSION
+const alainZenattiImageUrl = "https://akrlyzmfszumibwgocae.supabase.co/storage/v1/object/public/images//alain-zenatti-lexperience-dun-hypnotherapeute-parisien.webp";
+const harmoniaImageUrl = "https://akrlyzmfszumibwgocae.supabase.co/storage/v1/object/public/images//jpg%20(12).webp";
+const hypnoBalladeImageUrl = "https://akrlyzmfszumibwgocae.supabase.co/storage/v1/object/public/images//jpg%20(11).webp";
     
     console.log("=== URLS DES IMAGES UTILISÉES ===");
     console.log("Alain Zenatti:", alainZenattiImageUrl);
