@@ -108,12 +108,7 @@ serve(async (req) => {
                   ${getExerciseForScore(score)}
               </div>
 
-              <!-- IMAGE PRINCIPALE D'ALAIN ZENATTI -->
-              <div style="text-align: center; margin: 30px 0;">
-                  <img src="${alainZenattiImageUrl}" 
-                       alt="Alain Zenatti - Hypnothérapeute à Paris"
-                       style="width: 100%; max-width: 500px; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: block; margin: 0 auto;">
-              </div>
+              
 
               <div style="background-color: #f5f9fc; padding: 20px; border-radius: 8px; margin: 30px 0;">
                 <h2 style="color: #2c3e50; margin-top: 0;">Votre superpouvoir hypnotique, un potentiel illimité qui grandit avec vous</h2>
@@ -156,7 +151,12 @@ serve(async (req) => {
                   Suivez Nova Hypnose sur Instagram
               </a>
           </div>
-
+<!-- IMAGE PRINCIPALE D'ALAIN ZENATTI -->
+              <div style="text-align: center; margin: 30px 0;">
+                  <img src="${alainZenattiImageUrl}" 
+                       alt="Alain Zenatti - Hypnothérapeute à Paris"
+                       style="width: 100%; max-width: 200px; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: block; margin: 0 auto;">
+              </div>
           <!-- IMAGE HARMONIA -->
           <div style="margin: 30px 0;">
               <div style="text-align: center; margin: 20px 0;">
