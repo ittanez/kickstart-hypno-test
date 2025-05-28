@@ -265,3 +265,26 @@ function getConclusionMessage(score: number): string {
     return "Vous êtes un voyageur des états de conscience. Prenez soin de choisir vos destinations.";
   }
 }
+ <!-- IMAGES ADDITIONNELLES -->
+  <div style="margin: 30px 0;">
+      <!-- Image Alain Zenatti -->
+      <div style="text-align: center; margin: 20px 0;">
+          <img style="width: 100%; max-width: 500px; height: auto; display: block; margin: 20px auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);" 
+               src="${alainZenattiImageUrl}" 
+               alt="Alain Zenatti - Hypnothérapeute à Paris">
+      </div>
+      
+      <!-- Image Formation Harmonia -->
+      <div style="text-align: center; margin: 20px 0;">
+          <img style="width: 100%; max-width: 500px; height: auto; display: block; margin: 20px auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);" 
+               src="${harmoniaImageUrl}" 
+               alt="Formation Harmonia - Réduire le stress avec l'auto-hypnose">
+      </div>
+      
+      <!-- Image Hypno-Balade du Perche -->
+      <div style="text-align: center; margin: 20px 0;">
+          <img style="width: 100%; max-width: 500px; height: auto; display: block; margin: 20px auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);" 
+               src="${hypnoBalladeImageUrl}" 
+               alt="Hypno-Balade du Perche">
+      </div>
+  </div>
