@@ -5,6 +5,12 @@ import TestForm from '@/components/TestForm';
 import NavMenu from '@/components/NavMenu';
 
 const Index = () => {
+  const handleTestComplete = () => {
+    // Test completion is handled internally by TestForm
+    // This callback is just to satisfy the prop requirement
+    console.log('Test completed');
+  };
+
   return (
     <>
       <Helmet>
@@ -30,7 +36,7 @@ const Index = () => {
         </header>
 
         <main>
-          <TestForm />
+          <TestForm onComplete={handleTestComplete} />
         </main>
       </div>
     </>
