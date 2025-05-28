@@ -1,8 +1,12 @@
 
 import React from 'react';
-import { Check } from 'lucide-react';
+import { Check, ArrowLeft } from 'lucide-react';
 
-const ThankYouMessage = () => {
+interface ThankYouMessageProps {
+  onBackToHome: () => void;
+}
+
+const ThankYouMessage = ({ onBackToHome }: ThankYouMessageProps) => {
   return (
     <div className="hypno-card text-center max-w-xl mx-auto py-12 px-4 animate-fade-in">
       <div className="flex justify-center mb-6">
@@ -22,6 +26,14 @@ const ThankYouMessage = () => {
       <p className="text-md text-gray-600 mb-8">
         N'oubliez pas de vérifier votre boîte de réception (et éventuellement vos spams) pour découvrir votre score et des conseils personnalisés.
       </p>
+      
+      <button
+        onClick={onBackToHome}
+        className="inline-flex items-center gap-2 bg-hypno-primary text-white px-6 py-3 rounded-lg hover:bg-hypno-secondary transition-colors mb-6"
+      >
+        <ArrowLeft size={20} />
+        Retour à l'accueil
+      </button>
       
       <div className="border-t border-gray-200 pt-6">
         <p className="text-sm text-gray-500">
