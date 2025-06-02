@@ -1,5 +1,4 @@
-
-import React from 'react';
+ import React from 'react';
 import { Instagram } from 'lucide-react';
 import { 
   NavigationMenu,
@@ -36,6 +35,17 @@ const NavMenu = () => {
             className={cn(navigationMenuTriggerStyle(), "text-hypno-primary hover:text-hypno-accent")}
           >
             À propos
+          </NavigationMenuLink>
+        </NavigationMenuItem>
+
+        <NavigationMenuItem>
+          <NavigationMenuLink 
+            href="https://emergences.novahypnose.fr/" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className={cn(navigationMenuTriggerStyle(), "text-hypno-primary hover:text-hypno-accent")}
+          >
+            Emergences le Blog
           </NavigationMenuLink>
         </NavigationMenuItem>
 
