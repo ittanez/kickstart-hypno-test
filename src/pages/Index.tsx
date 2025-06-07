@@ -1,4 +1,4 @@
-  import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { Brain } from "lucide-react";
 import TestForm from "@/components/TestForm";
@@ -89,11 +89,63 @@ const Index = () => {
   };
 
   if (showThankYou) {
-    return <ThankYouMessage onBackToHome={handleBackToHome} />;
+    return (
+      <>
+        <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50">
+          {/* Header avec menu sur la page de remerciement */}
+          <header className="w-full bg-white/90 backdrop-blur-md border-b border-gray-200/50 sticky top-0 z-50 shadow-sm">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="flex justify-between items-center h-16 sm:h-20">
+                <div className="flex items-center">
+                  <h1 className="text-xl sm:text-2xl font-bold text-hypno-primary">
+                    HypnoKick
+                  </h1>
+                </div>
+                <NavMenu />
+              </div>
+            </div>
+          </header>
+          
+          {/* Message de remerciement */}
+          <ThankYouMessage onBackToHome={handleBackToHome} />
+          
+          {/* Footer sur la page de remerciement */}
+          <Footer />
+        </div>
+      </>
+    );
   }
 
   if (showTest) {
-    return <TestForm onComplete={handleTestComplete} />;
+    return (
+      <>
+        <Helmet>
+          <title>Test en cours - HypnoKick</title>
+        </Helmet>
+        
+        <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50">
+          {/* Header avec menu pendant le test */}
+          <header className="w-full bg-white/90 backdrop-blur-md border-b border-gray-200/50 sticky top-0 z-50 shadow-sm">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="flex justify-between items-center h-16 sm:h-20">
+                <div className="flex items-center">
+                  <h1 className="text-xl sm:text-2xl font-bold text-hypno-primary">
+                    HypnoKick
+                  </h1>
+                </div>
+                <NavMenu />
+              </div>
+            </div>
+          </header>
+          
+          {/* Contenu du test */}
+          <TestForm onComplete={handleTestComplete} />
+          
+          {/* Footer pendant le test */}
+          <Footer />
+        </div>
+      </>
+    );
   }
 
   return (
