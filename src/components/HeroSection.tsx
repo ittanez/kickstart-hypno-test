@@ -17,39 +17,39 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onStartTest }) => {
             <div className="mb-6">
               <span className="inline-flex items-center gap-2 bg-hypno-accent/10 text-hypno-accent px-4 py-2 rounded-full text-sm font-medium mb-4">
                 <Brain className="h-4 w-4" />
-                Test gratuit avec votre hypnothérapeute à Paris
+                🧠 Test gratuit avec votre hypnothérapeute à Paris : Révélez votre potentiel hypnotique
               </span>
             </div>
             
             <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-hypno-primary mb-6 leading-tight">
-              Suis-je hypnotisable ?
-              <span className="block text-2xl sm:text-3xl lg:text-4xl xl:text-5xl mt-2">
-                Découvrez-le en 2 minutes
+              Suis-je hypnotisable ? Test gratuit à Paris
+              <span className="block text-2xl sm:text-3xl lg:text-4xl xl:text-5xl mt-2 text-hypno-accent">
+                Découvrez votre réceptivité en 2 minutes
               </span>
             </h1>
             
             <p className="text-lg sm:text-xl text-gray-700 mb-8 max-w-2xl mx-auto lg:mx-0">
-              Révélez votre potentiel hypnotique avec notre test scientifique gratuit. 
-              Analysez votre réceptivité et vos canaux sensoriels dominants.
+              <strong>Révélez votre potentiel hypnotique</strong> avec notre test scientifique gratuit développé par un hypnothérapeute à Paris. 
+              Analysez votre réceptivité à l'hypnose et découvrez vos canaux sensoriels dominants (VAKOG).
             </p>
             
             {/* Points clés */}
             <div className="grid sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-4 mb-8 max-w-2xl mx-auto lg:mx-0">
               <div className="flex items-center gap-3">
                 <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0" />
-                <span className="text-gray-700">Test basé sur la science</span>
+                <span className="text-gray-700">Test basé sur la science hypnotique</span>
               </div>
               <div className="flex items-center gap-3">
                 <Clock className="h-5 w-5 text-blue-600 flex-shrink-0" />
-                <span className="text-gray-700">Résultats immédiats</span>
+                <span className="text-gray-700">Résultats personnalisés immédiats</span>
               </div>
               <div className="flex items-center gap-3">
                 <Brain className="h-5 w-5 text-purple-600 flex-shrink-0" />
-                <span className="text-gray-700">Analyse VAKOG</span>
+                <span className="text-gray-700">Analyse VAKOG complète</span>
               </div>
               <div className="flex items-center gap-3">
                 <CheckCircle className="h-5 w-5 text-hypno-accent flex-shrink-0" />
-                <span className="text-gray-700">100% confidentiel</span>
+                <span className="text-gray-700">Hypnothérapeute certifié Paris</span>
               </div>
             </div>
             
@@ -59,7 +59,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onStartTest }) => {
                 size="lg"
                 className="bg-hypno-accent hover:bg-hypno-primary text-white px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
               >
-                Commencer le test gratuit
+                🧠 Commencer le test gratuit d'hypnotisabilité
               </Button>
               
               <Button 
@@ -68,7 +68,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onStartTest }) => {
                 className="border-hypno-primary text-hypno-primary hover:bg-hypno-primary hover:text-white px-8 py-4 text-lg font-semibold transition-all duration-300"
                 onClick={() => window.open('https://novahypnose.fr/#about', '_blank')}
               >
-                En savoir plus
+                Hypnothérapeute Paris - En savoir plus
               </Button>
             </div>
           </div>
@@ -79,8 +79,8 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onStartTest }) => {
               {/* Image principale */}
               <div className="relative mx-auto w-full max-w-sm lg:max-w-md xl:max-w-lg">
                 <img 
-                  src="/api/placeholder/400/500"
-                  alt="Hypnothérapeute professionnel - Test de réceptivité à l'hypnose"
+                  src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                  alt="Hypnothérapeute professionnel à Paris - Test de réceptivité à l'hypnose"
                   className="w-full h-auto rounded-2xl shadow-2xl object-cover aspect-[4/5]"
                   loading="eager"
                 />
@@ -99,7 +99,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onStartTest }) => {
                       <div className="w-6 h-6 bg-blue-400 rounded-full border-2 border-white"></div>
                       <div className="w-6 h-6 bg-purple-400 rounded-full border-2 border-white"></div>
                     </div>
-                    <span className="text-sm font-medium text-gray-700">+2000 tests</span>
+                    <span className="text-sm font-medium text-gray-700">+2000 tests réalisés à Paris</span>
                   </div>
                 </div>
               </div>
