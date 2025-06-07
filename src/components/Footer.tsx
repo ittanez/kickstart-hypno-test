@@ -43,7 +43,7 @@ const Footer = () => {
               </li>
               <li>
                 <a 
-                  href="https://novahypnose.fr/a-propos" 
+                  href="https://novahypnose.fr/#about" 
                   target="_blank"
                   className="text-white/90 hover:text-white transition-colors"
                 >
@@ -52,7 +52,7 @@ const Footer = () => {
               </li>
               <li>
                 <a 
-                  href="https://novahypnose.fr/applications" 
+                  href="https://novahypnose.fr/#applications" 
                   target="_blank"
                   className="text-white/90 hover:text-white transition-colors"
                 >
@@ -61,7 +61,7 @@ const Footer = () => {
               </li>
               <li>
                 <a 
-                  href="https://novahypnose.fr/auto-hypnose" 
+                  href="https://novahypnose.fr/#self-hypnosis" 
                   target="_blank"
                   className="text-white/90 hover:text-white transition-colors"
                 >
@@ -70,7 +70,7 @@ const Footer = () => {
               </li>
               <li>
                 <a 
-                  href="https://novahypnose.fr/tarifs" 
+                  href="https://novahypnose.fr/#pricing" 
                   target="_blank"
                   className="text-white/90 hover:text-white transition-colors"
                 >
@@ -79,7 +79,7 @@ const Footer = () => {
               </li>
               <li>
                 <a 
-                  href="https://novahypnose.fr/faq" 
+                  href="https://novahypnose.fr/#faq" 
                   target="_blank"
                   className="text-white/90 hover:text-white transition-colors"
                 >
@@ -127,7 +127,7 @@ const Footer = () => {
               className="bg-white text-hypno-primary hover:bg-white/90 font-medium"
             >
               <a 
-                href="https://novahypnose.fr/prendre-rendez-vous" 
+                href="https://www.resalib.fr/praticien/47325-alain-zenatti-hypnotherapeute-paris" 
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -166,7 +166,7 @@ const Footer = () => {
                 Mentions légales
               </a>
               <a 
-                href="https://novahypnose.fr/blog" 
+                href="https://emergences.novahypnose.fr/" 
                 target="_blank"
                 className="text-white/80 hover:text-white transition-colors"
               >
