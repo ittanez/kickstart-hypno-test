@@ -10,6 +10,7 @@ import ThankYouMessage from "@/components/ThankYouMessage";
 import HowItWorks from "@/components/HowItWorks";
 import SEOSchema from "@/components/SEOSchema";
 import NavMenu from "@/components/NavMenu";
+import Footer from "@/components/Footer";
 
 const Index = () => {
   const [showTest, setShowTest] = useState(false);
@@ -140,6 +141,8 @@ const Index = () => {
         <HowItWorks />
         <TestimonialSection />
         <FAQSection />
+<Footer />  
+
       </div>
     </>
   );
