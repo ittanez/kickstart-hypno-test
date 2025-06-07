@@ -56,17 +56,15 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onStartTest }) => {
               <button 
                 onClick={onStartTest}
                 type="button"
-                className="bg-hypno-accent hover:bg-hypno-primary text-white px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 rounded-lg cursor-pointer touch-manipulation active:scale-95"
-                style={{ minHeight: '60px', minWidth: '200px' }}
+                className="w-full sm:w-auto bg-hypno-accent hover:bg-hypno-primary text-white px-8 py-6 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 rounded-lg cursor-pointer"
               >
                 🧠 Commencer le test gratuit d'hypnotisabilité
               </button>
               
               <button 
                 type="button"
-                className="border-2 border-hypno-primary text-hypno-primary hover:bg-hypno-primary hover:text-white px-8 py-4 text-lg font-semibold transition-all duration-300 rounded-lg cursor-pointer touch-manipulation active:scale-95"
+                className="w-full sm:w-auto border-2 border-hypno-primary text-hypno-primary hover:bg-hypno-primary hover:text-white px-8 py-6 text-lg font-semibold transition-all duration-300 rounded-lg cursor-pointer"
                 onClick={() => window.open('https://novahypnose.fr/#about', '_blank')}
-                style={{ minHeight: '60px', minWidth: '200px' }}
               >
                 Hypnothérapeute Paris - En savoir plus
               </button>
