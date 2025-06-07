@@ -189,6 +189,25 @@ const Index = () => {
         <TestimonialSection />
         <FAQSection />
         <Footer />  
+
+        {/* Bouton flottant pour commencer le test */}
+        <div 
+          className={`fixed bottom-6 right-6 z-50 transition-all duration-500 ${
+            showFloatingButton && !showTest && !showThankYou 
+              ? 'opacity-100 translate-y-0' 
+              : 'opacity-0 translate-y-16 pointer-events-none'
+          }`}
+        >
+          <button
+            onClick={handleStartTest}
+            className="bg-hypno-accent hover:bg-hypno-primary text-white shadow-2xl rounded-full px-6 py-4 flex items-center gap-2 font-semibold text-base transform transition-all duration-300 hover:scale-105 animate-pulse"
+          >
+            <Brain className="h-5 w-5" />
+            <span className="hidden sm:inline">Test Gratuit</span>
+            <span className="sm:hidden">Test</span>
+          </button>
+        </div>
+
       </div>
     </>
   );
