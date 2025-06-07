@@ -1,6 +1,5 @@
- import React from 'react';
-import { Button } from "@/components/ui/button";
-import { Brain, Clock, CheckCircle } from "lucide-react";
+import React from 'react';
+import { Clock, CheckCircle, Brain } from "lucide-react";
 
 interface HeroSectionProps {
   onStartTest: () => void;
@@ -54,22 +53,19 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onStartTest }) => {
             </div>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <Button 
+              <button 
                 onClick={onStartTest}
-                size="lg"
-                className="bg-hypno-accent hover:bg-hypno-primary text-white px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+                className="bg-hypno-accent hover:bg-hypno-primary text-white px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 rounded-lg"
               >
                 🧠 Commencer le test gratuit d'hypnotisabilité
-              </Button>
+              </button>
               
-              <Button 
-                variant="outline"
-                size="lg"
-                className="border-hypno-primary text-hypno-primary hover:bg-hypno-primary hover:text-white px-8 py-4 text-lg font-semibold transition-all duration-300"
+              <button 
+                className="border-2 border-hypno-primary text-hypno-primary hover:bg-hypno-primary hover:text-white px-8 py-4 text-lg font-semibold transition-all duration-300 rounded-lg"
                 onClick={() => window.open('https://novahypnose.fr/#about', '_blank')}
               >
                 Hypnothérapeute Paris - En savoir plus
-              </Button>
+              </button>
             </div>
           </div>
           
