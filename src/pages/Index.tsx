@@ -40,9 +40,9 @@ const Index = () => {
   return (
     <>
       <Helmet>
-        <title>Suis-je hypnotisable ? Test gratuit de réceptivité à l'hypnose | HypnoKick Paris</title>
-        <meta name="description" content="Découvrez si vous êtes hypnotisable avec notre test scientifique gratuit en 30 questions. Évaluez votre réceptivité à l'hypnose et vos canaux sensoriels dominants. Hypnothérapeute Paris." />
-        <meta name="keywords" content="suis je hypnotisable, test réceptivité hypnose, hypnotisable, réceptif hypnose, test hypnose gratuit, hypnothérapeute Paris" />
+        <title>Test Hypnotisabilité Gratuit Paris | Suis-je hypnotisable ? | HypnoKick</title>
+        <meta name="description" content="✅ Test gratuit de réceptivité à l'hypnose par hypnothérapeute certifié à Paris. Découvrez si vous êtes hypnotisable en 2 minutes. Révélez votre potentiel hypnotique et vos canaux VAKOG dominants." />
+        <meta name="keywords" content="test hypnotisabilité Paris, suis je hypnotisable, hypnothérapeute Paris, test réceptivité hypnose gratuit, hypnose Paris, révéler potentiel hypnotique" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Helmet>
       <SEOSchema />
@@ -74,12 +74,12 @@ const Index = () => {
             
             <div className="text-center mb-8 sm:mb-12">
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6 text-hypno-primary">
-                Comment savoir si vous êtes hypnotisable ?
+                Test d'hypnotisabilité gratuit à Paris : Comment révéler votre potentiel hypnotique ?
               </h2>
               
               <p className="text-base sm:text-lg text-gray-700 mb-6 sm:mb-8 max-w-3xl mx-auto leading-relaxed">
-                La question "suis-je hypnotisable ?" est l'une des plus fréquentes en hypnothérapie. 
-                La bonne nouvelle ? L'hypnotisabilité est un phénomène naturel que nous expérimentons tous quotidiennement.
+                Vous vous demandez <strong>"suis-je hypnotisable ?"</strong> Notre hypnothérapeute certifié à Paris a développé ce test gratuit pour révéler votre potentiel hypnotique. 
+                L'hypnotisabilité est un phénomène naturel que nous expérimentons tous quotidiennement.
               </p>
 
               <div className="bg-hypno-primary/10 p-4 sm:p-6 rounded-lg mb-6 sm:mb-8 max-w-2xl mx-auto">
