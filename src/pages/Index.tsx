@@ -1,7 +1,6 @@
  import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
-import { Button } from "@/components/ui/button";
-import { Brain, ArrowUp } from "lucide-react";
+import { Brain } from "lucide-react";
 import TestForm from "@/components/TestForm";
 import HeroSection from "@/components/HeroSection";
 import StepsSection from "@/components/StepsSection";
@@ -21,8 +20,7 @@ const Index = () => {
   // Afficher le bouton flottant après avoir scrollé
   useEffect(() => {
     const handleScroll = () => {
-      const scrolled = window.scrollY > 300;
-      setShowFloatingButton(scrolled);
+      setShowFloatingButton(window.scrollY > 200);
     };
 
     window.addEventListener('scroll', handleScroll);
