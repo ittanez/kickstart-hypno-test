@@ -1,5 +1,9 @@
-
+# public/robots.txt
 User-agent: *
 Allow: /
 
+# Sitemap
 Sitemap: https://hypnokick.novahypnose.fr/sitemap.xml
+
+# Disallow pages non utiles pour SEO
+Disallow: /privacy-policy
