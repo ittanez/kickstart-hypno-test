@@ -21,7 +21,7 @@ const NavMenu = () => {
   const menuItems = [
     { href: 'https://novahypnose.fr/', label: 'NovaHypnose' },
     { href: 'https://novahypnose.fr/#about', label: 'À propos' },
-    { href: 'https://emergences.novahypnose.fr/', label: 'Emergences' },
+    { href: 'https://emergences.novahypnose.fr/', label: 'Emergences le Blog' },
     { 
       href: 'https://www.instagram.com/novahypnose/', 
       label: 'Instagram', 
@@ -84,10 +84,10 @@ const NavMenu = () => {
             />
             
             {/* Menu Panel */}
-            <div className="fixed top-0 right-0 h-full w-80 max-w-[90vw] bg-white shadow-xl z-50 transform transition-transform duration-300 ease-in-out">
+            <div className="fixed top-0 right-0 h-full w-80 max-w-[90vw] bg-white shadow-xl z-50 transform transition-transform duration-300 ease-in-out overflow-y-auto">
               <div className="flex flex-col h-full">
                 {/* Header */}
-                <div className="flex items-center justify-between p-4 border-b">
+                <div className="flex items-center justify-between p-4 border-b bg-white sticky top-0">
                   <span className="text-lg font-semibold text-hypno-primary">Menu</span>
                   <button
                     onClick={toggleMenu}
@@ -108,14 +108,14 @@ const NavMenu = () => {
                           rel="noopener noreferrer"
                           onClick={toggleMenu}
                           className={cn(
-                            "flex items-center gap-3 p-3 rounded-lg transition-colors text-left w-full",
+                            "flex items-center gap-3 p-4 rounded-lg transition-colors text-left w-full text-base",
                             item.isButton
-                              ? "bg-hypno-accent text-white hover:bg-hypno-primary"
+                              ? "bg-hypno-accent text-white hover:bg-hypno-primary font-semibold"
                               : "text-hypno-primary hover:text-hypno-accent hover:bg-gray-50"
                           )}
                         >
                           {item.icon}
-                          <span className="font-medium">{item.label}</span>
+                          <span>{item.label}</span>
                         </a>
                       </li>
                     ))}
