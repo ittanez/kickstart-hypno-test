@@ -1,8 +1,9 @@
-
+// src/pages/Index.tsx (version optimisée)
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import TestForm from "@/components/TestForm";
-import HeroSection from "@/components/HeroSection";
+import HeroSectionSEO from "@/components/HeroSectionSEO"; // Nouveau composant
+import SEOContent from "@/components/SEOContent"; // Nouveau composant
 import StepsSection from "@/components/StepsSection";
 import TestimonialSection from "@/components/TestimonialSection";
 import FAQSection from "@/components/FAQSection";
@@ -40,8 +41,31 @@ const Index = () => {
   return (
     <>
       <Helmet>
-        <title>HypnoKick - Test de réceptivité à l'hypnose | Hypnothérapeute Paris</title>
-        <meta name="description" content="Découvrez votre potentiel hypnotique avec notre test scientifique gratuit. Consultations d'hypnothérapie à Paris pour stress, anxiété, confiance en soi, sommeil et arrêt du tabac." />
+        <title>Suis-je hypnotisable ? Test gratuit de réceptivité à l'hypnose | HypnoKick Paris</title>
+        <meta name="description" content="Découvrez si vous êtes hypnotisable avec notre test scientifique gratuit en 30 questions. Évaluez votre réceptivité à l'hypnose et vos canaux sensoriels dominants. Hypnothérapeute Paris." />
+        <meta name="keywords" content="suis je hypnotisable, test réceptivité hypnose, hypnotisable, réceptif hypnose, test hypnose gratuit, hypnothérapeute Paris" />
+        
+        {/* Schema markup pour le test */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Quiz",
+            "name": "Test de réceptivité à l'hypnose",
+            "description": "Découvrez si vous êtes hypnotisable avec notre test scientifique gratuit",
+            "author": {
+              "@type": "Organization",
+              "name": "HypnoKick",
+              "url": "https://hypnokick.novahypnose.fr"
+            },
+            "typicalAgeRange": "18-",
+            "educationalLevel": "Adulte",
+            "timeRequired": "PT5M",
+            "quiz": {
+              "@type": "Quiz",
+              "about": "Réceptivité à l'hypnose"
+            }
+          })}
+        </script>
       </Helmet>
       <SEOSchema />
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50">
@@ -53,7 +77,8 @@ const Index = () => {
             <NavMenu />
           </div>
         </header>
-        <HeroSection onStartTest={handleStartTest} />
+        <HeroSectionSEO onStartTest={handleStartTest} />
+        <SEOContent />
         <StepsSection />
         <HowItWorks />
         <TestimonialSection />
@@ -62,5 +87,3 @@ const Index = () => {
     </>
   );
 };
-
-export default Index;
