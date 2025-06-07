@@ -1,4 +1,4 @@
- import { useState, useEffect } from "react";
+  import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { Brain } from "lucide-react";
 import TestForm from "@/components/TestForm";
@@ -34,20 +34,22 @@ const NavMenu = () => {
         {isOpen && (
           <div className="fixed inset-0 z-50">
             <div className="fixed inset-0 bg-black bg-opacity-50" onClick={() => setIsOpen(false)} />
-            <div className="fixed top-0 right-0 h-full w-80 max-w-[90vw] bg-white shadow-xl">
-              <div className="flex flex-col h-full bg-white">
-                <div className="flex items-center justify-between p-4 border-b bg-white">
-                  <span className="text-lg font-semibold text-hypno-primary">Menu</span>
-                  <button onClick={() => setIsOpen(false)} className="p-2 text-gray-500 bg-white">✕</button>
+            <div className="fixed top-0 right-0 h-full w-80 max-w-[90vw] bg-white shadow-xl border-l-2 border-gray-200">
+              <div className="flex flex-col h-full">
+                <div className="flex items-center justify-between p-4 border-b border-gray-300 bg-white">
+                  <span className="text-lg font-semibold text-gray-800">Menu</span>
+                  <button onClick={() => setIsOpen(false)} className="p-2 text-gray-800 bg-gray-100 rounded">✕</button>
                 </div>
                 <div className="flex-1 p-4 space-y-3 bg-white">
-                  <a href="https://novahypnose.fr/" target="_blank" rel="noopener noreferrer" onClick={() => setIsOpen(false)} className="block p-4 rounded-lg text-hypno-primary hover:bg-gray-50 bg-white">NovaHypnose</a>
-                  <a href="https://novahypnose.fr/#about" target="_blank" rel="noopener noreferrer" onClick={() => setIsOpen(false)} className="block p-4 rounded-lg text-hypno-primary hover:bg-gray-50 bg-white">À propos</a>
-                  <a href="https://emergences.novahypnose.fr/" target="_blank" rel="noopener noreferrer" onClick={() => setIsOpen(false)} className="block p-4 rounded-lg text-hypno-primary hover:bg-gray-50 bg-white">Emergences le Blog</a>
-                  <a href="https://www.instagram.com/novahypnose/" target="_blank" rel="noopener noreferrer" onClick={() => setIsOpen(false)} className="block p-4 rounded-lg text-hypno-primary hover:bg-gray-50 bg-white">Instagram</a>
-                  <a href="https://www.resalib.fr/praticien/47325-alain-zenatti-hypnotherapeute-paris" target="_blank" rel="noopener noreferrer" onClick={() => setIsOpen(false)} className="block p-4 rounded-lg bg-hypno-accent text-white hover:bg-hypno-primary font-semibold">Rendez-vous</a>
+                  <a href="https://novahypnose.fr/" target="_blank" rel="noopener noreferrer" onClick={() => setIsOpen(false)} className="block w-full p-4 rounded-lg text-gray-800 bg-gray-50 hover:bg-gray-100 border border-gray-200">NovaHypnose</a>
+                  <a href="https://novahypnose.fr/#about" target="_blank" rel="noopener noreferrer" onClick={() => setIsOpen(false)} className="block w-full p-4 rounded-lg text-gray-800 bg-gray-50 hover:bg-gray-100 border border-gray-200">À propos</a>
+                  <a href="https://emergences.novahypnose.fr/" target="_blank" rel="noopener noreferrer" onClick={() => setIsOpen(false)} className="block w-full p-4 rounded-lg text-gray-800 bg-gray-50 hover:bg-gray-100 border border-gray-200">Emergences le Blog</a>
+                  <a href="https://www.instagram.com/novahypnose/" target="_blank" rel="noopener noreferrer" onClick={() => setIsOpen(false)} className="block w-full p-4 rounded-lg text-gray-800 bg-gray-50 hover:bg-gray-100 border border-gray-200">Instagram</a>
+                  <a href="https://www.resalib.fr/praticien/47325-alain-zenatti-hypnotherapeute-paris" target="_blank" rel="noopener noreferrer" onClick={() => setIsOpen(false)} className="block w-full p-4 rounded-lg bg-blue-600 text-white hover:bg-blue-700 font-semibold border border-blue-600">Rendez-vous</a>
                 </div>
-                <div className="p-4 border-t bg-gray-50"><p className="text-sm text-gray-600 text-center">© 2024 HypnoKick</p></div>
+                <div className="p-4 border-t border-gray-300 bg-gray-100">
+                  <p className="text-sm text-gray-700 text-center">© 2024 HypnoKick</p>
+                </div>
               </div>
             </div>
           </div>
@@ -245,7 +247,7 @@ const Index = () => {
         >
           <button
             onClick={handleStartTest}
-            className="bg-hypno-accent hover:bg-hypno-primary text-white shadow-2xl rounded-full px-6 py-4 flex items-center gap-2 font-semibold text-base transform transition-all duration-300 hover:scale-105"
+            className="bg-hypno-accent hover:bg-hypno-primary text-white shadow-lg rounded-full px-6 py-4 flex items-center gap-2 font-semibold text-base"
           >
             <Brain className="h-5 w-5" />
             <span className="hidden sm:inline">Test Gratuit</span>
