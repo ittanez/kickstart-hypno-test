@@ -1,4 +1,4 @@
- import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { Brain } from "lucide-react";
 import TestForm from "@/components/TestForm";
@@ -9,8 +9,53 @@ import FAQSection from "@/components/FAQSection";
 import ThankYouMessage from "@/components/ThankYouMessage";
 import HowItWorks from "@/components/HowItWorks";
 import SEOSchema from "@/components/SEOSchema";
-import NavMenu from "@/components/NavMenu";
 import Footer from "@/components/Footer";
+
+// Import du nouveau menu simple
+const NavMenu = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  
+  return (
+    <>
+      {/* Desktop Navigation */}
+      <nav className="hidden md:flex items-center space-x-4">
+        <a href="https://novahypnose.fr/" target="_blank" rel="noopener noreferrer" className="px-4 py-2 text-hypno-primary hover:text-hypno-accent transition-colors">NovaHypnose</a>
+        <a href="https://novahypnose.fr/#about" target="_blank" rel="noopener noreferrer" className="px-4 py-2 text-hypno-primary hover:text-hypno-accent transition-colors">À propos</a>
+        <a href="https://emergences.novahypnose.fr/" target="_blank" rel="noopener noreferrer" className="px-4 py-2 text-hypno-primary hover:text-hypno-accent transition-colors">Emergences le Blog</a>
+        <a href="https://www.instagram.com/novahypnose/" target="_blank" rel="noopener noreferrer" className="px-4 py-2 text-hypno-primary hover:text-hypno-accent transition-colors flex items-center gap-1">Instagram</a>
+        <a href="https://www.resalib.fr/praticien/47325-alain-zenatti-hypnotherapeute-paris" target="_blank" rel="noopener noreferrer" className="px-4 py-2 bg-hypno-accent text-white hover:bg-hypno-primary transition-colors rounded-md font-semibold">Rendez-vous</a>
+      </nav>
+
+      {/* Mobile Navigation */}
+      <div className="md:hidden">
+        <button onClick={() => setIsOpen(!isOpen)} className="p-2 rounded-md text-hypno-primary hover:text-hypno-accent hover:bg-gray-100 transition-colors">
+          {isOpen ? '✕' : '☰'}
+        </button>
+        {isOpen && (
+          <div className="fixed inset-0 z-50">
+            <div className="fixed inset-0 bg-black bg-opacity-50" onClick={() => setIsOpen(false)} />
+            <div className="fixed top-0 right-0 h-full w-80 max-w-[90vw] bg-white shadow-xl">
+              <div className="flex flex-col h-full">
+                <div className="flex items-center justify-between p-4 border-b">
+                  <span className="text-lg font-semibold text-hypno-primary">Menu</span>
+                  <button onClick={() => setIsOpen(false)} className="p-2 text-gray-500">✕</button>
+                </div>
+                <div className="flex-1 p-4 space-y-3">
+                  <a href="https://novahypnose.fr/" target="_blank" rel="noopener noreferrer" onClick={() => setIsOpen(false)} className="block p-4 rounded-lg text-hypno-primary hover:bg-gray-50">NovaHypnose</a>
+                  <a href="https://novahypnose.fr/#about" target="_blank" rel="noopener noreferrer" onClick={() => setIsOpen(false)} className="block p-4 rounded-lg text-hypno-primary hover:bg-gray-50">À propos</a>
+                  <a href="https://emergences.novahypnose.fr/" target="_blank" rel="noopener noreferrer" onClick={() => setIsOpen(false)} className="block p-4 rounded-lg text-hypno-primary hover:bg-gray-50">Emergences le Blog</a>
+                  <a href="https://www.instagram.com/novahypnose/" target="_blank" rel="noopener noreferrer" onClick={() => setIsOpen(false)} className="block p-4 rounded-lg text-hypno-primary hover:bg-gray-50">Instagram</a>
+                  <a href="https://www.resalib.fr/praticien/47325-alain-zenatti-hypnotherapeute-paris" target="_blank" rel="noopener noreferrer" onClick={() => setIsOpen(false)} className="block p-4 rounded-lg bg-hypno-accent text-white hover:bg-hypno-primary font-semibold">Rendez-vous</a>
+                </div>
+                <div className="p-4 border-t bg-gray-50"><p className="text-sm text-gray-600 text-center">© 2024 HypnoKick</p></div>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </>
+  );
+};
 
 const Index = () => {
   const [showTest, setShowTest] = useState(false);
