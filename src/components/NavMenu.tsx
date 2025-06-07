@@ -8,45 +8,60 @@ const NavMenu = () => {
     setIsOpen(!isOpen);
   };
 
-  const menuItems = [
-    { href: 'https://novahypnose.fr/', label: 'NovaHypnose' },
-    { href: 'https://novahypnose.fr/#about', label: 'À propos' },
-    { href: 'https://emergences.novahypnose.fr/', label: 'Emergences le Blog' },
-    { 
-      href: 'https://www.instagram.com/novahypnose/', 
-      label: 'Instagram', 
-      icon: <Instagram className="h-4 w-4" />
-    },
-    { 
-      href: 'https://www.resalib.fr/praticien/47325-alain-zenatti-hypnotherapeute-paris', 
-      label: 'Rendez-vous',
-      isButton: true
-    }
-  ];
+  const closeMenu = () => {
+    setIsOpen(false);
+  };
 
   return (
     <>
       {/* Desktop Navigation */}
-      <div className="hidden md:block">
-        <div className="flex items-center space-x-4">
-          {menuItems.map((item, index) => (
-            <a
-              key={index}
-              href={item.href}
-              target="_blank" 
-              rel="noopener noreferrer"
-              className={`px-4 py-2 rounded-md transition-colors flex items-center gap-1 ${
-                item.isButton 
-                  ? "bg-hypno-accent text-white hover:bg-hypno-primary"
-                  : "text-hypno-primary hover:text-hypno-accent"
-              }`}
-            >
-              {item.icon}
-              {item.label}
-            </a>
-          ))}
-        </div>
-      </div>
+      <nav className="hidden md:flex items-center space-x-4">
+        <a
+          href="https://novahypnose.fr/"
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="px-4 py-2 text-hypno-primary hover:text-hypno-accent transition-colors"
+        >
+          NovaHypnose
+        </a>
+        
+        <a
+          href="https://novahypnose.fr/#about"
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="px-4 py-2 text-hypno-primary hover:text-hypno-accent transition-colors"
+        >
+          À propos
+        </a>
+        
+        <a
+          href="https://emergences.novahypnose.fr/"
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="px-4 py-2 text-hypno-primary hover:text-hypno-accent transition-colors"
+        >
+          Emergences le Blog
+        </a>
+        
+        <a
+          href="https://www.instagram.com/novahypnose/"
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="px-4 py-2 text-hypno-primary hover:text-hypno-accent transition-colors flex items-center gap-1"
+        >
+          <Instagram className="h-4 w-4" />
+          Instagram
+        </a>
+        
+        <a
+          href="https://www.resalib.fr/praticien/47325-alain-zenatti-hypnotherapeute-paris"
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="px-4 py-2 bg-hypno-accent text-white hover:bg-hypno-primary transition-colors rounded-md font-semibold"
+        >
+          Rendez-vous
+        </a>
+      </nav>
 
       {/* Mobile Navigation */}
       <div className="md:hidden">
@@ -61,21 +76,21 @@ const NavMenu = () => {
 
         {/* Mobile Menu Overlay */}
         {isOpen && (
-          <>
+          <div className="fixed inset-0 z-50">
             {/* Backdrop */}
             <div 
-              className="fixed inset-0 bg-black bg-opacity-50 z-40"
-              onClick={toggleMenu}
+              className="fixed inset-0 bg-black bg-opacity-50"
+              onClick={closeMenu}
             />
             
             {/* Menu Panel */}
-            <div className="fixed top-0 right-0 h-full w-80 max-w-[90vw] bg-white shadow-xl z-50 transform transition-transform duration-300 ease-in-out overflow-y-auto">
+            <div className="fixed top-0 right-0 h-full w-80 max-w-[90vw] bg-white shadow-xl overflow-y-auto">
               <div className="flex flex-col h-full">
                 {/* Header */}
-                <div className="flex items-center justify-between p-4 border-b bg-white sticky top-0">
+                <div className="flex items-center justify-between p-4 border-b bg-white">
                   <span className="text-lg font-semibold text-hypno-primary">Menu</span>
                   <button
-                    onClick={toggleMenu}
+                    onClick={closeMenu}
                     className="p-2 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100"
                   >
                     <X className="h-5 w-5" />
@@ -83,28 +98,60 @@ const NavMenu = () => {
                 </div>
 
                 {/* Menu Items */}
-                <nav className="flex-1 p-4">
-                  <ul className="space-y-3">
-                    {menuItems.map((item, index) => (
-                      <li key={index}>
-                        <a
-                          href={item.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={toggleMenu}
-                          className={`flex items-center gap-3 p-4 rounded-lg transition-colors text-left w-full text-base ${
-                            item.isButton
-                              ? "bg-hypno-accent text-white hover:bg-hypno-primary font-semibold"
-                              : "text-hypno-primary hover:text-hypno-accent hover:bg-gray-50"
-                          }`}
-                        >
-                          {item.icon}
-                          <span>{item.label}</span>
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </nav>
+                <div className="flex-1 p-4">
+                  <div className="space-y-3">
+                    <a
+                      href="https://novahypnose.fr/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={closeMenu}
+                      className="flex items-center p-4 rounded-lg text-hypno-primary hover:text-hypno-accent hover:bg-gray-50 transition-colors w-full text-left"
+                    >
+                      NovaHypnose
+                    </a>
+                    
+                    <a
+                      href="https://novahypnose.fr/#about"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={closeMenu}
+                      className="flex items-center p-4 rounded-lg text-hypno-primary hover:text-hypno-accent hover:bg-gray-50 transition-colors w-full text-left"
+                    >
+                      À propos
+                    </a>
+                    
+                    <a
+                      href="https://emergences.novahypnose.fr/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={closeMenu}
+                      className="flex items-center p-4 rounded-lg text-hypno-primary hover:text-hypno-accent hover:bg-gray-50 transition-colors w-full text-left"
+                    >
+                      Emergences le Blog
+                    </a>
+                    
+                    <a
+                      href="https://www.instagram.com/novahypnose/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={closeMenu}
+                      className="flex items-center gap-3 p-4 rounded-lg text-hypno-primary hover:text-hypno-accent hover:bg-gray-50 transition-colors w-full text-left"
+                    >
+                      <Instagram className="h-4 w-4" />
+                      Instagram
+                    </a>
+                    
+                    <a
+                      href="https://www.resalib.fr/praticien/47325-alain-zenatti-hypnotherapeute-paris"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={closeMenu}
+                      className="flex items-center p-4 rounded-lg bg-hypno-accent text-white hover:bg-hypno-primary transition-colors w-full text-left font-semibold"
+                    >
+                      Rendez-vous
+                    </a>
+                  </div>
+                </div>
 
                 {/* Footer */}
                 <div className="p-4 border-t bg-gray-50">
@@ -114,7 +161,7 @@ const NavMenu = () => {
                 </div>
               </div>
             </div>
-          </>
+          </div>
         )}
       </div>
     </>
