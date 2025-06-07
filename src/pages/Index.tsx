@@ -1,5 +1,7 @@
- import { useState } from "react";
+ import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
+import { Button } from "@/components/ui/button";
+import { Brain, ArrowUp } from "lucide-react";
 import TestForm from "@/components/TestForm";
 import HeroSection from "@/components/HeroSection";
 import StepsSection from "@/components/StepsSection";
@@ -14,6 +16,18 @@ import Footer from "@/components/Footer";
 const Index = () => {
   const [showTest, setShowTest] = useState(false);
   const [showThankYou, setShowThankYou] = useState(false);
+  const [showFloatingButton, setShowFloatingButton] = useState(false);
+
+  // Afficher le bouton flottant après avoir scrollé
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrolled = window.scrollY > 300;
+      setShowFloatingButton(scrolled);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const handleStartTest = () => {
     setShowTest(true);
