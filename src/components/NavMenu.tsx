@@ -1,15 +1,5 @@
  import React, { useState } from 'react';
 import { Instagram, Menu, X } from 'lucide-react';
-import { 
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  navigationMenuTriggerStyle
-} from '@/components/ui/navigation-menu';
-import { cn } from '@/lib/utils';
 
 const NavMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -38,29 +28,24 @@ const NavMenu = () => {
     <>
       {/* Desktop Navigation */}
       <div className="hidden md:block">
-        <NavigationMenu>
-          <NavigationMenuList className="flex items-center space-x-4">
-            {menuItems.map((item, index) => (
-              <NavigationMenuItem key={index}>
-                <NavigationMenuLink 
-                  href={item.href}
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className={cn(
-                    navigationMenuTriggerStyle(), 
-                    item.isButton 
-                      ? "bg-hypno-accent text-white hover:bg-hypno-primary"
-                      : "text-hypno-primary hover:text-hypno-accent",
-                    item.icon && "flex items-center gap-1"
-                  )}
-                >
-                  {item.icon}
-                  {item.label}
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-            ))}
-          </NavigationMenuList>
-        </NavigationMenu>
+        <div className="flex items-center space-x-4">
+          {menuItems.map((item, index) => (
+            <a
+              key={index}
+              href={item.href}
+              target="_blank" 
+              rel="noopener noreferrer"
+              className={`px-4 py-2 rounded-md transition-colors flex items-center gap-1 ${
+                item.isButton 
+                  ? "bg-hypno-accent text-white hover:bg-hypno-primary"
+                  : "text-hypno-primary hover:text-hypno-accent"
+              }`}
+            >
+              {item.icon}
+              {item.label}
+            </a>
+          ))}
+        </div>
       </div>
 
       {/* Mobile Navigation */}
@@ -107,12 +92,11 @@ const NavMenu = () => {
                           target="_blank"
                           rel="noopener noreferrer"
                           onClick={toggleMenu}
-                          className={cn(
-                            "flex items-center gap-3 p-4 rounded-lg transition-colors text-left w-full text-base",
+                          className={`flex items-center gap-3 p-4 rounded-lg transition-colors text-left w-full text-base ${
                             item.isButton
                               ? "bg-hypno-accent text-white hover:bg-hypno-primary font-semibold"
                               : "text-hypno-primary hover:text-hypno-accent hover:bg-gray-50"
-                          )}
+                          }`}
                         >
                           {item.icon}
                           <span>{item.label}</span>
