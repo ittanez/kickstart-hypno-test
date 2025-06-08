@@ -52,7 +52,8 @@
     X-Frame-Options = "DENY"
     X-XSS-Protection = "1; mode=block"
     X-Content-Type-Options = "nosniff"
-    Content-Security-Policy = "frame-ancestors 'none'"
+    Content-Security-Policy = "default-src 'self' https:; img-src 'self' https: data:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://akrlyzmfszumibwgocae.supabase.co https://www.google-analytics.com; upgrade-insecure-requests"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
 
 [[headers]]
   for = "/*"
@@ -89,6 +90,13 @@
 [[redirects]]
   from = "/*/feed/"
   to = "/feed.xml"
+  status = 301
+  force = true
+
+# Force HTTPS redirect
+[[redirects]]
+  from = "http://hypnokick.novahypnose.fr/*"
+  to = "https://hypnokick.novahypnose.fr/:splat"
   status = 301
   force = true
 
