@@ -135,10 +135,10 @@ export const useTestSubmission = () => {
       
       onComplete();
       
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error("=== ERREUR GÉNÉRALE ===");
       console.error("Erreur complète:", err);
-      setError(`Une erreur est survenue lors de la soumission du test: ${err.message || JSON.stringify(err)}`);
+      setError(`Une erreur est survenue lors de la soumission du test: ${err instanceof Error ? err.message : JSON.stringify(err)}`);
       toast({
         title: "Erreur",
         description: "Une erreur est survenue. Veuillez réessayer.",
