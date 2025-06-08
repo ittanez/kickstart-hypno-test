@@ -12,6 +12,7 @@ import HowItWorks from "@/components/HowItWorks";
 import SEOSchema from "@/components/SEOSchema";
 import Footer from "@/components/Footer";
 import CookieConsent from "@/components/CookieConsent";
+import ABTestDashboard from "@/components/ABTestDashboard";
 
 // Import du nouveau menu simple
 const NavMenu = () => {
@@ -318,6 +319,9 @@ const Index = () => {
 
         {/* Cookie Consent */}
         <CookieConsent />
+        
+        {/* A/B Test Dashboard (Dev mode only) */}
+        <ABTestDashboard />
       </div>
     </>
   );

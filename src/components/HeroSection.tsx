@@ -1,11 +1,32 @@
  import React from 'react';
 import { Clock, CheckCircle, Brain } from "lucide-react";
+import { useABTesting, AB_TESTS } from '@/hooks/useABTesting';
 
 interface HeroSectionProps {
   onStartTest: () => void;
 }
 
 const HeroSection: React.FC<HeroSectionProps> = ({ onStartTest }) => {
+  const { useABTest, trackABConversion } = useABTesting();
+  
+  // A/B Test variants
+  const heroTitle = useABTest<string>(AB_TESTS.heroTitle);
+  const ctaText = useABTest<string>(AB_TESTS.ctaText);
+  const testDescription = useABTest<string>(AB_TESTS.testDescription);
+  const urgencyMessage = useABTest<string | null>(AB_TESTS.urgencyMessage);
+
+  const handleCTAClick = () => {
+    // Tracker la conversion du CTA pour tous les tests A/B
+    trackABConversion('hero_title', 'cta_clicked');
+    trackABConversion('cta_text', 'cta_clicked');
+    trackABConversion('test_description', 'cta_clicked');
+    if (urgencyMessage) {
+      trackABConversion('urgency_message', 'cta_clicked');
+    }
+    
+    onStartTest();
+  };
+
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-purple-50 to-indigo-50">
       <div className="container mx-auto px-4 py-12 lg:py-20">
@@ -21,16 +42,25 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onStartTest }) => {
             </div>
             
             <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-hypno-primary mb-6 leading-tight">
-              Suis-je hypnotisable ? Test gratuit à Paris
+              {heroTitle} <span className="text-hypno-accent">Test gratuit à Paris</span>
               <span className="block text-2xl sm:text-3xl lg:text-4xl xl:text-5xl mt-2 text-hypno-accent">
                 Découvrez votre réceptivité en 2 minutes
               </span>
             </h1>
             
             <p className="text-lg sm:text-xl text-gray-700 mb-8 max-w-2xl mx-auto lg:mx-0">
-              <strong>Révélez votre potentiel hypnotique</strong> avec notre test scientifique gratuit développé par un hypnothérapeute à Paris. 
+              <strong>{testDescription}</strong> développé par un hypnothérapeute à Paris. 
               Analysez votre réceptivité à l'hypnose et découvrez vos canaux sensoriels dominants (VAKOG).
             </p>
+
+            {/* Message d'urgence conditionnel */}
+            {urgencyMessage && (
+              <div className="bg-gradient-to-r from-orange-100 to-red-100 border border-orange-200 rounded-lg p-4 mb-6 max-w-2xl mx-auto lg:mx-0">
+                <p className="text-orange-800 font-medium text-center lg:text-left">
+                  {urgencyMessage}
+                </p>
+              </div>
+            )}
             
             {/* Points clés */}
             <div className="grid sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-4 mb-8 max-w-2xl mx-auto lg:mx-0">
@@ -54,11 +84,11 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onStartTest }) => {
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <button 
-                onClick={onStartTest}
+                onClick={handleCTAClick}
                 type="button"
                 className="w-full sm:w-auto bg-hypno-accent hover:bg-hypno-primary text-white px-8 py-6 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 rounded-lg cursor-pointer"
               >
-                🧠 Commencer le test gratuit d'hypnotisabilité
+                🧠 {ctaText}
               </button>
               
               <button 

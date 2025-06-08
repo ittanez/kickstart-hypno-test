@@ -5,6 +5,7 @@ import { calculateScore } from '@/utils/calculateScore';
 import { supabase } from '@/integrations/supabase/client';
 import { Answer } from '@/utils/calculateScore';
 import { VAKOGAnswer, calculateDominantSense } from '@/utils/vakogQuestions';
+import { useABTesting } from '@/hooks/useABTesting';
 
 export const useTestSubmission = () => {
   const [email, setEmail] = useState('');
@@ -17,6 +18,8 @@ export const useTestSubmission = () => {
     description: string,
     senseDominant: string
   } | null>(null);
+  
+  const { trackABConversion } = useABTesting();
 
   const handleSubmit = async (
     e: React.FormEvent,
@@ -132,6 +135,12 @@ export const useTestSubmission = () => {
           description: "Vos résultats ont été envoyés avec succès. Vérifiez votre boîte mail !",
         });
       }
+      
+      // Tracker les conversions A/B au moment de la soumission finale
+      trackABConversion('hero_title', 'test_completed', result.score);
+      trackABConversion('cta_text', 'test_completed', result.score);
+      trackABConversion('test_description', 'test_completed', result.score);
+      trackABConversion('urgency_message', 'test_completed', result.score);
       
       onComplete();
       
