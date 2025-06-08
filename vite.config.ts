@@ -23,31 +23,11 @@ export default defineConfig(({ mode }) => ({
     assetsInlineLimit: 4096,
     rollupOptions: {
       output: {
-        manualChunks: (id) => {
-          // React et librairies core
-          if (id.includes('node_modules/react') || id.includes('node_modules/react-dom')) {
-            return 'react-vendor';
-          }
-          // Router séparé (lazy loading)
-          if (id.includes('react-router') || id.includes('react-helmet')) {
-            return 'router';
-          }
-          // UI components (lazy load après core)
-          if (id.includes('@radix-ui') || id.includes('lucide-react') || id.includes('@/components/ui')) {
-            return 'ui-components';
-          }
-          // Analytics et tracking (non critique)
-          if (id.includes('gtag') || id.includes('@/hooks/useAnalytics') || id.includes('@/hooks/useABTesting')) {
-            return 'analytics';
-          }
-          // Form et test logic (lazy load)
-          if (id.includes('@/hooks/useTest') || id.includes('@/utils/questions') || id.includes('framer-motion')) {
-            return 'test-logic';
-          }
-          // Autres node_modules
-          if (id.includes('node_modules')) {
-            return 'vendor';
-          }
+        manualChunks: {
+          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+          'ui-vendor': ['@radix-ui/react-slot', '@radix-ui/react-dialog', '@radix-ui/react-toast'],
+          'framer': ['framer-motion'],
+          'supabase': ['@supabase/supabase-js'],
         },
         entryFileNames: 'assets/[name]-[hash].js',
         chunkFileNames: 'assets/[name]-[hash].js',
