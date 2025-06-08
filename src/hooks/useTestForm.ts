@@ -4,11 +4,13 @@ import { useAnswers } from './useAnswers';
 import { useTestNavigation } from './useTestNavigation';
 import { useTestSubmission } from './useTestSubmission';
 import { useAutoSave } from './useAutoSave';
+import { useAnalytics } from './useAnalytics';
 
 export type TestState = 'questions' | 'vakog' | 'email' | 'results';
 
 export const useTestForm = (onComplete: () => void) => {
   const autoSave = useAutoSave();
+  const { trackTestEvents } = useAnalytics();
   
   const {
     answers,
@@ -56,6 +58,23 @@ export const useTestForm = (onComplete: () => void) => {
   useEffect(() => {
     autoSave.saveCurrentQuestion(currentQuestionIndex);
   }, [currentQuestionIndex, autoSave]);
+
+  // Track test start
+  useEffect(() => {
+    if (testState === 'questions' && currentQuestionIndex === 0 && answers.length === 0) {
+      trackTestEvents.startTest();
+    }
+  }, [testState, currentQuestionIndex, answers.length]);
+
+  // Track step transitions
+  useEffect(() => {
+    if (testState === 'vakog' && vakogAnswers.length === 0) {
+      trackTestEvents.startVAKOG();
+      trackTestEvents.completeQuestions(answers.length);
+    } else if (testState === 'email') {
+      trackTestEvents.startEmail();
+    }
+  }, [testState, answers.length, vakogAnswers.length]);
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     await handleSubmit(e, answers, vakogAnswers, onComplete);

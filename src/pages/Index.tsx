@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { Brain } from "lucide-react";
+import { useAnalytics } from "@/hooks/useAnalytics";
 import TestForm from "@/components/TestForm";
 import HeroSection from "@/components/HeroSection";
 import StepsSection from "@/components/StepsSection";
@@ -10,6 +11,7 @@ import ThankYouMessage from "@/components/ThankYouMessage";
 import HowItWorks from "@/components/HowItWorks";
 import SEOSchema from "@/components/SEOSchema";
 import Footer from "@/components/Footer";
+import CookieConsent from "@/components/CookieConsent";
 
 // Import du nouveau menu simple
 const NavMenu = () => {
@@ -63,6 +65,12 @@ const Index = () => {
   const [showTest, setShowTest] = useState(false);
   const [showThankYou, setShowThankYou] = useState(false);
   const [showFloatingButton, setShowFloatingButton] = useState(false);
+  const { trackTestEvents, trackPageView } = useAnalytics();
+
+  // Track page view
+  useEffect(() => {
+    trackPageView('/', 'HypnoKick - Test d\'Hypnotisabilité Gratuit');
+  }, []);
 
   // Afficher le bouton flottant après avoir scrollé
   useEffect(() => {
@@ -75,6 +83,7 @@ const Index = () => {
   }, []);
 
   const handleStartTest = () => {
+    trackTestEvents.clickCTA('hero_button');
     setShowTest(true);
   };
 
@@ -307,6 +316,8 @@ const Index = () => {
           </button>
         </div>
 
+        {/* Cookie Consent */}
+        <CookieConsent />
       </div>
     </>
   );
