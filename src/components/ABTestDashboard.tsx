@@ -60,7 +60,7 @@ const ABTestDashboard = () => {
 
   if (!import.meta.env.DEV || !isVisible) {
     return (
-      <div className="fixed bottom-4 right-4 z-50">
+      <div className="fixed bottom-20 right-4 z-50">
         <Button
           onClick={() => setIsVisible(true)}
           variant="outline"
@@ -75,7 +75,7 @@ const ABTestDashboard = () => {
   }
 
   return (
-    <div className="fixed bottom-4 right-4 z-50 w-96 max-h-96 overflow-y-auto">
+    <div className="fixed bottom-20 right-4 z-50 w-96 max-h-96 overflow-y-auto">
       <Card className="bg-white/95 backdrop-blur-sm border-2 border-blue-200">
         <CardHeader className="pb-3">
           <div className="flex items-center justify-between">
@@ -93,7 +93,7 @@ const ABTestDashboard = () => {
             </Button>
           </div>
           <CardDescription>
-            Résultats en temps réel (Mode Dev)
+            🧪 Tests actifs - Optimisation conversions
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -132,7 +132,8 @@ const ABTestDashboard = () => {
           ))}
           
           <div className="pt-2 border-t text-xs text-gray-500">
-            💡 Les tests A/B sont actifs sur la page d'accueil
+            💡 Dashboard visible uniquement en développement
+            <br />📊 En production, données dans Google Analytics
           </div>
         </CardContent>
       </Card>
