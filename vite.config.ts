@@ -26,7 +26,6 @@ export default defineConfig(({ mode }) => ({
         manualChunks: {
           'react-vendor': ['react', 'react-dom', 'react-router-dom'],
           'ui-vendor': ['@radix-ui/react-slot', '@radix-ui/react-dialog', '@radix-ui/react-toast'],
-          'framer': ['framer-motion'],
           'supabase': ['@supabase/supabase-js'],
         },
         entryFileNames: 'assets/[name]-[hash].js',

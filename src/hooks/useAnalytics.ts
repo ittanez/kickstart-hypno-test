@@ -37,12 +37,23 @@ export const useAnalytics = () => {
         document.head.appendChild(script);
       };
 
-      // Charger après le LCP ou après 3 secondes
-      if (document.readyState === 'complete') {
-        setTimeout(loadGA4, 1000);
-      } else {
-        window.addEventListener('load', () => setTimeout(loadGA4, 1000));
-      }
+      // Charger après interaction utilisateur ou 5 secondes minimum
+      let gaLoaded = false;
+      const loadGAOnce = () => {
+        if (!gaLoaded) {
+          gaLoaded = true;
+          loadGA4();
+        }
+      };
+
+      // Charger après première interaction
+      const events = ['click', 'scroll', 'keydown', 'touchstart'];
+      events.forEach(event => {
+        document.addEventListener(event, loadGAOnce, { once: true, passive: true });
+      });
+
+      // Fallback après 5 secondes si pas d'interaction
+      setTimeout(loadGAOnce, 5000);
     }
   }, []);
 

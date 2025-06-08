@@ -1,7 +1,18 @@
 
 import { lazy, Suspense } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { useTestForm } from '@/hooks/useTestForm';
+
+// Lazy load Framer Motion pour ne pas bloquer l'initial load
+const MotionDiv = lazy(() => 
+  import('framer-motion').then(module => ({ 
+    default: module.motion.div 
+  }))
+);
+const AnimatePresence = lazy(() => 
+  import('framer-motion').then(module => ({ 
+    default: module.AnimatePresence 
+  }))
+);
 
 const QuestionStep = lazy(() => import('./test/QuestionStep').then(module => ({ default: module.QuestionStep })));
 const VAKOGStep = lazy(() => import('./test/VAKOGStep').then(module => ({ default: module.VAKOGStep })));
@@ -53,65 +64,69 @@ const TestForm = ({ onComplete }: TestFormProps) => {
 
   if (testState === 'results' && testResults) {
     return (
-      <AnimatePresence mode="wait">
-        <motion.div
-          key="results"
-          initial="initial"
-          animate="in"
-          exit="out"
-          variants={pageVariants}
-          transition={pageTransition}
-        >
-          <Suspense fallback={<LoadingSpinner />}>
-            <ResultsStep results={testResults} email={email} />
-          </Suspense>
-        </motion.div>
-      </AnimatePresence>
+      <Suspense fallback={<LoadingSpinner />}>
+        <AnimatePresence mode="wait">
+          <MotionDiv
+            key="results"
+            initial="initial"
+            animate="in"
+            exit="out"
+            variants={pageVariants}
+            transition={pageTransition}
+          >
+            <Suspense fallback={<LoadingSpinner />}>
+              <ResultsStep results={testResults} email={email} />
+            </Suspense>
+          </MotionDiv>
+        </AnimatePresence>
+      </Suspense>
     );
   }
 
   return (
     <div className="max-w-3xl mx-auto px-4">
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={testState}
-          initial="initial"
-          animate="in"
-          exit="out"
-          variants={pageVariants}
-          transition={pageTransition}
-        >
-          <Suspense fallback={<LoadingSpinner />}>
-            {testState === 'questions' ? (
-              <QuestionStep
-                currentQuestionIndex={currentQuestionIndex}
-                onAnswerSelect={handleAnswerSelection}
-                onNext={handleNextQuestion}
-                answers={answers}
-              />
-            ) : testState === 'vakog' ? (
-              <VAKOGStep
-                currentAnswers={vakogAnswers.reduce((acc, curr) => {
-                  acc[curr.questionId] = curr.value;
-                  return acc;
-                }, {} as Record<string, number>)}
-                onAnswerChange={handleVakogAnswerChange}
-                onComplete={handleVakogComplete}
-              />
-            ) : (
-              <EmailStep
-                email={email}
-                gdprConsent={gdprConsent}
-                isSubmitting={isSubmitting}
-                error={error}
-                onEmailChange={setEmail}
-                onGdprChange={setGdprConsent}
-                onSubmit={handleSubmit}
-              />
-            )}
-          </Suspense>
-        </motion.div>
-      </AnimatePresence>
+      <Suspense fallback={<LoadingSpinner />}>
+        <AnimatePresence mode="wait">
+          <MotionDiv
+            key={testState}
+            initial="initial"
+            animate="in"
+            exit="out"
+            variants={pageVariants}
+            transition={pageTransition}
+          >
+            <Suspense fallback={<LoadingSpinner />}>
+              {testState === 'questions' ? (
+                <QuestionStep
+                  currentQuestionIndex={currentQuestionIndex}
+                  onAnswerSelect={handleAnswerSelection}
+                  onNext={handleNextQuestion}
+                  answers={answers}
+                />
+              ) : testState === 'vakog' ? (
+                <VAKOGStep
+                  currentAnswers={vakogAnswers.reduce((acc, curr) => {
+                    acc[curr.questionId] = curr.value;
+                    return acc;
+                  }, {} as Record<string, number>)}
+                  onAnswerChange={handleVakogAnswerChange}
+                  onComplete={handleVakogComplete}
+                />
+              ) : (
+                <EmailStep
+                  email={email}
+                  gdprConsent={gdprConsent}
+                  isSubmitting={isSubmitting}
+                  error={error}
+                  onEmailChange={setEmail}
+                  onGdprChange={setGdprConsent}
+                  onSubmit={handleSubmit}
+                />
+              )}
+            </Suspense>
+          </MotionDiv>
+        </AnimatePresence>
+      </Suspense>
     </div>
   );
 };
