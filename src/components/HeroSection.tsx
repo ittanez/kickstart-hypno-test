@@ -107,10 +107,14 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onStartTest }) => {
               {/* Image principale */}
               <div className="relative mx-auto w-full max-w-sm lg:max-w-md xl:max-w-lg">
                 <img 
-                  src="https://akrlyzmfszumibwgocae.supabase.co/storage/v1/object/public/images//hypnotisable.webp"
+                  src="https://akrlyzmfszumibwgocae.supabase.co/storage/v1/object/public/images/hypnotisable.webp"
                   alt="Hypnothérapeute professionnel à Paris - Test de réceptivité à l'hypnose"
                   className="w-full h-auto rounded-2xl shadow-2xl object-cover aspect-[4/5]"
                   loading="eager"
+                  fetchpriority="high"
+                  decoding="sync"
+                  width="400"
+                  height="500"
                 />
                 
                 {/* Overlay décoratif */}

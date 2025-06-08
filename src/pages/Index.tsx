@@ -178,6 +178,25 @@ const Index = () => {
         <meta name="description" content="✅ Test gratuit de réceptivité à l'hypnose par hypnothérapeute certifié à Paris. Découvrez si vous êtes hypnotisable en 2 minutes. Révélez votre potentiel hypnotique et vos canaux VAKOG dominants." />
         <meta name="keywords" content="test hypnotisabilité Paris, suis je hypnotisable, hypnothérapeute Paris, test réceptivité hypnose gratuit, hypnose Paris, révéler potentiel hypnotique" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        
+        {/* Preload image LCP critique */}
+        <link 
+          rel="preload" 
+          as="image" 
+          href="https://akrlyzmfszumibwgocae.supabase.co/storage/v1/object/public/images/hypnotisable.webp"
+          fetchpriority="high"
+        />
+        
+        {/* Preload Google Fonts critique */}
+        <link 
+          rel="preload" 
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" 
+          as="style"
+        />
+        <link 
+          rel="stylesheet" 
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+        />
       </Helmet>
       <SEOSchema />
       

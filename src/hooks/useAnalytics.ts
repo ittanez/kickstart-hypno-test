@@ -12,26 +12,37 @@ const GA_MEASUREMENT_ID = import.meta.env.VITE_GA4_MEASUREMENT_ID || 'G-XXXXXXXX
 
 export const useAnalytics = () => {
   useEffect(() => {
-    // Charger le script GA4 uniquement en production
+    // Charger le script GA4 uniquement en production, de façon différée
     if (typeof window !== 'undefined' && !window.gtag && import.meta.env.PROD) {
-      // Initialiser dataLayer
-      window.dataLayer = window.dataLayer || [];
-      window.gtag = function gtag() {
-        window.dataLayer.push(arguments);
+      // Délai pour ne pas bloquer le LCP
+      const loadGA4 = () => {
+        // Initialiser dataLayer
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = function gtag() {
+          window.dataLayer.push(arguments);
+        };
+
+        // Configuration initiale
+        window.gtag('js', new Date());
+        window.gtag('config', GA_MEASUREMENT_ID, {
+          page_title: document.title,
+          page_location: window.location.href,
+        });
+
+        // Charger le script GA4 de façon asynchrone
+        const script = document.createElement('script');
+        script.async = true;
+        script.defer = true;
+        script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
+        document.head.appendChild(script);
       };
 
-      // Configuration initiale
-      window.gtag('js', new Date());
-      window.gtag('config', GA_MEASUREMENT_ID, {
-        page_title: document.title,
-        page_location: window.location.href,
-      });
-
-      // Charger le script GA4
-      const script = document.createElement('script');
-      script.async = true;
-      script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
-      document.head.appendChild(script);
+      // Charger après le LCP ou après 3 secondes
+      if (document.readyState === 'complete') {
+        setTimeout(loadGA4, 1000);
+      } else {
+        window.addEventListener('load', () => setTimeout(loadGA4, 1000));
+      }
     }
   }, []);
 

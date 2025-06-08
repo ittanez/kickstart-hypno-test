@@ -25,6 +25,8 @@ const TestimonialSection = () => {
                 src={testimonial.image} 
                 alt={testimonial.name}
                 className="w-24 h-24 rounded-full mb-4 object-cover"
+                loading="lazy"
+                decoding="async"
               />
               <blockquote className="mb-4 text-gray-600 italic">
                 "{testimonial.quote}"
