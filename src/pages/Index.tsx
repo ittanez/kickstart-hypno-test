@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { Brain } from "lucide-react";
 import { useAnalytics } from "@/hooks/useAnalytics";
+import { scrollToTop } from "@/utils/scrollUtils";
 import TestForm from "@/components/TestForm";
 import HeroSection from "@/components/HeroSection";
 import StepsSection from "@/components/StepsSection";
@@ -86,16 +87,22 @@ const Index = () => {
   const handleStartTest = () => {
     trackTestEvents.clickCTA('hero_button');
     setShowTest(true);
+    // Scroll vers le haut pour commencer le test
+    setTimeout(() => scrollToTop(), 100);
   };
 
   const handleTestComplete = () => {
     setShowThankYou(true);
     setShowTest(false);
+    // Scroll vers le haut pour voir les résultats
+    setTimeout(() => scrollToTop(), 100);
   };
 
   const handleBackToHome = () => {
     setShowThankYou(false);
     setShowTest(false);
+    // Scroll vers le haut pour retourner à l'accueil
+    setTimeout(() => scrollToTop(), 100);
   };
 
   if (showThankYou) {
@@ -107,9 +114,12 @@ const Index = () => {
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
               <div className="flex justify-between items-center h-16 sm:h-20">
                 <div className="flex items-center">
-                  <h1 className="text-xl sm:text-2xl font-bold text-hypno-primary">
+                  <button 
+                    onClick={handleBackToHome}
+                    className="text-xl sm:text-2xl font-bold text-hypno-primary hover:text-hypno-accent transition-colors cursor-pointer"
+                  >
                     HypnoKick
-                  </h1>
+                  </button>
                 </div>
                 <NavMenu />
               </div>
@@ -139,9 +149,12 @@ const Index = () => {
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
               <div className="flex justify-between items-center h-16 sm:h-20">
                 <div className="flex items-center">
-                  <h1 className="text-xl sm:text-2xl font-bold text-hypno-primary">
+                  <button 
+                    onClick={handleBackToHome}
+                    className="text-xl sm:text-2xl font-bold text-hypno-primary hover:text-hypno-accent transition-colors cursor-pointer"
+                  >
                     HypnoKick
-                  </h1>
+                  </button>
                 </div>
                 <NavMenu />
               </div>
@@ -173,11 +186,14 @@ const Index = () => {
         <header className="w-full bg-white/90 backdrop-blur-md border-b border-gray-200/50 sticky top-0 z-50 shadow-sm">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center h-16 sm:h-20">
-              {/* Logo */}
+              {/* Logo cliquable */}
               <div className="flex items-center">
-                <h1 className="text-xl sm:text-2xl font-bold text-hypno-primary">
+                <button 
+                  onClick={handleBackToHome}
+                  className="text-xl sm:text-2xl font-bold text-hypno-primary hover:text-hypno-accent transition-colors cursor-pointer"
+                >
                   HypnoKick
-                </h1>
+                </button>
               </div>
               
               {/* Navigation */}
@@ -308,7 +324,11 @@ const Index = () => {
           }`}
         >
           <button
-            onClick={handleStartTest}
+            onClick={() => {
+              trackTestEvents.clickCTA('floating_button');
+              setShowTest(true);
+              setTimeout(() => scrollToTop(), 100);
+            }}
             className="bg-hypno-accent hover:bg-hypno-primary text-white shadow-lg rounded-full px-6 py-4 flex items-center gap-2 font-semibold text-base"
           >
             <Brain className="h-5 w-5" />

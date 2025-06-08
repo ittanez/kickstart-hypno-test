@@ -2,6 +2,7 @@
 import { useState, useCallback } from 'react';
 import { questions } from '@/utils/questions';
 import { TestState } from './useTestForm';
+import { scrollToTop } from '@/utils/scrollUtils';
 
 export const useTestNavigation = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -12,12 +13,12 @@ export const useTestNavigation = () => {
     const nextIndex = currentQuestionIndex + questionsPerPage;
     if (nextIndex < questions.length) {
       setCurrentQuestionIndex(nextIndex);
-      // Safely scroll to top
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      // Scroll fluide vers le haut
+      setTimeout(() => scrollToTop(), 50);
     } else {
       setTestState('vakog');
-      // Safely scroll to top
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      // Scroll fluide vers le haut
+      setTimeout(() => scrollToTop(), 50);
     }
   }, [currentQuestionIndex]);
 
@@ -26,15 +27,15 @@ export const useTestNavigation = () => {
     const prevIndex = currentQuestionIndex - questionsPerPage;
     if (prevIndex >= 0) {
       setCurrentQuestionIndex(prevIndex);
-      // Safely scroll to top
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      // Scroll fluide vers le haut
+      setTimeout(() => scrollToTop(), 50);
     }
   }, [currentQuestionIndex]);
 
   const handleVakogComplete = useCallback(() => {
     setTestState('email');
-    // Safely scroll to top
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Scroll fluide vers le haut
+    setTimeout(() => scrollToTop(), 50);
   }, []);
 
   return {
