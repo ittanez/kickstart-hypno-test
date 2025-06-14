@@ -29,7 +29,7 @@ const HomePage = ({ onStartTest }: HomePageProps) => {
           rel="preload" 
           as="image" 
           href="https://akrlyzmfszumibwgocae.supabase.co/storage/v1/object/public/images/hypnotisable.webp"
-          fetchpriority="high"
+          fetchPriority="high"
           type="image/webp"
         />
         

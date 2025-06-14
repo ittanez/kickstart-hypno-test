@@ -1,3 +1,4 @@
+
  import React from 'react';
 import { Clock, CheckCircle, Brain } from "lucide-react";
 import { useABTesting, AB_TESTS } from '@/hooks/useABTesting';
@@ -111,7 +112,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onStartTest }) => {
                   alt="Hypnothérapeute professionnel à Paris - Test de réceptivité à l'hypnose"
                   className="w-full h-auto rounded-2xl shadow-2xl object-cover aspect-[4/5]"
                   loading="eager"
-                  fetchpriority="high"
+                  fetchPriority="high"
                   decoding="sync"
                   width="400"
                   height="500"

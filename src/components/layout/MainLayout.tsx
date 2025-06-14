@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { NavMenu } from '@/components/NavMenu';
+import NavMenu from '@/components/NavMenu';
 
 type MainLayoutProps = {
   children: React.ReactNode;
