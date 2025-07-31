@@ -100,8 +100,20 @@
   status = 301
   force = true
 
-# Redirection générale pour SPA
+# Exceptions pour les fichiers statiques importants
+[[redirects]]
+  from = "/robots.txt"
+  to = "/robots.txt"
+  status = 200
+
+[[redirects]]
+  from = "/sitemap.xml"
+  to = "/sitemap.xml"
+  status = 200
+
+# Redirection générale pour SPA (exclut les fichiers avec extensions)
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
+  conditions = {path = "!*.txt", path = "!*.xml", path = "!*.ico", path = "!*.png", path = "!*.jpg", path = "!*.svg", path = "!*.css", path = "!*.js"}
