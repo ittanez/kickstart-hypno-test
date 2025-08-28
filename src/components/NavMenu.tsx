@@ -54,6 +54,20 @@ const NavMenu = () => {
         </a>
         
         <a
+          href="https://play.google.com/store/apps/details?id=com.novahypnose.novarespire&pcampaignid=web_share"
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="px-2 py-1 hover:opacity-80 transition-opacity"
+          title="NovaRespire - App respiration"
+        >
+          <img 
+            src="/google-play-badge.svg" 
+            alt="Télécharger NovaRespire sur Google Play" 
+            className="h-9 w-auto"
+          />
+        </a>
+        
+        <a
           href="https://www.resalib.fr/praticien/47325-alain-zenatti-hypnotherapeute-paris"
           target="_blank" 
           rel="noopener noreferrer"
@@ -139,6 +153,22 @@ const NavMenu = () => {
                     >
                       <Instagram className="h-4 w-4" />
                       Instagram
+                    </a>
+                    
+                    <a
+                      href="https://play.google.com/store/apps/details?id=com.novahypnose.novarespire&pcampaignid=web_share"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={closeMenu}
+                      className="flex items-center gap-3 p-4 rounded-lg hover:bg-gray-50 transition-colors w-full text-left"
+                      title="NovaRespire - App respiration"
+                    >
+                      <img 
+                        src="/google-play-badge.svg" 
+                        alt="Télécharger NovaRespire sur Google Play" 
+                        className="h-8 w-auto"
+                      />
+                      <span className="text-hypno-primary">NovaRespire App</span>
                     </a>
                     
                     <a

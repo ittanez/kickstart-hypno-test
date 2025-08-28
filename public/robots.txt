@@ -2,8 +2,47 @@
 User-agent: *
 Allow: /
 
+# Bots IA spécifiques - Autorisation complète pour indexation
+User-agent: GPTBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: claude-web
+Allow: /
+
+# Bot Perplexity
+User-agent: PerplexityBot
+Allow: /
+
+# Assistants vocaux
+User-agent: Applebot
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: bingbot
+Allow: /
+
+# Autres bots IA émergents
+User-agent: YouBot
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
 # Sitemap
 Sitemap: https://hypnokick.novahypnose.fr/sitemap.xml
 
 # Disallow pages non utiles pour SEO
 Disallow: /privacy-policy
+Disallow: /admin/
+Disallow: /node_modules/

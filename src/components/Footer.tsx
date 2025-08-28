@@ -86,6 +86,22 @@ const Footer = () => {
                   FAQ Hypnose
                 </a>
               </li>
+              <li>
+                <a 
+                  href="https://play.google.com/store/apps/details?id=com.novahypnose.novarespire&pcampaignid=web_share" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-white/90 hover:text-white transition-colors"
+                  title="Télécharger NovaRespire sur Google Play"
+                >
+                  <img 
+                    src="/google-play-badge.svg" 
+                    alt="Google Play Badge" 
+                    className="h-5 w-auto opacity-90"
+                  />
+                  NovaRespire - App respiration
+                </a>
+              </li>
             </ul>
           </div>
 
@@ -183,6 +199,8 @@ const Footer = () => {
               <strong>HypnoKick</strong> - Test gratuit pour savoir si vous êtes hypnotisable. 
               Évaluez votre réceptivité à l'hypnose, découvrez vos canaux sensoriels dominants (VAKOG) 
               et explorez votre potentiel hypnotique en quelques minutes. 
+              Complétez votre parcours bien-être avec <strong>NovaRespire</strong>, notre application mobile 
+              de techniques de respiration et méditation guidée pour la gestion du stress et l'anxiété. 
               Hypnothérapie à Paris avec NovaHypnose.
             </p>
           </div>

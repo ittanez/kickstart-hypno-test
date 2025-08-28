@@ -21,11 +21,12 @@ const SEOSchema = () => {
         "addressRegion": "Île-de-France",
         "addressCountry": "FR"
       },
-      "telephone": "+33(0)612345678",
+      "telephone": "+33649358089",
       "priceRange": "€€",
       "sameAs": [
         "https://www.instagram.com/novahypnose/",
-        "https://novahypnose.fr/"
+        "https://novahypnose.fr/",
+        "https://play.google.com/store/apps/details?id=com.novahypnose.novarespire"
       ]
     },
     "offers": {
