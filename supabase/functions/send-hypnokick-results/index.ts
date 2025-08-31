@@ -47,7 +47,7 @@ serve(async (req) => {
       from: `Nova Hypnose <${fromAddress}>`,
       to: [email],
       bcc: ["a.zenatti@gmail.com"],
-      subject: "🔥 NOUVEAU: Félicitations ! Voici votre bilan hypnotique ! ⬇️✨",
+      subject: "Félicitations ! Voici votre bilan hypnotique ! ⬇️✨",
       html: htmlContent,
     });
 

@@ -1,6 +1,5 @@
 
 import { questions } from '@/utils/questions';
-import { Slider } from '@/components/ui/slider';
 import { Button } from '@/components/ui/button';
 import { ChevronRight, ChevronLeft } from 'lucide-react';
 import ProgressBar from '@/components/ProgressBar';
@@ -26,7 +25,7 @@ export const QuestionStep = ({
   
   const valueLabels = {
     1: "Pas du tout d'accord",
-    2: "Plutôt pas d'accord",
+    2: "Plutôt pas d'accord", 
     3: "Neutre",
     4: "Plutôt d'accord",
     5: "Tout à fait d'accord"
@@ -71,37 +70,29 @@ export const QuestionStep = ({
               </div>
               
               <div className="px-4">
-                <div className="flex justify-between mb-4 text-sm text-gray-600">
-                  {Object.entries(valueLabels).map(([value, label]) => (
+                {/* Échelle numérique 1-5 */}
+                <div className="flex justify-center items-center gap-2 sm:gap-3 md:gap-6 lg:gap-8 mb-4">
+                  {[1, 2, 3, 4, 5].map((value) => (
                     <button
                       key={value}
-                      onClick={() => onAnswerSelect(question.id, Number(value))}
-                      className={`px-3 py-2 rounded text-center transition-colors ${
-                        currentValue === Number(value)
-                          ? 'bg-hypno-primary text-white'
-                          : 'hover:bg-gray-100'
+                      onClick={() => onAnswerSelect(question.id, value)}
+                      className={`numeric-option w-10 h-10 sm:w-12 sm:h-12 rounded-full text-center transition-all duration-200 font-semibold ${
+                        currentValue === value
+                          ? 'bg-hypno-primary text-white shadow-lg scale-110'
+                          : 'bg-white hover:bg-hypno-primary/10 hover:shadow-md hover:scale-105 border-2 border-gray-200 hover:border-hypno-primary/40 text-gray-700 hover:text-hypno-primary'
                       }`}
                       type="button"
-                      aria-label={`Select option: ${label}`}
+                      aria-label={`Noter ${value} sur 5 - ${valueLabels[value as keyof typeof valueLabels]}`}
                     >
-                      {label}
+                      {value}
                     </button>
                   ))}
                 </div>
                 
-                <div className="mt-6">
-                  <Slider
-                    value={currentValue ? [currentValue] : []}
-                    min={1}
-                    max={5}
-                    step={1}
-                    onValueChange={(value) => onAnswerSelect(question.id, value[0])}
-                    className="w-full"
-                  />
-                  <div className="flex justify-between mt-2 text-xs text-gray-500">
-                    <span>{valueLabels[1]}</span>
-                    <span>{valueLabels[5]}</span>
-                  </div>
+                {/* Labels aux extrémités */}
+                <div className="flex justify-between text-xs sm:text-sm text-gray-600 mb-6 px-2">
+                  <span className="text-left max-w-[30%]">Pas du tout d'accord</span>
+                  <span className="text-right max-w-[30%]">Tout à fait d'accord</span>
                 </div>
               </div>
             </div>

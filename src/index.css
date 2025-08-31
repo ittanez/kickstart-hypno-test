@@ -110,4 +110,32 @@
   .hypno-input {
     @apply border border-gray-300 rounded-md p-2 w-full focus:ring-2 focus:ring-hypno-accent/50 focus:border-hypno-accent outline-none transition-all duration-200;
   }
+
+  .numeric-option {
+    @apply flex items-center justify-center text-base font-semibold;
+    min-width: 44px; /* Zone de clic tactile suffisante */
+    touch-action: manipulation; /* Optimise pour le tactile */
+  }
+  
+  /* États d'interaction pour l'échelle numérique */
+  .numeric-option:hover:not(.selected) {
+    transform: scale(1.05);
+  }
+  
+  .numeric-option:active {
+    transform: scale(0.95);
+  }
+  
+  /* Responsive pour l'échelle numérique */
+  @media (max-width: 640px) {
+    .numeric-option {
+      font-size: 16px; /* Taille optimale pour mobile */
+    }
+  }
+  
+  @media (min-width: 641px) {
+    .numeric-option {
+      font-size: 18px; /* Taille optimale pour desktop */
+    }
+  }
 }

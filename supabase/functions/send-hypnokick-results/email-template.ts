@@ -41,11 +41,6 @@ export const generateEmailContent = (
 
             <h1 style="text-align: center; margin-bottom: 30px; font-size: 28px; border-bottom: 2px solid #3498db; padding-bottom: 10px; color: #2c3e50;">Félicitations ! Voici votre bilan hypnotique, découvrez votre pouvoir qui vous permet de manifester vos plus grands désirs</h1>
             
-            <!-- DEBUG: Template mis à jour avec NovaRespire -->
-            <div style="background-color: #ff0000; color: white; padding: 10px; margin: 10px 0; text-align: center;">
-                🔴 DEBUG: Template updated with NovaRespire section - ${new Date().toISOString()}
-            </div>
-            
             <div style="text-align: center; margin: 30px 0; color: #666;">
               <p>Merci d'avoir pris le temps de réaliser ce test ! C'est une première étape importante dans votre voyage vers la transformation personnelle.</p>
             </div>
@@ -150,9 +145,7 @@ export const generateEmailContent = (
             <h3 style="color: #2c3e50; margin-top: 0; margin-bottom: 20px; font-size: 20px;">NovaRespire - Votre compagnon d'auto-hypnose quotidien</h3>
             
             <p style="color: #666; margin-bottom: 25px; line-height: 1.6;">
-                Découvrez NovaRespire, l'application d'auto-hypnose créée par Alain Zenatti. 
-                Des séances guidées pour gérer le stress, améliorer le sommeil, renforcer la confiance 
-                et cultiver votre bien-être au quotidien. Emportez la puissance de l'hypnose partout avec vous.
+                Découvrez NovaRespire, l'application créée par Alain Zenatti. Des techniques de relaxation guidées pour gérer le stress, améliorer le sommeil, renforcer la confiance et cultiver votre bien-être au quotidien.
             </p>
             
             <div style="margin: 20px 0;">
@@ -165,11 +158,6 @@ export const generateEmailContent = (
                 </a>
             </div>
             
-            <p style="color: #888; font-size: 14px; margin-top: 15px;">
-                ✨ Séances d'auto-hypnose personnalisées<br>
-                🎯 Techniques de relaxation guidées<br>
-                🌙 Programmes pour un sommeil réparateur
-            </p>
         </div>
 
         <div style="font-size: 12px; color: #7f8c8d; text-align: center; margin-top: 40px; padding-top: 10px; border-top: 1px solid #ddd;">

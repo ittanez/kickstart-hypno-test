@@ -99,7 +99,7 @@ export const useTestSubmission = () => {
       console.log("Email:", sanitizedEmail);
       console.log("Score:", result.score);
       
-      const emailResponse = await supabase.functions.invoke('send-test-results', {
+      const emailResponse = await supabase.functions.invoke('send-hypnokick-results', {
         body: JSON.stringify({
           email: sanitizedEmail,
           score: result.score,
