@@ -29,7 +29,7 @@ const VAKOGQuestions = ({ onAnswerChange, currentAnswers }: VAKOGQuestionsProps)
             
             <div className="px-4">
               {/* Échelle numérique 1-5 */}
-              <div className="flex justify-center items-center gap-4 sm:gap-5 md:gap-6 lg:gap-8 mb-4">
+              <div className="flex justify-center items-center gap-8 mb-4">
                 {[1, 2, 3, 4, 5].map((value) => (
                   <button
                     key={value}
