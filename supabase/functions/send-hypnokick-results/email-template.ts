@@ -142,7 +142,7 @@ export const generateEmailContent = (
 
         <!-- NOVA RESPIRE APP PROMOTION -->
         <div style="background-color: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); padding: 30px; margin: 30px 0; text-align: center;">
-            <h3 style="color: #2c3e50; margin-top: 0; margin-bottom: 20px; font-size: 20px;">NovaRespire - Votre compagnon d'auto-hypnose quotidien</h3>
+            <h3 style="color: #2c3e50; margin-top: 0; margin-bottom: 20px; font-size: 20px;">NovaRespire - Votre compagnon anti-stress au quotidien</h3>
             
             <p style="color: #666; margin-bottom: 25px; line-height: 1.6;">
                 Découvrez NovaRespire, l'application créée par Alain Zenatti. Des techniques de relaxation guidées pour gérer le stress, améliorer le sommeil, renforcer la confiance et cultiver votre bien-être au quotidien.
