@@ -1,6 +1,9 @@
 # public/robots.txt
 User-agent: *
 Allow: /
+Disallow: /privacy-policy
+Disallow: /admin/
+Disallow: /node_modules/
 
 # Bots IA spécifiques - Autorisation complète pour indexation
 User-agent: GPTBot
@@ -41,8 +44,3 @@ Allow: /
 
 # Sitemap
 Sitemap: https://hypnokick.novahypnose.fr/sitemap.xml
-
-# Disallow pages non utiles pour SEO
-Disallow: /privacy-policy
-Disallow: /admin/
-Disallow: /node_modules/
