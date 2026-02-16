@@ -5,7 +5,7 @@ const HowItWorks = () => {
   const steps = [
     {
       title: "Répondez au test",
-      description: "Complétez les 24 questions conçues pour évaluer votre réceptivité naturelle à l'hypnose.",
+      description: "Complétez les 30 questions conçues pour évaluer votre réceptivité naturelle à l'hypnose.",
       icon: "📋"
     },
     {

@@ -18,15 +18,20 @@ const TestimonialSection = () => {
   return (
     <section className="py-16 bg-gray-50">
       <div className="container mx-auto px-4">
+        <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">
+          Ce que nos utilisateurs en pensent
+        </h2>
         <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {testimonials.map((testimonial, index) => (
             <div key={index} className="flex flex-col items-center text-center p-6 bg-white rounded-lg shadow-sm">
-              <img 
-                src={testimonial.image} 
-                alt={testimonial.name}
+              <img
+                src={testimonial.image}
+                alt={`Témoignage de ${testimonial.name} sur le test d'hypnotisabilité`}
                 className="w-24 h-24 rounded-full mb-4 object-cover"
                 loading="lazy"
                 decoding="async"
+                width="96"
+                height="96"
               />
               <blockquote className="mb-4 text-gray-600 italic">
                 "{testimonial.quote}"

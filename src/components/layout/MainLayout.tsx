@@ -31,7 +31,9 @@ const MainLayout = ({ children, onLogoClick, showBackButton = false }: MainLayou
         </div>
       </header>
       
-      {children}
+      <main>
+        {children}
+      </main>
     </div>
   );
 };

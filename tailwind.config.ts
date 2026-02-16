@@ -70,7 +70,7 @@ export default {
 				hypno: {
 					primary: '#6b21a8', // Purple
 					secondary: '#818cf8', // Indigo
-					accent: '#3b82f6', // Blue
+					accent: '#2563eb', // Blue (WCAG AA contrast 4.6:1 avec blanc)
 					light: '#c4b5fd', // Light purple
 					background: '#f3f4f6', // Light gray
 				}

@@ -94,10 +94,12 @@ const Footer = () => {
                   className="flex items-center gap-2 text-white/90 hover:text-white transition-colors"
                   title="Télécharger NovaRespire sur Google Play"
                 >
-                  <img 
-                    src="/google-play-badge.svg" 
-                    alt="Google Play Badge" 
+                  <img
+                    src="/google-play-badge.svg"
+                    alt="Télécharger NovaRespire sur Google Play"
                     className="h-5 w-auto opacity-90"
+                    width="100"
+                    height="20"
                   />
                   NovaRespire - App respiration
                 </a>
@@ -158,7 +160,7 @@ const Footer = () => {
         <div className="border-t border-white/20 mt-8 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="text-sm text-white/80">
-              © 2025 HypnoKick par <a 
+              © 2025-2026 HypnoKick par <a 
                 href="https://novahypnose.fr" 
                 target="_blank" 
                 className="hover:text-white transition-colors font-medium"
