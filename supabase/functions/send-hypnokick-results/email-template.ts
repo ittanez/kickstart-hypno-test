@@ -102,14 +102,8 @@ export const generateEmailContent = (
             </div>
 
             <div style="background-color: #f5f9fc; padding: 20px; border-radius: 8px; margin: 30px 0;">
-              <h2 style="color: #2c3e50; margin-top: 0;">Votre potentiel hypnotique grandit avec vous</h2>
-              <p>Votre capacité hypnotique n'est pas figée – elle évolue selon votre état physique, émotionnel et votre environnement. C'est une force :</p>
-              <ul style="color: #555; padding-left: 20px;">
-                <li style="margin-bottom: 8px;"><strong>Un potentiel qui se développe</strong> – Comme un muscle, votre réceptivité se renforce avec la pratique</li>
-                <li style="margin-bottom: 8px;"><strong>Des ressources insoupçonnées</strong> – L'hypnose thérapeutique permet de créer des changements précis et durables</li>
-                <li style="margin-bottom: 8px;"><strong>Dépasser ses limites</strong> – Peurs, confiance, habitudes : chaque personne possède sa propre porte d'entrée vers le changement</li>
-                <li style="margin-bottom: 8px;"><strong>Votre chemin unique</strong> – Découvrir votre porte d'entrée est le premier pas vers une vie alignée avec vos aspirations</li>
-              </ul>
+              <h2 style="color: #2c3e50; margin-top: 0;">Votre superpouvoir hypnotique, un potentiel illimité qui grandit avec vous</h2>
+              <p style="color: #555; line-height: 1.7;">Votre capacité hypnotique n'est pas figée – elle fluctue selon votre état physique, émotionnel et votre environnement. Cette variabilité est une force ! Elle signifie que vous pouvez développer ce potentiel avec de la pratique, comme un muscle qui se renforce. L'hypnose thérapeutique vous permet d'accéder à des ressources insoupçonnées et de créer des changements précis et durables dans votre vie, qu'il s'agisse de dépasser des peurs, renforcer votre confiance, ou transformer des habitudes. Chaque personne possède sa propre porte d'entrée vers ces états de conscience modifiés – découvrir la vôtre est le premier pas vers une vie plus alignée avec vos aspirations profondes.</p>
             </div>
 
             <div style="background-color: #f5f9fc; padding: 20px; border-radius: 8px; margin: 30px 0;">
@@ -152,52 +146,6 @@ export const generateEmailContent = (
             </div>
         </div>
 
-        <!-- SECTION DÉCOUVRIR AUSSI -->
-        <div style="background-color: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); padding: 30px; margin: 20px 0;">
-            <h3 style="text-align: center; color: #2c3e50; margin-top: 0; margin-bottom: 25px; font-size: 18px;">Découvrez aussi</h3>
-
-            <table style="width: 100%; border-collapse: collapse;">
-              <tr>
-                <td style="text-align: center; padding: 15px; vertical-align: top; width: 50%;">
-                  <a href="https://harmonia.novahypnose.fr/?utm_source=email&utm_medium=hypnokick&utm_campaign=resultats" target="_blank" style="text-decoration: none; color: inherit;">
-                    <img src="${harmoniaImageUrl}"
-                         alt="Formation Harmonia - Réduire le stress avec l'auto-hypnose"
-                         style="width: 150px; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: block; margin: 0 auto;">
-                    <p style="color: #2c3e50; font-weight: bold; font-size: 14px; margin: 10px 0 5px;">Formation Harmonia</p>
-                    <p style="color: #666; font-size: 12px; margin: 0;">Apprenez l'auto-hypnose pour réduire le stress au quotidien</p>
-                  </a>
-                </td>
-                <td style="text-align: center; padding: 15px; vertical-align: top; width: 50%;">
-                  <a href="https://novahypnose.fr/hypno-balade/?utm_source=email&utm_medium=hypnokick&utm_campaign=resultats" target="_blank" style="text-decoration: none; color: inherit;">
-                    <img src="${hypnoBalladeImageUrl}"
-                         alt="Hypno-Balade du Perche"
-                         style="width: 150px; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: block; margin: 0 auto;">
-                    <p style="color: #2c3e50; font-weight: bold; font-size: 14px; margin: 10px 0 5px;">Hypno-Balade du Perche</p>
-                    <p style="color: #666; font-size: 12px; margin: 0;">Une expérience d'hypnose en pleine nature</p>
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td style="text-align: center; padding: 15px; vertical-align: top; width: 50%;">
-                  <a href="https://emergences.novahypnose.fr/?utm_source=email&utm_medium=hypnokick&utm_campaign=resultats" target="_blank" style="text-decoration: none; color: inherit;">
-                    <img src="https://akrlyzmfszumibwgocae.supabase.co/storage/v1/object/public/images/emergences.webp"
-                         alt="Emergences Nova Hypnose"
-                         style="width: 150px; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: block; margin: 0 auto;">
-                    <p style="color: #2c3e50; font-weight: bold; font-size: 14px; margin: 10px 0 5px;">Emergences</p>
-                    <p style="color: #666; font-size: 12px; margin: 0;">Ateliers collectifs d'hypnose et de développement personnel</p>
-                  </a>
-                </td>
-                <td style="text-align: center; padding: 15px; vertical-align: top; width: 50%;">
-                  <img src="${alainZenattiImageUrl}"
-                       alt="Alain Zenatti - Hypnothérapeute à Paris"
-                       style="width: 150px; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: block; margin: 0 auto;">
-                  <p style="color: #2c3e50; font-weight: bold; font-size: 14px; margin: 10px 0 5px;">Alain Zenatti</p>
-                  <p style="color: #666; font-size: 12px; margin: 0;">Hypnothérapeute à Paris Le Marais Bastille</p>
-                </td>
-              </tr>
-            </table>
-        </div>
-
         <!-- NOVA RESPIRE APP PROMOTION -->
         <div style="background-color: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); padding: 30px; margin: 20px 0; text-align: center;">
             <h3 style="color: #2c3e50; margin-top: 0; margin-bottom: 20px; font-size: 20px;">NovaRespire - Votre compagnon anti-stress au quotidien</h3>
@@ -217,15 +165,23 @@ export const generateEmailContent = (
             </div>
         </div>
 
-        <!-- INSTAGRAM -->
-        <div style="text-align: center; margin: 20px 0;">
+        <!-- RÉSEAUX SOCIAUX -->
+        <div style="text-align: center; margin: 20px 0; display: flex; justify-content: center; gap: 24px; flex-wrap: wrap;">
             <a href="https://www.instagram.com/novahypnose/"
                target="_blank"
-               style="display: inline-flex; align-items: center; justify-content: center; gap: 10px; text-decoration: none; color: #333;">
+               style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; color: #333; font-size: 14px;">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/2048px-Instagram_icon.png"
                      alt="Instagram"
                      style="width: 24px; height: 24px;">
                 Suivez Nova Hypnose sur Instagram
+            </a>
+            <a href="https://www.linkedin.com/in/zenatti/?utm_source=email&utm_medium=hypnokick&utm_campaign=resultats"
+               target="_blank"
+               style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; color: #333; font-size: 14px;">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/LinkedIn_logo_initials.png/800px-LinkedIn_logo_initials.png"
+                     alt="LinkedIn"
+                     style="width: 24px; height: 24px; border-radius: 4px;">
+                Retrouvez Alain sur LinkedIn
             </a>
         </div>
 
