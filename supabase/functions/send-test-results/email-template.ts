@@ -81,7 +81,18 @@ export const generateEmailContent = (
               <p>Depuis plusieurs années, j'aide les personnes à retrouver confiance, équilibre et clarté intérieure grâce à des séances d'hypnose sur mesure, toujours bienveillantes et respectueuses du rythme de chacun.</p>
               
               <p>Si vous ressentez l'envie d'aller plus loin, d'approfondir votre réceptivité, ou tout simplement de vivre une première séance d'hypnose à Paris, je serai heureux de vous guider pas à pas dans ce chemin.</p>
-              
+
+              <div style="background-color: #eaf6ff; border: 2px solid #3498db; border-radius: 8px; padding: 20px; margin: 25px 0; text-align: center;">
+                  <p style="font-size: 16px; color: #2c3e50; margin-top: 0;">
+                      🎁 <strong>Je propose un entretien découverte de 30 minutes, gratuit et sans engagement</strong>, pour voir si l'hypnose peut vous aider.
+                  </p>
+                  <a href="https://calendly.com/zenatti/rdvtelephonique"
+                     target="_blank"
+                     style="display: inline-block; background-color: #27ae60; color: white; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 16px; margin-top: 10px;">
+                      Réserver mon entretien découverte gratuit
+                  </a>
+              </div>
+
               <div style="text-align: center; margin: 20px 0;">
                   <p><strong>Contactez votre hypnothérapeute à Paris :</strong></p>
                   <p>📩 <a href="mailto:contact@novahypnose.fr" style="color: #3498db; text-decoration: none;">contact@novahypnose.fr</a></p>
