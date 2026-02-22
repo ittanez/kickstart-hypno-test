@@ -175,24 +175,26 @@ export const generateEmailContent = (
         </div>
 
         <!-- RÉSEAUX SOCIAUX -->
-        <div style="text-align: center; margin: 20px 0; display: flex; justify-content: center; gap: 24px; flex-wrap: wrap;">
-            <a href="https://www.instagram.com/novahypnose/"
-               target="_blank"
-               style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; color: #333; font-size: 14px;">
+        <table style="margin: 20px auto; border-collapse: collapse;">
+          <tr>
+            <td style="padding: 0 16px; text-align: center; vertical-align: middle;">
+              <a href="https://www.instagram.com/novahypnose/" target="_blank"
+                 style="text-decoration: none; color: #333; font-size: 14px;">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/2048px-Instagram_icon.png"
-                     alt="Instagram"
-                     style="width: 24px; height: 24px;">
+                     alt="Instagram" style="width: 22px; height: 22px; vertical-align: middle; margin-right: 6px;">
                 Suivez Nova Hypnose sur Instagram
-            </a>
-            <a href="https://www.linkedin.com/in/zenatti/?utm_source=email&utm_medium=hypnokick&utm_campaign=resultats"
-               target="_blank"
-               style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; color: #333; font-size: 14px;">
+              </a>
+            </td>
+            <td style="padding: 0 16px; text-align: center; vertical-align: middle; border-left: 1px solid #ddd;">
+              <a href="https://www.linkedin.com/in/zenatti/?utm_source=email&utm_medium=hypnokick&utm_campaign=resultats"
+                 target="_blank" style="text-decoration: none; color: #333; font-size: 14px;">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/LinkedIn_logo_initials.png/800px-LinkedIn_logo_initials.png"
-                     alt="LinkedIn"
-                     style="width: 24px; height: 24px; border-radius: 4px;">
+                     alt="LinkedIn" style="width: 22px; height: 22px; vertical-align: middle; margin-right: 6px; border-radius: 4px;">
                 Retrouvez Alain sur LinkedIn
-            </a>
-        </div>
+              </a>
+            </td>
+          </tr>
+        </table>
 
         <!-- FOOTER -->
         <div style="font-size: 12px; color: #7f8c8d; text-align: center; margin-top: 40px; padding-top: 10px; border-top: 1px solid #ddd;">
