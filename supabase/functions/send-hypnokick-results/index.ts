@@ -46,7 +46,7 @@ serve(async (req) => {
     const emailResponse = await resend.emails.send({
       from: `Nova Hypnose <${fromAddress}>`,
       to: [email],
-      bcc: ["a.zenatti@gmail.com"],
+      bcc: ["a.zenatti@gmail.com", "contact@novahypnose.fr"],
       subject: "Votre profil hypnotique est prêt - découvrez votre sens dominant",
       html: htmlContent,
     });
