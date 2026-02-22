@@ -2,6 +2,46 @@
 import { supabaseUrl } from './config.ts';
 import { getExerciseForScore } from './exercises.ts';
 
+const getScoreIntro = (score: number): string => {
+  if (score >= 85) {
+    return `<div style="background-color: #e8f5e9; border-left: 4px solid #27ae60; padding: 18px 20px; margin: 25px 0; border-radius: 0 8px 8px 0;">
+        <p style="margin: 0; color: #1a5c2a; font-size: 15px; line-height: 1.6;">
+          <strong>Votre score est exceptionnel.</strong> Vous faites partie des personnes les plus réceptives à l'hypnose thérapeutique — ce qui signifie que les résultats peuvent être rapides et profonds. Si vous avez une problématique en tête, c'est le bon moment pour passer à l'action.
+        </p>
+      </div>`;
+  } else if (score >= 60) {
+    return `<div style="background-color: #e3f2fd; border-left: 4px solid #3498db; padding: 18px 20px; margin: 25px 0; border-radius: 0 8px 8px 0;">
+        <p style="margin: 0; color: #1a3a5c; font-size: 15px; line-height: 1.6;">
+          <strong>Votre profil est très encourageant.</strong> Vous montrez une belle ouverture à l'hypnose. Beaucoup de personnes avec un profil similaire au vôtre ont obtenu des changements durables dès les premières séances.
+        </p>
+      </div>`;
+  } else {
+    return `<div style="background-color: #f5f9fc; border-left: 4px solid #95a5a6; padding: 18px 20px; margin: 25px 0; border-radius: 0 8px 8px 0;">
+        <p style="margin: 0; color: #555; font-size: 15px; line-height: 1.6;">
+          Merci d'avoir pris le temps de réaliser ce test. C'est une première étape importante — la réceptivité hypnotique est une compétence qui se développe, et chaque personne a sa propre porte d'entrée vers le changement.
+        </p>
+      </div>`;
+  }
+};
+
+const getScoreTestimonial = (score: number): string => {
+  if (score >= 85) {
+    return `« Mon entretien découverte avec Alain a tout changé. En 30 minutes, j'ai compris ce qui me bloquait depuis des années. J'ai pris rendez-vous dès le lendemain. » — Camille R., Paris`;
+  } else if (score >= 60) {
+    return `« Je ne pensais pas que l'hypnose pouvait m'aider. Après mon entretien découverte avec Alain, j'ai compris que c'était exactement ce dont j'avais besoin. » — Sophie M., Paris`;
+  } else {
+    return `« J'étais sceptique au départ. L'entretien découverte gratuit m'a permis de poser toutes mes questions sans pression. Alain a su me mettre à l'aise immédiatement. » — Thomas B., Paris`;
+  }
+};
+
+const getUrgencyText = (score: number): string => {
+  if (score >= 85) {
+    return `Avec un profil comme le vôtre, les places se réservent vite. Je ne propose que quelques entretiens par semaine.`;
+  } else {
+    return `Je réserve quelques créneaux par semaine pour ces entretiens — les places sont limitées.`;
+  }
+};
+
 export const generateEmailContent = (
   score: number,
   category: string,
@@ -41,9 +81,7 @@ export const generateEmailContent = (
 
             <h1 style="text-align: center; margin-bottom: 30px; font-size: 26px; border-bottom: 2px solid #3498db; padding-bottom: 10px; color: #2c3e50;">Voici votre bilan hypnotique personnalisé</h1>
 
-            <div style="text-align: center; margin: 30px 0; color: #666;">
-              <p>Merci d'avoir pris le temps de réaliser ce test ! C'est une première étape importante dans votre voyage vers la transformation personnelle.</p>
-            </div>
+            ${getScoreIntro(score)}
 
             <div style="background-color: #f5f9fc; border-radius: 8px; padding: 20px; margin-bottom: 30px;">
               <p style="text-align: center; font-size: 22px; font-weight: bold; color: #2980b9; margin-bottom: 20px;">
@@ -89,7 +127,7 @@ export const generateEmailContent = (
                       <strong>Je propose un entretien découverte de 30 minutes, gratuit et sans engagement</strong>, pour voir si l'hypnose peut vous aider.
                   </p>
                   <p style="font-size: 13px; color: #666; margin-bottom: 15px; font-style: italic;">
-                      Je réserve quelques créneaux par semaine pour ces entretiens.
+                      ${getUrgencyText(score)}
                   </p>
                   <a href="https://calendly.com/zenatti/rdvtelephonique?utm_source=email&utm_medium=hypnokick&utm_campaign=resultats"
                      target="_blank"
@@ -98,7 +136,7 @@ export const generateEmailContent = (
                   </a>
                   <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #d0e6f6;">
                       <p style="font-size: 13px; color: #555; font-style: italic; margin: 0;">
-                          « Je ne pensais pas que l'hypnose pouvait m'aider. Après mon entretien découverte avec Alain, j'ai compris que c'était exactement ce dont j'avais besoin. » — Sophie M., Paris
+                          ${getScoreTestimonial(score)}
                       </p>
                   </div>
               </div>
