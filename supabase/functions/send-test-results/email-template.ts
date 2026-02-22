@@ -165,6 +165,15 @@ export const generateEmailContent = (
             </div>
         </div>
 
+        <!-- SÉANCE HYPNOSE EN IMAGE -->
+        <div style="text-align: center; margin: 20px 0;">
+            <a href="https://akrlyzmfszumibwgocae.supabase.co/storage/v1/object/public/images/SEANCEHYPNOSE.webp"
+               target="_blank"
+               style="text-decoration: none; color: #3498db; font-size: 14px;">
+                → À quoi ressemble une séance d'hypnose en image
+            </a>
+        </div>
+
         <!-- RÉSEAUX SOCIAUX -->
         <div style="text-align: center; margin: 20px 0; display: flex; justify-content: center; gap: 24px; flex-wrap: wrap;">
             <a href="https://www.instagram.com/novahypnose/"
