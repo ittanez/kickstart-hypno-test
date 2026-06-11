@@ -93,12 +93,6 @@ export const useTestSubmission = () => {
       const timestamp = Date.now();
       const randomId = Math.random().toString(36).substring(7);
       
-      console.log("=== ENVOI FONCTION EDGE ===");
-      console.log("Timestamp:", timestamp);
-      console.log("Random ID:", randomId);
-      console.log("Email:", sanitizedEmail);
-      console.log("Score:", result.score);
-      
       const emailResponse = await supabase.functions.invoke('send-hypnokick-results', {
         body: JSON.stringify({
           email: sanitizedEmail,
@@ -110,9 +104,6 @@ export const useTestSubmission = () => {
           randomId
         })
       });
-      
-      console.log("=== RÉPONSE FONCTION EDGE ===");
-      console.log("Response:", emailResponse);
       
       if (emailResponse.error) {
         console.error("Erreur fonction edge:", emailResponse.error);
@@ -129,7 +120,6 @@ export const useTestSubmission = () => {
           variant: "default"
         });
       } else {
-        console.log("Email envoyé avec succès:", emailResponse.data);
         toast({
           title: "Email envoyé !",
           description: "Vos résultats ont été envoyés avec succès. Vérifiez votre boîte mail !",
@@ -145,8 +135,7 @@ export const useTestSubmission = () => {
       onComplete();
       
     } catch (err: unknown) {
-      console.error("=== ERREUR GÉNÉRALE ===");
-      console.error("Erreur complète:", err);
+      console.error("Erreur lors de la soumission du test:", err);
       setError(`Une erreur est survenue lors de la soumission du test: ${err instanceof Error ? err.message : JSON.stringify(err)}`);
       toast({
         title: "Erreur",
