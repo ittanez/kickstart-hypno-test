@@ -6,13 +6,14 @@ export type Answer = {
 
 /**
  * Calculates the hypnosis receptivity score based on the provided answers.
- * Score range: 24-120 points
- * 
+ * Score range: 21-105 points (21 questions, valeurs de 1 à 5).
+ * Les 10 questions VAKOG ne comptent pas dans le score (sens dominant).
+ *
  * Interpretation:
- * 24-48: Low receptivity to hypnosis
- * 49-72: Moderate receptivity to hypnosis
- * 73-96: High receptivity to hypnosis
- * 97-120: Very high receptivity to hypnosis
+ * 21-30: Réceptivité émergente
+ * 31-60: Réceptivité modérée et adaptative
+ * 61-90: Réceptivité naturelle et fluide
+ * 91-105: Réceptivité très élevée
  */
 export const calculateScore = (answers: Answer[]): {
   score: number;
