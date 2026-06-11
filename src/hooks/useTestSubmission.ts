@@ -90,33 +90,25 @@ export const useTestSubmission = () => {
         throw new Error(`Erreur de base de données: ${supabaseError.message}`);
       }
       
-      const timestamp = Date.now();
-      const randomId = Math.random().toString(36).substring(7);
-      
-      const emailResponse = await supabase.functions.invoke('send-hypnokick-results', {
-        body: JSON.stringify({
+      // La fonction Brevo ne connaît que "Réceptivité très élevée" (sans le
+      // suffixe "/ Hypnotisabilité intuitive") ; sans normalisation elle
+      // retomberait sur le contenu de la catégorie modérée.
+      const brevoCategory = result.category.split('/')[0].trim();
+
+      const emailResponse = await supabase.functions.invoke('send-hypnokick-results-brevo', {
+        body: {
           email: sanitizedEmail,
           score: result.score,
-          category: result.category,
-          description: result.description,
-          senseDominant,
-          timestamp,
-          randomId
-        })
+          category: brevoCategory,
+          senseDominant
+        }
       });
-      
-      if (emailResponse.error) {
-        console.error("Erreur fonction edge:", emailResponse.error);
+
+      if (emailResponse.error || emailResponse.data?.status === "error") {
+        console.error("Erreur fonction edge:", emailResponse.error ?? emailResponse.data);
         toast({
           title: "Attention",
           description: "Vos résultats ont été calculés mais n'ont pas pu être envoyés par email.",
-          variant: "default"
-        });
-      } else if (emailResponse.data?.status === "warning") {
-        console.warn("Warning fonction edge:", emailResponse.data);
-        toast({
-          title: "Attention",
-          description: emailResponse.data.message,
           variant: "default"
         });
       } else {
