@@ -42,7 +42,9 @@ export const validateRequest = (body: unknown): ValidatedRequest => {
     throw new ValidationError("Adresse email invalide");
   }
 
-  const numericScore = typeof score === "string" ? Number(score) : score;
+  // Number("") vaut 0 : ne convertir que les chaînes non vides
+  const numericScore =
+    typeof score === "string" && score.trim() !== "" ? Number(score) : score;
   if (
     typeof numericScore !== "number" ||
     !Number.isFinite(numericScore) ||

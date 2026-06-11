@@ -20,7 +20,13 @@ export const handleSendResults = async (req: Request): Promise<Response> => {
   }
 
   try {
-    const { email, score, senseDominant } = validateRequest(await req.json());
+    let body: unknown;
+    try {
+      body = await req.json();
+    } catch {
+      throw new ValidationError("Corps de requête invalide");
+    }
+    const { email, score, senseDominant } = validateRequest(body);
 
     // category/description sont dérivés du score côté serveur : aucun
     // contenu fourni par le client n'est interpolé dans le HTML de l'email.
@@ -42,18 +48,27 @@ export const handleSendResults = async (req: Request): Promise<Response> => {
 
     EmailLogger.logEmailSending(fromAddress, email);
 
-    const emailResponse = await resend.emails.send({
-      from: `Nova Hypnose <${fromAddress}>`,
-      to: [email],
-      bcc: ["a.zenatti@gmail.com", "contact@novahypnose.fr"],
-      subject: "Votre profil hypnotique est prêt - découvrez votre sens dominant",
-      html: htmlContent,
-    });
+    // Les résultats sont déjà calculés : un échec d'envoi (erreur Resend ou
+    // exception réseau) dégrade en avertissement plutôt qu'en 500.
+    let emailError: unknown = null;
+    let emailResponse: Awaited<ReturnType<typeof resend.emails.send>> | null = null;
+    try {
+      emailResponse = await resend.emails.send({
+        from: `Nova Hypnose <${fromAddress}>`,
+        to: [email],
+        bcc: ["a.zenatti@gmail.com", "contact@novahypnose.fr"],
+        subject: "Votre profil hypnotique est prêt - découvrez votre sens dominant",
+        html: htmlContent,
+      });
+      if (emailResponse.error) {
+        emailError = emailResponse.error;
+      }
+    } catch (err) {
+      emailError = err;
+    }
 
-    EmailLogger.logEmailResponse(emailResponse);
-
-    if (emailResponse.error) {
-      EmailLogger.logResendError(emailResponse.error);
+    if (emailError) {
+      EmailLogger.logResendError(emailError);
 
       return new Response(JSON.stringify({
         status: "warning",
@@ -67,6 +82,7 @@ export const handleSendResults = async (req: Request): Promise<Response> => {
       });
     }
 
+    EmailLogger.logEmailResponse(emailResponse!);
     EmailLogger.logSuccess();
     return new Response(JSON.stringify({
       status: "success",
