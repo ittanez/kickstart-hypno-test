@@ -1,10 +1,16 @@
 
+// Masque la partie locale de l'email pour limiter les PII dans les logs
+const maskEmail = (email: string): string => {
+  const [local, domain] = email.split("@");
+  if (!domain) return "***";
+  return `${local.slice(0, 2)}***@${domain}`;
+};
+
 export class EmailLogger {
-  static logRequest(data: any) {
+  static logRequest(data: { email: string; score: number; category: string; senseDominant: string }) {
     console.log("=== NOUVELLE DEMANDE EMAIL ===");
     console.log("Request received at:", new Date().toISOString());
-    console.log("User timestamp:", data.timestamp);
-    console.log("Email:", data.email);
+    console.log("Email:", maskEmail(data.email));
     console.log("Score:", data.score);
     console.log("Category:", data.category);
     console.log("Sens dominant:", data.senseDominant);
@@ -20,12 +26,12 @@ export class EmailLogger {
   static logEmailSending(fromAddress: string, email: string) {
     console.log("=== ENVOI EMAIL EN COURS ===");
     console.log("From:", fromAddress);
-    console.log("To:", email);
+    console.log("To:", maskEmail(email));
   }
 
-  static logEmailResponse(emailResponse: any) {
+  static logEmailResponse(emailResponse: { data?: { id?: string } | null; error?: unknown }) {
     console.log("=== RÉPONSE RESEND ===");
-    console.log("Email response:", JSON.stringify(emailResponse, null, 2));
+    console.log("Email id:", emailResponse.data?.id ?? "(aucun)");
   }
 
   static logSuccess() {

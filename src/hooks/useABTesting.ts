@@ -34,7 +34,7 @@ export const AB_TESTS = {
   testDescription: {
     testName: 'test_description',
     variants: {
-      A: "Test de 30 questions pour évaluer votre réceptivité",
+      A: "Test de 31 questions pour évaluer votre réceptivité",
       B: "Test de 2 minutes pour révéler vos capacités hypnotiques"
     },
     trafficSplit: 50

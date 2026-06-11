@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { Helmet } from "react-helmet-async";
 import HeroSection from '@/components/HeroSection';
 import StepsSection from '@/components/StepsSection';
@@ -9,7 +9,10 @@ import HowItWorks from '@/components/HowItWorks';
 import SEOSchema from '@/components/SEOSchema';
 import Footer from '@/components/Footer';
 import CookieConsent from '@/components/CookieConsent';
-import ABTestDashboard from '@/components/ABTestDashboard';
+// Dashboard A/B réservé au dev : chargé dynamiquement pour rester hors du bundle de prod
+const ABTestDashboard = import.meta.env.DEV
+  ? lazy(() => import('@/components/ABTestDashboard'))
+  : null;
 
 type HomePageProps = {
   onStartTest: () => void;
@@ -180,7 +183,11 @@ const HomePage = ({ onStartTest }: HomePageProps) => {
       <CookieConsent />
       
       {/* A/B Test Dashboard (Dev mode only) */}
-      <ABTestDashboard />
+      {ABTestDashboard && (
+        <Suspense fallback={null}>
+          <ABTestDashboard />
+        </Suspense>
+      )}
     </>
   );
 };

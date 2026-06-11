@@ -1,12 +1,15 @@
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { useAnalytics } from "@/hooks/useAnalytics";
 import { scrollToTop } from "@/utils/scrollUtils";
 import MainLayout from "@/components/layout/MainLayout";
-import TestModeLayout from "@/components/layout/TestModeLayout";
-import ThankYouLayout from "@/components/layout/ThankYouLayout";
 import HomePage from "@/components/pages/HomePage";
 import FloatingTestButton from "@/components/FloatingTestButton";
+
+// Le mode test (TestForm + framer-motion) et la page de remerciement
+// ne sont chargés qu'au moment où l'utilisateur en a besoin
+const TestModeLayout = lazy(() => import("@/components/layout/TestModeLayout"));
+const ThankYouLayout = lazy(() => import("@/components/layout/ThankYouLayout"));
 
 const Index = () => {
   const [showTest, setShowTest] = useState(false);
@@ -58,12 +61,20 @@ const Index = () => {
 
   // Page de remerciement
   if (showThankYou) {
-    return <ThankYouLayout onBackToHome={handleBackToHome} />;
+    return (
+      <Suspense fallback={null}>
+        <ThankYouLayout onBackToHome={handleBackToHome} />
+      </Suspense>
+    );
   }
 
   // Mode test
   if (showTest) {
-    return <TestModeLayout onComplete={handleTestComplete} onBackToHome={handleBackToHome} />;
+    return (
+      <Suspense fallback={null}>
+        <TestModeLayout onComplete={handleTestComplete} onBackToHome={handleBackToHome} />
+      </Suspense>
+    );
   }
 
   // Page d'accueil

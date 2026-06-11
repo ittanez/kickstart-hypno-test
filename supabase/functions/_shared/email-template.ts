@@ -3,13 +3,13 @@ import { supabaseUrl } from './config.ts';
 import { getExerciseForScore } from './exercises.ts';
 
 const getScoreIntro = (score: number): string => {
-  if (score >= 85) {
+  if (score >= 91) {
     return `<div style="background-color: #e8f5e9; border-left: 4px solid #27ae60; padding: 18px 20px; margin: 25px 0; border-radius: 0 8px 8px 0;">
         <p style="margin: 0; color: #1a5c2a; font-size: 15px; line-height: 1.6;">
           <strong>Votre score est exceptionnel.</strong> Vous faites partie des personnes les plus réceptives à l'hypnose thérapeutique — ce qui signifie que les résultats peuvent être rapides et profonds. Si vous avez une problématique en tête, c'est le bon moment pour passer à l'action.
         </p>
       </div>`;
-  } else if (score >= 60) {
+  } else if (score >= 61) {
     return `<div style="background-color: #e3f2fd; border-left: 4px solid #3498db; padding: 18px 20px; margin: 25px 0; border-radius: 0 8px 8px 0;">
         <p style="margin: 0; color: #1a3a5c; font-size: 15px; line-height: 1.6;">
           <strong>Votre profil est très encourageant.</strong> Vous montrez une belle ouverture à l'hypnose. Beaucoup de personnes avec un profil similaire au vôtre ont obtenu des changements durables dès les premières séances.
@@ -25,9 +25,9 @@ const getScoreIntro = (score: number): string => {
 };
 
 const getScoreTestimonial = (score: number): string => {
-  if (score >= 85) {
+  if (score >= 91) {
     return `« Mon entretien découverte avec Alain a tout changé. En 30 minutes, j'ai compris ce qui me bloquait depuis des années. J'ai pris rendez-vous dès le lendemain. » — Camille R., Paris`;
-  } else if (score >= 60) {
+  } else if (score >= 61) {
     return `« Je ne pensais pas que l'hypnose pouvait m'aider. Après mon entretien découverte avec Alain, j'ai compris que c'était exactement ce dont j'avais besoin. » — Sophie M., Paris`;
   } else {
     return `« J'étais sceptique au départ. L'entretien découverte gratuit m'a permis de poser toutes mes questions sans pression. Alain a su me mettre à l'aise immédiatement. » — Thomas B., Paris`;
@@ -35,7 +35,7 @@ const getScoreTestimonial = (score: number): string => {
 };
 
 const getUrgencyText = (score: number): string => {
-  if (score >= 85) {
+  if (score >= 91) {
     return `Avec un profil comme le vôtre, les places se réservent vite. Je ne propose que quelques entretiens par semaine.`;
   } else {
     return `Je réserve quelques créneaux par semaine pour ces entretiens — les places sont limitées.`;
