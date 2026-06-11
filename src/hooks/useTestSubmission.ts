@@ -93,7 +93,7 @@ export const useTestSubmission = () => {
       // La fonction Brevo ne connaît que "Réceptivité très élevée" (sans le
       // suffixe "/ Hypnotisabilité intuitive") ; sans normalisation elle
       // retomberait sur le contenu de la catégorie modérée.
-      const brevoCategory = result.category.split(' /')[0];
+      const brevoCategory = result.category.split('/')[0].trim();
 
       const emailResponse = await supabase.functions.invoke('send-hypnokick-results-brevo', {
         body: {
