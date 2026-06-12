@@ -68,6 +68,13 @@
     Content-Type = "application/rss+xml; charset=UTF-8"
     Cache-Control = "public, max-age=3600"
 
+# Redirection globale : tout le site pointe vers novahypnose.fr
+[[redirects]]
+  from = "/*"
+  to = "https://novahypnose.fr/test-receptivite"
+  status = 301
+  force = true
+
 # Redirections pour corriger les erreurs 404 détectées par Google Search Console
 [[redirects]]
   from = "/author/*/feed/*"
